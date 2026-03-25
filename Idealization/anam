@@ -1,0 +1,103 @@
+import type { Testicles } from "../pages/anamnese/AnamneseTesticles";
+
+const speciesBadges = [
+  {
+    value: "Cachorro" as const,
+    badgeBg: "bg-violet-100",
+    badgeBorder: "border-violet-300",
+    badgeText: "text-white",
+  },
+  {
+    value: "Gato" as const,
+    badgeBg: "bg-pink-100",
+    badgeBorder: "border-pink-300",
+    badgeText: "text-white",
+  },
+];
+
+const pedigreeBadges = [
+  {
+    value: "Com Pedigree" as const,
+    badgeBg: "bg-blue-100",
+    badgeBorder: "border-blue-300",
+    badgeText: "text-white",
+  },
+];
+
+const vaccineBadges = [
+  {
+    value: "Vacinado" as const,
+    badgeBg: "bg-green-100",
+    badgeBorder: "border-green-300",
+    badgeText: "text-white",
+  },
+];
+
+const matedBadges = [
+  {
+    value: "Já Cruzou" as const,
+    badgeBg: "bg-orange-100",
+    badgeBorder: "border-orange-300",
+    badgeText: "text-white",
+  },
+];
+
+const testiclesBadges = [
+  {
+    value: "Criptoquidismo Bilateral" as const,
+    badgeBg: "bg-cyan-100",
+    badgeBorder: "border-cyan-300",
+    badgeText: "text-white",
+  },
+  {
+    value: "Criptoquidismo Unilateral" as const,
+    badgeBg: "bg-teal-100",
+    badgeBorder: "border-teal-300",
+    badgeText: "text-white",
+  },
+];
+
+const allBadges = [
+  ...speciesBadges,
+  ...pedigreeBadges,
+  ...vaccineBadges,
+  ...matedBadges,
+  ...testiclesBadges,
+];
+
+const usePetBadges = (
+  testicles: Testicles,
+  species: "Cachorro" | "Gato",
+  vaccineFile: File | null,
+  pedigree: "Yes" | "No",
+  mated: "Yes" | "No",
+) => {
+  const petBadges: string[] = [];
+
+  if (species === "Cachorro") {
+    petBadges.push("Cachorro");
+  } else {
+    petBadges.push("Gato");
+  }
+
+  if (vaccineFile !== null) {
+    petBadges.push("Vacinado");
+  }
+
+  if (pedigree === "Yes") {
+    petBadges.push("Com Pedigree");
+  }
+
+  if (mated === "Yes") {
+    petBadges.push("Já Cruzou");
+  }
+
+  if (testicles === "0") {
+    petBadges.push("Criptoquidismo Bilateral");
+  } else if (testicles === "1") {
+    petBadges.push("Criptoquidismo Unilateral");
+  }
+
+  return allBadges.filter((badge) => petBadges.includes(badge.value));
+};
+export { usePetBadges };

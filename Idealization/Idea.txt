@@ -1,0 +1,48 @@
+A ideia original do projeto é criar um app que vai permitir que os tutores consigam entrar em contato para que a cruza do animal seja a mais segura possivel.
+
+Componentes básicos
+
+AUTENTICAÇÃO
+- Página de Login (Email e Senha -> Validação via Supabase)
+- Página de Recuperar Senha
+- Página de Cadastro no App
+- Página de Erro(Missing)
+
+DENTRO DO APP
+- Página de Cadastro do Pet (Animal -> Pode ter mais de um)
+
+Para os Tutores:
+- Endereço
+- Telefone
+
+Para os Pets:
+- Nome
+- Sexo
+- Espécie
+- Raça
+- Idade
+- Pedigree?
+- Carteira de Vacinação -> Anexar documento
+- Histórico de Doenças -> (?)
+- Já Cruzou? (Sim ou Não)
+- Foto do Pet
+
+
+- Página Principal (Feed de fotos de animais com botão para o perfil, filtros)
+- Página de Perfil (Informações do tutor + foto de perfil (opcional), informações do pet + foto de perfil (obrigatório no cadastro), forma de entrar em contato -> Clica e vai pro wpp que vai estar exposto no perfil (?) Seção de avaliação (StarRating) e comentários )
+
+- Header e Footer
+
+MECANISMO DE FILTRO
+
+-> Filtar por Espécie, Raça, Idade, Já Cruzou (sim ou não), região/distãncia (com base no endereço dos tutores.)
+-> Atualizações constantes no feed com base no tempo (?)
+
+
+CORES: 
+
+Principal: Vermelho
+Secundária: Laranja
+Outras: Preto, Branco, Bege Claro
+
+
