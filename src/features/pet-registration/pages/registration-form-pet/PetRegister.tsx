@@ -1,13 +1,12 @@
 import { ArrowLeft, ChevronDown } from "lucide-react";
 import { useState } from "react";
-import { usePetBreeds } from "../hooks/usePetBreeds";
-import { PetRegisterTutor } from "./PetRegisterTutor";
-import { genderOptions, yesOrNoOptions } from "../utils/petRegisterOptions";
-import { FileUpload } from "../ui/FileUpload";
-import { RadioGroup } from "../ui/RadioGroup";
-import { regex } from "../utils/petRegisterRegex";
-import { Anamnese } from "./anamnese/Anamnese";
-import { useApplicationContext } from "../hooks/useApplicationContext";
+import { usePetBreeds } from "../../hooks/usePetBreeds";
+import { PetRegisterTutor, Anamnese } from "../..";
+import { genderOptions, yesOrNoOptions } from "../../utils/petRegisterOptions";
+import { FileUpload } from "../../ui/FileUpload";
+import { RadioGroup } from "../../ui/RadioGroup";
+import { regex } from "../../utils/petRegisterRegex";
+import { useRegistrationContext } from "../../hooks/useRegistrationContext";
 
 const PetRegister = () => {
   const [page, setPage] = useState<1 | 2 | 3>(1);
@@ -36,7 +35,7 @@ const PetRegister = () => {
     setVaccineFile,
     mated,
     setMated,
-  } = useApplicationContext();
+  } = useRegistrationContext();
 
   /* - Espécie - */
 

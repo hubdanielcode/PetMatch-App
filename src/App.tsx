@@ -9,8 +9,9 @@ import {
   RecoverPassword,
   ProtectedRoute,
 } from "./features/authentication";
-import { ApplicationProvider } from "./features/application/context/ApplicationContext";
-import { MainPage, Modal, PetRegister } from "./features/application";
+import { RegistrationProvider } from "./features/pet-registration/context/RegistrationContext";
+import { MainPage, Modal } from "./shared";
+import { PetRegister } from "./features/pet-registration";
 
 const AppLayout = () => {
   return (
@@ -64,7 +65,7 @@ const App = () => {
 
   return (
     <div className="select-none h-full">
-      <ApplicationProvider>
+      <RegistrationProvider>
         <Routes>
           {/* - Rota de Login - */}
 
@@ -115,7 +116,7 @@ const App = () => {
             element={<Missing />}
           />
         </Routes>
-      </ApplicationProvider>
+      </RegistrationProvider>
     </div>
   );
 };

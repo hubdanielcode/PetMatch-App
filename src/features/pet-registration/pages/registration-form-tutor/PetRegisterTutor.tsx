@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { FaPhone } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
-import { masks } from "../utils/petRegisterMasks";
-import { regex } from "../utils/petRegisterRegex";
-import { useApplicationContext } from "../hooks/useApplicationContext";
+import { masks } from "../../utils/petRegisterMasks";
+import { regex } from "../../utils/petRegisterRegex";
+import { useRegistrationContext } from "../../hooks/useRegistrationContext";
 
 const PetRegisterTutor = () => {
   const {
@@ -23,7 +23,7 @@ const PetRegisterTutor = () => {
     setState,
     zipcode,
     setZipcode,
-  } = useApplicationContext();
+  } = useRegistrationContext();
 
   /* - Erro - */
 

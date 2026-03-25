@@ -1,6 +1,6 @@
 import { createContext, useState, type ReactNode } from "react";
 
-interface ApplicationContextType {
+interface RegistrationContextType {
   /* - Pet - */
 
   petPhoto: File | null;
@@ -42,9 +42,9 @@ interface ApplicationContextType {
   setZipcode: (zipcode: string) => void;
 }
 
-const ApplicationContext = createContext<ApplicationContextType | null>(null);
+const RegistrationContext = createContext<RegistrationContextType | null>(null);
 
-const ApplicationProvider = ({ children }: { children: ReactNode }) => {
+const RegistrationProvider = ({ children }: { children: ReactNode }) => {
   /* - Pet - */
 
   const [petPhoto, setPetPhoto] = useState<File | null>(null);
@@ -69,7 +69,7 @@ const ApplicationProvider = ({ children }: { children: ReactNode }) => {
   const [zipcode, setZipcode] = useState("");
 
   return (
-    <ApplicationContext.Provider
+    <RegistrationContext.Provider
       value={{
         /* - Pet - */
 
@@ -113,8 +113,8 @@ const ApplicationProvider = ({ children }: { children: ReactNode }) => {
       }}
     >
       {children}
-    </ApplicationContext.Provider>
+    </RegistrationContext.Provider>
   );
 };
 
-export { ApplicationContext, ApplicationProvider };
+export { RegistrationContext, RegistrationProvider };

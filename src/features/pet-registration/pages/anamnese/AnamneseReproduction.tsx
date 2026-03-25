@@ -1,8 +1,8 @@
 import { FaHeart } from "react-icons/fa";
-import { useApplicationContext } from "../../hooks/useApplicationContext";
+import { useRegistrationContext } from "../../hooks/useRegistrationContext";
 
 const AnamneseReproduction = () => {
-  const { gender } = useApplicationContext();
+  const { gender } = useRegistrationContext();
   return (
     <>
       {/* - Card flutuante - */}

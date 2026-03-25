@@ -1,5 +1,5 @@
-import { usePetBadges } from "../hooks/usePetBadges";
-import type { Testicles } from "../pages/anamnese/AnamneseTesticles";
+import { usePetBadges } from "../../features/pet-registration/hooks/usePetBadges";
+import type { Testicles } from "../../features/pet-registration/pages/anamnese/AnamneseTesticles";
 
 interface BadgeProps {
   species: "Cachorro" | "Gato";

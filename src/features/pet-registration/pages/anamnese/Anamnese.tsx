@@ -8,15 +8,15 @@ import { AnamneseSurgeries } from "./AnamneseSurgeries";
 import { AnamneseDiseases } from "./AnamneseDiseases";
 import { AnamneseTesticles } from "./AnamneseTesticles";
 import { AnamneseReproduction } from "./AnamneseReproduction";
-import { useApplicationContext } from "../../hooks/useApplicationContext";
-import { PetRegisterTutor } from "../PetRegisterTutor";
+import { useRegistrationContext } from "../../hooks/useRegistrationContext";
+import { PetRegisterTutor } from "../registration-form-tutor/PetRegisterTutor";
 
 const Anamnese = () => {
   const [currentStep, setCurrentStep] = useState<1 | 2 | 3 | 4 | 5 | 6 | 7>(1);
 
   const [page, setPage] = useState<1 | 2 | 3>(1);
 
-  const { gender, mated } = useApplicationContext();
+  const { gender, mated } = useRegistrationContext();
 
   /* - Passos - */
 
