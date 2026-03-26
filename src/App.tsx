@@ -11,8 +11,7 @@ import {
 } from "./features/authentication";
 import { RegistrationProvider } from "./features/pet-registration/context/RegistrationContext";
 import { MainPage, Modal } from "./shared";
-import { PetRegister } from "./features/pet-registration";
-import { MyProfile } from "./features/user-profiile/MyProfile";
+import { RegisterFlow } from "./features/pet-registration/pages/forms/RegisterFlow";
 
 const AppLayout = () => {
   return (
@@ -65,7 +64,7 @@ const App = () => {
   }
 
   return (
-    <div className="select-none">
+    <div className="select-none h-full">
       <RegistrationProvider>
         <Routes>
           {/* - Rota de Login - */}
@@ -91,12 +90,7 @@ const App = () => {
 
               <Route
                 path="/registrar-pet"
-                element={<PetRegister />}
-              />
-
-              <Route
-                path="/perfil"
-                element={<MyProfile />}
+                element={<RegisterFlow />}
               />
             </Route>
           </Route>

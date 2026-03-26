@@ -5,9 +5,10 @@ export { RadioGroup } from "./ui/RadioGroup";
 
 /* - Pages - */
 
-// 1. PetForm
+// 1. Forms
 
-export { PetRegister } from "./pages/forms/RegisterPet";
+export { RegisterTutor } from "./pages/forms/RegisterTutor";
+export { RegisterPet } from "./pages/forms/RegisterPet";
 
 // 2. Anamnese
 
@@ -19,10 +20,6 @@ export { AnamneseReproduction } from "./pages/anamnese/AnamneseReproduction";
 export { AnamneseSurgeries } from "./pages/anamnese/AnamneseSurgeries";
 export { AnamneseTesticles } from "./pages/anamnese/AnamneseTesticles";
 export { AnamneseWalks } from "./pages/anamnese/AnamneseWalks";
-
-// 3. TutorForm
-
-export { RegisterTutor } from "./pages/forms/RegisterTutor";
 
 /* - Hooks - */
 
