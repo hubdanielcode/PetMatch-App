@@ -1,8 +1,0 @@
-CREATE READ UPDATE DELETE
-
-const New
-
-Const Get
-
-Const UPDATE
-Const DELETE

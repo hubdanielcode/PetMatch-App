@@ -6,7 +6,7 @@ import { supabase } from "../../../../supabase/supabase";
 import { MdMail } from "react-icons/md";
 import { RiLockPasswordFill } from "react-icons/ri";
 import { Eye, EyeClosed } from "lucide-react";
-import { regex } from "../utils/AuthenticationRegex";
+import { regex } from "../../../shared/utils/regex";
 
 const Login = () => {
   /* - Email - */

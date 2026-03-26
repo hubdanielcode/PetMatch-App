@@ -34,7 +34,12 @@ const Welcome = () => {
             </p>
 
             <div
-              onClick={() => navigate("/registrar-pet", { replace: true })}
+              onClick={() =>
+                navigate("/registrar-pet", {
+                  replace: true,
+                  state: { from: "/modal", fromScreen: 2 },
+                })
+              }
               className="w-full border border-black/40 rounded-lg flex items-center justify-between p-4 mb-5 bg-linear-to-r from-amber-500 via-orange-500 to-red-500 cursor-pointer hover:from-amber-300 hover:via-orange-300 hover:to-red-300"
             >
               <div>

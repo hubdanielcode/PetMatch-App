@@ -1,4 +1,3 @@
-/* - Opções - */
 const genderOptions = [
   { label: "Macho", value: "Macho" },
   { label: "Fêmea", value: "Fêmea" },

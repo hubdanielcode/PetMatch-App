@@ -8,7 +8,7 @@ import { MdEmail } from "react-icons/md";
 import { supabase } from "../../../../supabase/supabase";
 import { AnimatePresence, motion } from "framer-motion";
 import { CircleCheck, Eye, EyeClosed } from "lucide-react";
-import { regex } from "../utils/AuthenticationRegex";
+import { regex } from "../../../shared/utils/regex";
 
 const Authentication = () => {
   /* - Nome - */

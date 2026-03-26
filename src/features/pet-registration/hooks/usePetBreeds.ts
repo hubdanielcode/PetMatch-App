@@ -16,7 +16,9 @@ const usePetBreeds = () => {
         const data = await response.json();
 
         const dogBreedsList = Object.keys(data.message);
-        setDogBreeds(dogBreedsList);
+        setDogBreeds(
+          ["SRD", ...dogBreedsList].sort((a, b) => a.localeCompare(b)),
+        );
       } catch (error) {
         console.log(error);
       }
@@ -31,7 +33,9 @@ const usePetBreeds = () => {
         const data = await response.json();
 
         const catBreedsList = data.map((breed: { name: string }) => breed.name);
-        setCatBreeds(catBreedsList);
+        setCatBreeds(
+          ["SRD", ...catBreedsList].sort((a, b) => a.localeCompare(b)),
+        );
       } catch (error) {
         console.log(error);
       }
