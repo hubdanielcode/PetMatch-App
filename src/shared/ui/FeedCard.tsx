@@ -1,5 +1,5 @@
 import { FaLocationDot } from "react-icons/fa6";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 
 interface FeedCardProps {
   image: string;
@@ -12,6 +12,7 @@ interface FeedCardProps {
     age: string;
   };
   location: string;
+  index: number;
 }
 
 const FeedCard: React.FC<FeedCardProps> = ({
@@ -21,21 +22,25 @@ const FeedCard: React.FC<FeedCardProps> = ({
   rating,
   description: { breed, gender, age },
   location,
+  index,
 }) => {
   return (
-    <div className="bg-white border border-black/40 rounded-lg w-full h-fit flex flex-col cursor-pointer hover:shadow-lg shadow-black/20">
+    <motion.div
+      className="bg-white border border-black/40 rounded-lg w-full h-fit flex flex-col cursor-pointer hover:shadow-lg shadow-black/20"
+      initial={{ y: 0, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.8, delay: index * 0.3 }}
+    >
       <div className="flex flex-col">
-        <AnimatePresence>
-          <motion.div className="overflow-hidden rounded-t-md">
-            <motion.img
-              src={image}
-              alt={name}
-              className="flex object-cover object-center h-50 w-70"
-              whileHover={{ scale: 1.05 }}
-              transition={{ duration: 0.3 }}
-            />
-          </motion.div>
-        </AnimatePresence>
+        <motion.div className="overflow-hidden rounded-t-md">
+          <motion.img
+            src={image}
+            alt={name}
+            className="flex object-cover object-center h-50 w-70"
+            whileHover={{ scale: 1.05 }}
+            transition={{ duration: 0.3 }}
+          />
+        </motion.div>
 
         <div className="flex">
           <span className="px-4 py-2 m-1">{badge}</span>
@@ -59,7 +64,7 @@ const FeedCard: React.FC<FeedCardProps> = ({
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 export { FeedCard };

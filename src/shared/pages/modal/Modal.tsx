@@ -1,9 +1,12 @@
 import { Circle, CircleCheck } from "lucide-react";
 import { useState } from "react";
 import { Welcome } from "./Welcome";
+import { useLocation } from "react-router-dom";
 
 const Modal = () => {
-  const [screen, setScreen] = useState<1 | 2>(1);
+  const location = useLocation();
+
+  const [screen, setScreen] = useState<1 | 2>(location.state?.screen ?? 1);
 
   if (screen === 2) return <Welcome />;
 

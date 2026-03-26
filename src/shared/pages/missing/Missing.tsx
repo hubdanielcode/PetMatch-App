@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom";
-import PetMatch from "../../../public/logo-petmatch.png";
+import PetMatch from "../../../../public/logo-petmatch.png";
 import {
   Card,
   CardTitle,
   CardText,
   CardActions,
   FeatureItem,
-} from "../../features/authentication/index";
+} from "../../../features/authentication";
 
 const Missing = () => {
   return (

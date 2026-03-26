@@ -23,9 +23,14 @@ interface RegistrationContextType {
   setMated: (mated: string) => void;
 
   /* - Tutor - */
-
+  name: string;
+  setName: (name: string) => void;
+  photo?: File | null;
+  setPhoto: (photo: File) => void;
   phoneNumber: string;
   setPhoneNumber: (phoneNumber: string) => void;
+  email: string;
+  setEmail: (email: string) => void;
   street: string;
   setStreet: (street: string) => void;
   complement: string;
@@ -58,8 +63,10 @@ const RegistrationProvider = ({ children }: { children: ReactNode }) => {
   const [mated, setMated] = useState("");
 
   /* - Tutor - */
-
+  const [name, setName] = useState("");
+  const [photo, setPhoto] = useState<File | null>(null);
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [email, setEmail] = useState("");
   const [street, setStreet] = useState("");
   const [complement, setComplement] = useState("");
   const [neighborhood, setNeighborhood] = useState("");
@@ -94,8 +101,14 @@ const RegistrationProvider = ({ children }: { children: ReactNode }) => {
 
         /* - Tutor - */
 
+        name,
+        setName,
+        photo,
+        setPhoto,
         phoneNumber,
         setPhoneNumber,
+        email,
+        setEmail,
         street,
         setStreet,
         complement,

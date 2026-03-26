@@ -9,7 +9,7 @@ import { AnamneseDiseases } from "./AnamneseDiseases";
 import { AnamneseTesticles } from "./AnamneseTesticles";
 import { AnamneseReproduction } from "./AnamneseReproduction";
 import { useRegistrationContext } from "../../hooks/useRegistrationContext";
-import { PetRegisterTutor } from "../registration-form-tutor/PetRegisterTutor";
+import { RegisterTutor } from "../forms/RegisterTutor";
 
 const Anamnese = () => {
   const [currentStep, setCurrentStep] = useState<1 | 2 | 3 | 4 | 5 | 6 | 7>(1);
@@ -40,7 +40,7 @@ const Anamnese = () => {
     }
   };
 
-  if (page === 3) return <PetRegisterTutor />;
+  if (page === 3) return <RegisterTutor />;
 
   const handlePrevious = () => {
     if (currentStep - 1 > 0)

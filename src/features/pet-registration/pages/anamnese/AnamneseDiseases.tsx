@@ -30,7 +30,7 @@ const AnamneseDiseases = () => {
           id="pet-walks"
           placeholder="Como você descreveria a saúde do seu pet? * 
           
-Ele apresentou alguma doença nos últimos 90 dias? Está fazendo algum tipo de acompanhamento profissional? Está realizando algum tratamento? Se sim, qual(is)? Está fazendo uso de alguma medicação? Quando foi a última vez que o seu pet foi ao veterinário?"
+Ele apresentou alguma doença nos últimos 90 dias? Seu pet está vermifugado? Quando foi a última vez que você fez o remédio de verme dele? Está fazendo algum tipo de acompanhamento profissional ou realizando algum tratamento? Se sim, qual(is)? Está fazendo uso de alguma medicação? Quando foi a última vez que o seu pet foi ao veterinário?"
           required
           maxLength={650}
         />

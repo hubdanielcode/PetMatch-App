@@ -1,14 +1,17 @@
 import { ArrowLeft, ChevronDown } from "lucide-react";
 import { useState } from "react";
 import { usePetBreeds } from "../../hooks/usePetBreeds";
-import { PetRegisterTutor, Anamnese } from "../..";
+import { RegisterTutor, Anamnese } from "../..";
 import { genderOptions, yesOrNoOptions } from "../../utils/petRegisterOptions";
 import { FileUpload } from "../../ui/FileUpload";
 import { RadioGroup } from "../../ui/RadioGroup";
 import { regex } from "../../utils/petRegisterRegex";
 import { useRegistrationContext } from "../../hooks/useRegistrationContext";
+import { useNavigate } from "react-router-dom";
 
 const PetRegister = () => {
+  const navigate = useNavigate();
+
   const [page, setPage] = useState<1 | 2 | 3>(1);
   const [petRegisterError, setPetRegisterError] = useState("");
   const [isSpeciesOpen, setIsSpeciesOpen] = useState(false);
@@ -121,7 +124,11 @@ const PetRegister = () => {
       <div className="flex flex-col justify-center p-5 bg-linear-to-br from-amber-100 via-orange-100 to-red-100 h-screen w-full">
         <button
           className="flex w-fit rounded-lg mx-[25%] mb-5 text-black font-semibold px-4 py-2 hover:bg-amber-200 cursor-pointer"
-          onClick={() => (page === 2 ? setPage(1) : undefined)}
+          onClick={() =>
+            page === 2
+              ? setPage(1)
+              : navigate("/modal", { state: { screen: 2 } })
+          }
         >
           <ArrowLeft className="h-6 w-6 mr-2" />
           Voltar
@@ -139,7 +146,7 @@ const PetRegister = () => {
   );
 
   if (page === 2) return layout(<Anamnese />);
-  if (page === 3) return layout(<PetRegisterTutor />);
+  if (page === 3) return layout(<RegisterTutor />);
 
   return layout(
     <>

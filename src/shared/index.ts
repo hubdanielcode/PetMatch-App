@@ -7,7 +7,21 @@ export { FeedCard } from "./ui/FeedCard";
 
 /* - Pages - */
 
-export { Missing } from "./pages/Missing";
-export { MainPage } from "./pages/MainPage";
+// 1. Main
+
+export { MainPage } from "./pages/main/MainPage";
+export { PetFeed } from "./pages/main/PetFeed";
+export { PetFilter } from "./pages/main/PetFilter";
+
+// 2. Modal
+
 export { Modal } from "./pages/modal/Modal";
 export { Welcome } from "./pages/modal/Welcome";
+
+// 3. Missing
+
+export { Missing } from "./pages/missing/Missing";
+
+/* - Hooks - */
+
+export { usePets } from "./hooks/usePets";

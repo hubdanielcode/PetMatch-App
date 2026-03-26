@@ -16,10 +16,12 @@ input:-webkit-autofill:focus {
 
 html,
 body {
-  min-height: 100%;
+  min-height: 100vh;
   margin: 0;
   overflow-x: hidden;
 }
 #root {
-  min-height: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }

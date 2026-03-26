@@ -5,7 +5,7 @@ import { masks } from "../../utils/petRegisterMasks";
 import { regex } from "../../utils/petRegisterRegex";
 import { useRegistrationContext } from "../../hooks/useRegistrationContext";
 
-const PetRegisterTutor = () => {
+const RegisterTutor = () => {
   const {
     phoneNumber,
     setPhoneNumber,
@@ -253,4 +253,4 @@ const PetRegisterTutor = () => {
     </>
   );
 };
-export { PetRegisterTutor };
+export { RegisterTutor };
