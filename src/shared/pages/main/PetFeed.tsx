@@ -1,5 +1,5 @@
 import { FeedCard } from "../../ui/FeedCard";
-import type { Pet } from "../../hooks/usePets";
+import type { Pet } from "../../../features/pet-registration/types/pet";
 
 interface PetFeedProps {
   pets: Pet[];
@@ -19,14 +19,9 @@ const PetFeed = ({ pets }: PetFeedProps) => {
       <div className="grid grid-cols-4 grid-rows-3 gap-6 m-4">
         {pets.map((pet, index) => (
           <FeedCard
-            index={index}
             key={pet.id}
-            image={pet.url}
-            badge={pet.badge}
-            name={pet.name}
-            rating={pet.rating}
-            description={pet.description}
-            location={pet.location}
+            pet={pet}
+            index={index}
           />
         ))}
       </div>

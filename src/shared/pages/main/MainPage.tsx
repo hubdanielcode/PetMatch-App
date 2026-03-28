@@ -1,9 +1,14 @@
-import { usePets } from "../../hooks/usePets";
+import { useEffect } from "react";
+import { useGetPets } from "../../../features/pet-registration";
 import { PetFeed } from "./PetFeed";
 import { PetFilter } from "./PetFilter";
 
 const MainPage = () => {
-  const { pets } = usePets();
+  const { getPets, newPet } = useGetPets();
+
+  useEffect(() => {
+    getPets();
+  }, []);
 
   return (
     <div className="bg-linear-to-br from-amber-100 via-orange-100 to-red-100 min-h-screen max-w-full">
@@ -16,7 +21,7 @@ const MainPage = () => {
 
       <div className="flex gap-8 items-start ml-[15%]">
         <PetFilter />
-        <PetFeed pets={pets} />
+        <PetFeed pets={newPet} />
       </div>
     </div>
   );

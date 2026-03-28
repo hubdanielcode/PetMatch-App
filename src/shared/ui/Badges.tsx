@@ -1,22 +1,30 @@
 import { usePetBadges } from "../../features/pet-registration/hooks/usePetBadges";
-import type { Testicles } from "../../features/pet-registration/pages/anamnese/AnamneseTesticles";
 
 interface BadgeProps {
   species: "Cachorro" | "Gato";
-  mated: "Yes" | "No";
-  pedigree: "Yes" | "No";
-  vaccineFile: File | null;
-  testicles: Testicles;
+  mated: boolean;
+  pedigree: boolean;
+  vaccinated: boolean;
+  cryptorchidism_bilateral: boolean | null;
+  cryptorchidism_unilateral: boolean | null;
 }
 
 const Badges: React.FC<BadgeProps> = ({
   species,
   mated,
   pedigree,
-  vaccineFile,
-  testicles,
+  vaccinated,
+  cryptorchidism_bilateral,
+  cryptorchidism_unilateral,
 }) => {
-  const badges = usePetBadges(species, mated, pedigree, vaccineFile, testicles);
+  const badges = usePetBadges(
+    species,
+    mated,
+    pedigree,
+    vaccinated,
+    cryptorchidism_bilateral,
+    cryptorchidism_unilateral,
+  );
   return (
     <div>
       {badges.map((badge) => (

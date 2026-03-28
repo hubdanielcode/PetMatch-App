@@ -1,5 +1,3 @@
-import type { Testicles } from "../pages/anamnese/AnamneseTesticles";
-
 const speciesBadges = [
   {
     value: "Cachorro" as const,
@@ -67,10 +65,11 @@ const allBadges = [
 
 const usePetBadges = (
   species: "Cachorro" | "Gato",
-  mated: "Yes" | "No",
-  pedigree: "Yes" | "No",
-  vaccineFile: File | null,
-  testicles: Testicles,
+  mated: boolean,
+  pedigree: boolean | null,
+  vaccinated: boolean,
+  cryptorchidism_bilateral: boolean | null,
+  cryptorchidism_unilateral: boolean | null,
 ) => {
   const petBadges: string[] = [];
 
@@ -80,21 +79,21 @@ const usePetBadges = (
     petBadges.push("Gato");
   }
 
-  if (mated === "Yes") {
+  if (mated) {
     petBadges.push("Já Cruzou");
   }
 
-  if (pedigree === "Yes") {
+  if (pedigree) {
     petBadges.push("Com Pedigree");
   }
 
-  if (vaccineFile !== null) {
+  if (vaccinated) {
     petBadges.push("Vacinado");
   }
 
-  if (testicles === "0") {
+  if (cryptorchidism_bilateral) {
     petBadges.push("Criptoquidismo Bilateral");
-  } else if (testicles === "1") {
+  } else if (cryptorchidism_unilateral) {
     petBadges.push("Criptoquidismo Unilateral");
   }
 

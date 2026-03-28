@@ -7,22 +7,31 @@ interface RegistrationContextType {
   setPetPhoto: (petPhoto: File) => void;
   petName: string;
   setPetName: (petName: string) => void;
+  age: string;
+  setAge: (age: string) => void;
   species: string;
   setSpecies: (species: string) => void;
   breed: string;
   setBreed: (breed: string) => void;
   gender: string;
   setGender: (gender: string) => void;
-  pedigree: string;
-  setPedigree: (pedigree: string) => void;
+  pedigree: boolean;
+  setPedigree: (pedigree: boolean) => void;
   pedigreeFile: File | null;
   setPedigreeFile: (pedigree: File) => void;
+  vaccinated: boolean;
+  setVaccinated: (vaccinated: boolean) => void;
   vaccineFile: File | null;
   setVaccineFile: (vaccineFile: File) => void;
-  mated: string;
-  setMated: (mated: string) => void;
+  mated: boolean;
+  setMated: (mated: boolean) => void;
+  cryptorchidism_unilateral: boolean;
+  setCryptorchidism_unilateral: (value: boolean) => void;
+  cryptorchidism_bilateral: boolean;
+  setCryptorchidism_bilateral: (value: boolean) => void;
 
   /* - Tutor - */
+
   name: string;
   setName: (name: string) => void;
   photo?: File | null;
@@ -54,15 +63,22 @@ const RegistrationProvider = ({ children }: { children: ReactNode }) => {
 
   const [petPhoto, setPetPhoto] = useState<File | null>(null);
   const [petName, setPetName] = useState("");
+  const [age, setAge] = useState("");
   const [species, setSpecies] = useState("");
   const [breed, setBreed] = useState("");
   const [gender, setGender] = useState("");
-  const [pedigree, setPedigree] = useState("");
+  const [pedigree, setPedigree] = useState<boolean>(false);
   const [pedigreeFile, setPedigreeFile] = useState<File | null>(null);
+  const [vaccinated, setVaccinated] = useState<boolean>(false);
   const [vaccineFile, setVaccineFile] = useState<File | null>(null);
-  const [mated, setMated] = useState("");
+  const [mated, setMated] = useState<boolean>(false);
+  const [cryptorchidism_bilateral, setCryptorchidism_bilateral] =
+    useState<boolean>(false);
+  const [cryptorchidism_unilateral, setCryptorchidism_unilateral] =
+    useState<boolean>(false);
 
   /* - Tutor - */
+
   const [name, setName] = useState("");
   const [photo, setPhoto] = useState<File | null>(null);
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -84,6 +100,8 @@ const RegistrationProvider = ({ children }: { children: ReactNode }) => {
         setPetPhoto,
         petName,
         setPetName,
+        age,
+        setAge,
         species,
         setSpecies,
         breed,
@@ -94,10 +112,16 @@ const RegistrationProvider = ({ children }: { children: ReactNode }) => {
         setPedigree,
         pedigreeFile,
         setPedigreeFile,
+        vaccinated,
+        setVaccinated,
         vaccineFile,
         setVaccineFile,
         mated,
         setMated,
+        cryptorchidism_bilateral,
+        setCryptorchidism_bilateral,
+        cryptorchidism_unilateral,
+        setCryptorchidism_unilateral,
 
         /* - Tutor - */
 

@@ -37,6 +37,8 @@ const RegisterPet = ({ onNext, onBack }: RegisterPetProps) => {
     setPedigree,
     pedigreeFile,
     setPedigreeFile,
+    vaccinated,
+    setVaccinated,
     vaccineFile,
     setVaccineFile,
     mated,
@@ -60,19 +62,46 @@ const RegisterPet = ({ onNext, onBack }: RegisterPetProps) => {
   const selectedBreed = breedOptions.find((option) => option.value === breed);
 
   const advanceRegisterPet = () => {
-    if (!petPhoto) return setPetRegisterError("Adicione uma foto do pet.");
-    if (!petName) return setPetRegisterError("Preencha o nome do pet.");
-    if (!regex.petName.test(petName))
+    if (!petPhoto) {
+      return setPetRegisterError("Adicione uma foto do pet.");
+    }
+
+    if (!petName) {
+      return setPetRegisterError("Preencha o nome do pet.");
+    }
+
+    if (!regex.petName.test(petName)) {
       return setPetRegisterError("Nome do pet inválido.");
-    if (!species) return setPetRegisterError("Selecione a espécie.");
-    if (!breed) return setPetRegisterError("Selecione a raça.");
-    if (!gender) return setPetRegisterError("Selecione o sexo.");
-    if (!pedigree) return setPetRegisterError("Informe se possui pedigree.");
-    if (pedigree === "Sim" && !pedigreeFile)
+    }
+
+    if (!species) {
+      return setPetRegisterError("Selecione a espécie.");
+    }
+
+    if (!breed) {
+      return setPetRegisterError("Selecione a raça.");
+    }
+
+    if (!gender) {
+      return setPetRegisterError("Selecione o sexo.");
+    }
+
+    if (!pedigree) {
+      return setPetRegisterError("Selecione o sexo.");
+    }
+
+    if (pedigree && !pedigreeFile) {
       return setPetRegisterError("Anexe o pedigree.");
-    if (!vaccineFile)
+    }
+
+    if (vaccinated && !vaccineFile) {
       return setPetRegisterError("Anexe a carteira de vacinação.");
-    if (!mated) return setPetRegisterError("Informe se já cruzou.");
+    }
+
+    if (!mated) {
+      return setPetRegisterError("Anexe a carteira de vacinação.");
+    }
+
     setPetRegisterError("");
     onNext();
   };
@@ -198,11 +227,11 @@ const RegisterPet = ({ onNext, onBack }: RegisterPetProps) => {
         <RadioGroup
           label="Possui Pedigree? *"
           options={yesOrNoOptions}
-          value={pedigree}
-          onChange={setPedigree}
+          value={pedigree ? "Sim" : "Não"}
+          onChange={(value) => setPedigree(value === "Sim")}
         />
 
-        {pedigree === "Sim" && (
+        {pedigree && (
           <FileUpload
             id="pedigree"
             className="min-h-20"
@@ -215,14 +244,17 @@ const RegisterPet = ({ onNext, onBack }: RegisterPetProps) => {
           id="vaccine"
           className="min-h-20"
           label="Carteira de Vacinação *"
-          onChange={(file) => setVaccineFile(file!)}
+          onChange={(file) => {
+            setVaccinated(vaccineFile ? true : false);
+            setVaccineFile(file!);
+          }}
         />
 
         <RadioGroup
           label="Já cruzou? *"
           options={yesOrNoOptions}
-          value={mated}
-          onChange={setMated}
+          value={mated ? "Sim" : "Não"}
+          onChange={(value) => setMated(value === "Sim")}
         />
 
         <button

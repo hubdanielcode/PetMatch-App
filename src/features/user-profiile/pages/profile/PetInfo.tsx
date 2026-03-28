@@ -1,6 +1,6 @@
 import { CirclePlus } from "lucide-react";
 import { FeedCard } from "../../../../shared";
-import type { Pet } from "../../../../shared/hooks/usePets";
+import type { Pet } from "../../../pet-registration/types/pet";
 import { useNavigate } from "react-router-dom";
 
 const PetInfo = () => {
@@ -41,12 +41,7 @@ const PetInfo = () => {
             <FeedCard
               key={pet.id}
               index={index}
-              image={pet.url}
-              badge={pet.badge}
-              name={pet.name}
-              rating={pet.rating}
-              description={pet.description}
-              location={pet.location}
+              pet={pet}
             />
           ))
         )}

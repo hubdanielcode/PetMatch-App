@@ -23,5 +23,3 @@ export { Welcome } from "./pages/modal/Welcome";
 export { Missing } from "./pages/missing/Missing";
 
 /* - Hooks - */
-
-export { usePets } from "./hooks/usePets";
