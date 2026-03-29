@@ -11,7 +11,7 @@ import { AnamneseReproduction } from "./AnamneseReproduction";
 import { useRegistrationContext } from "../../hooks/useRegistrationContext";
 
 interface AnamneseProps {
-  onNext: () => void;
+  onNext: () => Promise<void>;
   onBack?: () => void;
 }
 
@@ -26,14 +26,14 @@ const Anamnese = ({ onNext, onBack }: AnamneseProps) => {
     "Cirurgias",
     "Histórico de Doenças",
     ...(gender === "Macho" ? ["Testículos"] : []),
-    ...(mated === "Sim" ? ["Histórico Reprodutivo"] : []),
+    ...(mated ? ["Histórico Reprodutivo"] : []),
   ];
 
-  const handleNext = () => {
+  const handleNext = async () => {
     if (currentStep < steps.length) {
       setCurrentStep((prev) => prev + 1);
     } else {
-      onNext();
+      await onNext();
     }
   };
 

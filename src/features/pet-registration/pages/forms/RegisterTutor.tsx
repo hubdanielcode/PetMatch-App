@@ -34,20 +34,34 @@ const RegisterTutor = ({ onNext, onBack }: RegisterTutorProps) => {
   const [tutorRegisterError, setTutorRegisterError] = useState("");
 
   const completeRegistration = () => {
-    if (!phoneNumber || !regex.phone.test(phoneNumber))
+    if (!phoneNumber || !regex.phone.test(phoneNumber)) {
       return setTutorRegisterError("Telefone inválido.");
-    if (!street || !regex.street.test(street))
+    }
+
+    if (!street || !regex.street.test(street)) {
       return setTutorRegisterError("Logradouro inválido.");
-    if (!houseNumber || !regex.number.test(houseNumber))
+    }
+
+    if (!houseNumber || !regex.number.test(houseNumber)) {
       return setTutorRegisterError("Número inválido.");
-    if (complement && !regex.complement.test(complement))
+    }
+
+    if (complement && !regex.complement.test(complement)) {
       return setTutorRegisterError("Complemento inválido.");
-    if (!neighborhood || !regex.neighborhood.test(neighborhood))
+    }
+
+    if (!neighborhood || !regex.neighborhood.test(neighborhood)) {
       return setTutorRegisterError("Bairro inválido.");
-    if (!city || !regex.city.test(city))
+    }
+
+    if (!city || !regex.city.test(city)) {
       return setTutorRegisterError("Cidade inválida.");
-    if (!state || !regex.state.test(state))
+    }
+
+    if (!state || !regex.state.test(state)) {
       return setTutorRegisterError("Estado inválido.");
+    }
+
     setTutorRegisterError("");
     onNext();
   };

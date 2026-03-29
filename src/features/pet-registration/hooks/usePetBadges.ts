@@ -1,14 +1,14 @@
 const speciesBadges = [
   {
     value: "Cachorro" as const,
-    badgeBackground: "bg-violet-300",
-    badgeBorder: "border-violet-500",
+    badgeBackground: "bg-[#6A03D5]",
+    badgeBorder: "border-black/40",
     badgeText: "text-white",
   },
   {
     value: "Gato" as const,
-    badgeBackground: "bg-pink-300",
-    badgeBorder: "border-pink-500",
+    badgeBackground: "bg-[#F104DF]",
+    badgeBorder: "border-black/40",
     badgeText: "text-white",
   },
 ];
@@ -16,8 +16,8 @@ const speciesBadges = [
 const matedBadges = [
   {
     value: "Já Cruzou" as const,
-    badgeBackground: "bg-orange-300",
-    badgeBorder: "border-orange-500",
+    badgeBackground: "bg-[#1A8299]",
+    badgeBorder: "border-black/40",
     badgeText: "text-white",
   },
 ];
@@ -25,8 +25,8 @@ const matedBadges = [
 const pedigreeBadges = [
   {
     value: "Com Pedigree" as const,
-    badgeBackground: "bg-blue-300",
-    badgeBorder: "border-blue-500",
+    badgeBackground: "bg-[#10A0D9]",
+    badgeBorder: "border-black/40",
     badgeText: "text-white",
   },
 ];
@@ -34,8 +34,8 @@ const pedigreeBadges = [
 const vaccineBadges = [
   {
     value: "Vacinado" as const,
-    badgeBackground: "bg-green-300",
-    badgeBorder: "border-green-500",
+    badgeBackground: "bg-[#0F9708]",
+    badgeBorder: "border-black/40",
     badgeText: "text-white",
   },
 ];
@@ -43,31 +43,31 @@ const vaccineBadges = [
 const testiclesBadges = [
   {
     value: "Criptoquidismo Bilateral" as const,
-    badgeBackground: "bg-cyan-300",
-    badgeBorder: "border-cyan-500",
+    badgeBackground: "bg-[#BF0621]",
+    badgeBorder: "border-black/40",
     badgeText: "text-white",
   },
   {
     value: "Criptoquidismo Unilateral" as const,
-    badgeBackground: "bg-teal-300",
-    badgeBorder: "border-teal-500",
+    badgeBackground: "bg-[#E36802]",
+    badgeBorder: "border-black/40",
     badgeText: "text-white",
   },
 ];
 
 const allBadges = [
+  ...testiclesBadges,
   ...speciesBadges,
   ...matedBadges,
   ...pedigreeBadges,
   ...vaccineBadges,
-  ...testiclesBadges,
 ];
 
 const usePetBadges = (
   species: "Cachorro" | "Gato",
-  mated: boolean,
+  mated: boolean | null,
   pedigree: boolean | null,
-  vaccinated: boolean,
+  vaccinated: boolean | null,
   cryptorchidism_bilateral: boolean | null,
   cryptorchidism_unilateral: boolean | null,
 ) => {
@@ -99,4 +99,5 @@ const usePetBadges = (
 
   return allBadges.filter((badge) => petBadges.includes(badge.value));
 };
+
 export { usePetBadges };

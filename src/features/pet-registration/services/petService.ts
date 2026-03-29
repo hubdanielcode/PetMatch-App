@@ -1,7 +1,28 @@
 import type { Pet } from "./../types/pet";
 import { supabase } from "../../../../supabase/supabase";
 
-/* - Create - */
+/* - Upload da Foto - */
+
+const uploadPetPhoto = async (photo: File, userId: string) => {
+  const fileExtension = photo.name.split(".").pop();
+  const fileName = `${userId}/${Date.now()}.${fileExtension}`;
+
+  const { error } = await supabase.storage
+    .from("pet-photos")
+    .upload(fileName, photo);
+
+  if (error) {
+    throw new Error("Erro ao fazer upload da foto.");
+  }
+
+  const { data } = supabase.storage.from("pet-photos").getPublicUrl(fileName);
+
+  return data.publicUrl;
+};
+
+/* - C.R.U.D dos pets - */
+
+// 1. Create
 
 const createPet = async (pet: Omit<Pet, "id" | "created_at" | "user_id">) => {
   const {
@@ -22,7 +43,7 @@ const createPet = async (pet: Omit<Pet, "id" | "created_at" | "user_id">) => {
   return data;
 };
 
-/* - Read - */
+// 2. Read
 
 const getPets = async () => {
   const {
@@ -33,18 +54,29 @@ const getPets = async () => {
     throw new Error("Usuário não autenticado!");
   }
 
-  const { data, error } = await supabase
+  const { data: pets, error: petsError } = await supabase
     .from("pets")
     .select("*")
     .eq("user_id", user.id);
 
-  if (error) {
+  if (petsError) {
     throw new Error("Erro ao retornar pets!");
   }
-  return data;
+
+  const { data: tutor } = await supabase
+    .from("tutors")
+    .select("city, state")
+    .eq("user_id", user.id)
+    .single();
+
+  return pets?.map((pet) => ({
+    ...pet,
+    city: tutor?.city ?? null,
+    state: tutor?.state ?? null,
+  }));
 };
 
-/* - Update - */
+// 3. Update
 
 const updatePet = async (pet: Omit<Pet, "created_at">) => {
   const {
@@ -67,7 +99,7 @@ const updatePet = async (pet: Omit<Pet, "created_at">) => {
   return data;
 };
 
-/* - Delete - */
+// 4. Delete
 
 const deletePet = async (id: string) => {
   const {
@@ -89,4 +121,4 @@ const deletePet = async (id: string) => {
   return data;
 };
 
-export { createPet, getPets, updatePet, deletePet };
+export { createPet, getPets, updatePet, deletePet, uploadPetPhoto };

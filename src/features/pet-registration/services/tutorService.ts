@@ -1,10 +1,12 @@
 import type { Tutor } from "./../types/tutor";
 import { supabase } from "../../../../supabase/supabase";
 
-/* - Create - */
+/* - C.R.U.D de tutores - */
+
+// 1. Create
 
 const createTutor = async (
-  tutor: Omit<Tutor, "id" | "created_at" | "validated_at">,
+  tutor: Omit<Tutor, "id" | "created_at" | "validated_at" | "user_id">,
 ) => {
   const {
     data: { user },
@@ -18,13 +20,15 @@ const createTutor = async (
     .from("tutors")
     .insert({ ...tutor, user_id: user.id });
 
+  console.log("createTutor data:", data, "error:", error);
+
   if (error) {
     throw new Error("Erro ao cadastrar tutor!");
   }
   return data;
 };
 
-/* - Read - */
+// 2. Read
 
 const getTutors = async () => {
   const {
@@ -38,7 +42,8 @@ const getTutors = async () => {
   const { data, error } = await supabase
     .from("tutors")
     .select("*")
-    .eq("user_id", user.id);
+    .eq("user_id", user.id)
+    .single();
 
   if (error) {
     throw new Error("Erro ao retornar tutores cadastrados!");
@@ -46,7 +51,7 @@ const getTutors = async () => {
   return data;
 };
 
-/* - Update - */
+// 3. Update
 
 const updateTutor = async (tutor: Omit<Tutor, "created_at">) => {
   const {
@@ -71,7 +76,7 @@ const updateTutor = async (tutor: Omit<Tutor, "created_at">) => {
   return data;
 };
 
-/* - Delete - */
+// 4. Delete
 
 const deleteTutor = async (id: string) => {
   const {

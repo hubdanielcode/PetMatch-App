@@ -15,15 +15,15 @@ interface RegistrationContextType {
   setBreed: (breed: string) => void;
   gender: string;
   setGender: (gender: string) => void;
-  pedigree: boolean;
+  pedigree: boolean | null;
   setPedigree: (pedigree: boolean) => void;
   pedigreeFile: File | null;
   setPedigreeFile: (pedigree: File) => void;
-  vaccinated: boolean;
+  vaccinated: boolean | null;
   setVaccinated: (vaccinated: boolean) => void;
   vaccineFile: File | null;
   setVaccineFile: (vaccineFile: File) => void;
-  mated: boolean;
+  mated: boolean | null;
   setMated: (mated: boolean) => void;
   cryptorchidism_unilateral: boolean;
   setCryptorchidism_unilateral: (value: boolean) => void;
@@ -54,6 +54,10 @@ interface RegistrationContextType {
   setState: (state: string) => void;
   zipcode: string;
   setZipcode: (zipcode: string) => void;
+
+  /* - Funções - */
+
+  resetContext: () => void;
 }
 
 const RegistrationContext = createContext<RegistrationContextType | null>(null);
@@ -67,11 +71,11 @@ const RegistrationProvider = ({ children }: { children: ReactNode }) => {
   const [species, setSpecies] = useState("");
   const [breed, setBreed] = useState("");
   const [gender, setGender] = useState("");
-  const [pedigree, setPedigree] = useState<boolean>(false);
+  const [pedigree, setPedigree] = useState<boolean | null>(null);
   const [pedigreeFile, setPedigreeFile] = useState<File | null>(null);
-  const [vaccinated, setVaccinated] = useState<boolean>(false);
+  const [vaccinated, setVaccinated] = useState<boolean | null>(null);
   const [vaccineFile, setVaccineFile] = useState<File | null>(null);
-  const [mated, setMated] = useState<boolean>(false);
+  const [mated, setMated] = useState<boolean | null>(null);
   const [cryptorchidism_bilateral, setCryptorchidism_bilateral] =
     useState<boolean>(false);
   const [cryptorchidism_unilateral, setCryptorchidism_unilateral] =
@@ -90,6 +94,40 @@ const RegistrationProvider = ({ children }: { children: ReactNode }) => {
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
   const [zipcode, setZipcode] = useState("");
+
+  /* - Funções - */
+
+  const resetContext = () => {
+    // Limpando dados do pet
+
+    setPetPhoto(null);
+    setPetName("");
+    setAge("");
+    setSpecies("");
+    setBreed("");
+    setGender("");
+    setPedigree(null);
+    setPedigreeFile(null);
+    setVaccinated(null);
+    setVaccineFile(null);
+    setMated(null);
+    setCryptorchidism_bilateral(false);
+    setCryptorchidism_unilateral(false);
+
+    // Limpando dados do tutor
+
+    setName("");
+    setPhoto(null);
+    setPhoneNumber("");
+    setEmail("");
+    setStreet("");
+    setComplement("");
+    setNeighborhood("");
+    setHouseNumber("");
+    setCity("");
+    setState("");
+    setZipcode("");
+  };
 
   return (
     <RegistrationContext.Provider
@@ -147,6 +185,10 @@ const RegistrationProvider = ({ children }: { children: ReactNode }) => {
         setState,
         zipcode,
         setZipcode,
+
+        /* - Funções - */
+
+        resetContext,
       }}
     >
       {children}

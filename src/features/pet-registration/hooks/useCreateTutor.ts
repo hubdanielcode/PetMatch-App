@@ -7,7 +7,7 @@ const useCreateTutor = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const createTutor = async (
-    tutor: Omit<Tutor, "id" | "created_at" | "validated_at">,
+    tutor: Omit<Tutor, "id" | "created_at" | "validated_at" | "user_id">,
   ) => {
     setIsLoading(true);
     try {

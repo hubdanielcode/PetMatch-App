@@ -17,7 +17,7 @@ const FeedCard: React.FC<FeedCardProps> = ({ pet, index }) => {
       transition={{ duration: 0.8, delay: index * 0.3 }}
     >
       <div className="flex flex-col">
-        <motion.div className="overflow-hidden rounded-t-md">
+        <motion.div className="overflow-hidden rounded-t-md relative">
           <motion.img
             src={pet.photo_url}
             alt={pet.name}
@@ -25,25 +25,32 @@ const FeedCard: React.FC<FeedCardProps> = ({ pet, index }) => {
             whileHover={{ scale: 1.05 }}
             transition={{ duration: 0.3 }}
           />
-        </motion.div>
 
-        <Badges
-          species={pet.species as "Cachorro" | "Gato"}
-          mated={pet.mated}
-          pedigree={pet.pedigree ?? false}
-          vaccinated={pet.vaccinated}
-          cryptorchidism_bilateral={pet.cryptorchidism_bilateral}
-          cryptorchidism_unilateral={pet.cryptorchidism_unilateral}
-        />
+          <div className="absolute top-0 right-0">
+            <Badges
+              species={pet.species as "Cachorro" | "Gato"}
+              mated={pet.mated}
+              pedigree={pet.pedigree ?? false}
+              vaccinated={pet.vaccinated}
+              cryptorchidism_bilateral={pet.cryptorchidism_bilateral}
+              cryptorchidism_unilateral={pet.cryptorchidism_unilateral}
+            />
+          </div>
+        </motion.div>
 
         <div className="flex flex-col p-3">
           <p className="text-xl text-black font-bold mb-2">{pet.name}</p>
           <p className="text-sm text-black/70 mb-3">
-            {pet.breed} • {pet.gender} • {pet.age}
+            {pet.breed} • {pet.gender} • {pet.age}{" "}
+            {pet.age === "1" ? "Ano" : "Anos"}
           </p>
           <div className="flex">
             <FaLocationDot className="h-4 w-4 text-amber-600 mr-2" />
-            <p className="text-sm text-black/70">Localização pendente</p>
+            <p className="text-sm text-black/70">
+              {pet.city && pet.state
+                ? `${pet.city}, ${pet.state}`
+                : "Localização pendente"}
+            </p>
           </div>
         </div>
       </div>

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { FaMars } from "react-icons/fa";
+import { useRegistrationContext } from "../../hooks/useRegistrationContext";
 
 export type Testicles = "0" | "1" | "2" | "";
 
@@ -47,6 +48,9 @@ const options = [
 ];
 
 const AnamneseTesticles = () => {
+  const { setCryptorchidism_bilateral, setCryptorchidism_unilateral } =
+    useRegistrationContext();
+
   const [selected, setSelected] = useState<Testicles>("");
 
   const selectedOption = options.find((o) => o.value === selected);
@@ -87,7 +91,11 @@ const AnamneseTesticles = () => {
               }`}
               key={option.value}
               type="button"
-              onClick={() => setSelected(option.value)}
+              onClick={() => {
+                setSelected(option.value);
+                setCryptorchidism_bilateral(option.value === "0");
+                setCryptorchidism_unilateral(option.value === "1");
+              }}
             >
               <div
                 className={`h-4 w-4 shrink-0 rounded-full border transition-colors ${

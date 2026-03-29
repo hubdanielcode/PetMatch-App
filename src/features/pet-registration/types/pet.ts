@@ -7,10 +7,13 @@ export interface Pet {
   gender: string;
   breed: string;
   age: string;
-  mated: boolean;
-  pedigree?: boolean;
+  mated: boolean | null;
+  pedigree?: boolean | null;
   cryptorchidism_bilateral: boolean | null;
   cryptorchidism_unilateral: boolean | null;
-  vaccinated: boolean;
+  vaccinated: boolean | null;
   created_at: string;
+
+  city?: string | null;
+  state?: string | null;
 }

@@ -20,6 +20,7 @@ const RegisterPet = ({ onNext, onBack }: RegisterPetProps) => {
   const [petRegisterError, setPetRegisterError] = useState("");
   const [isSpeciesOpen, setIsSpeciesOpen] = useState(false);
   const [isBreedOpen, setIsBreedOpen] = useState(false);
+  const [isAgeOpen, setIsAgeOpen] = useState(false);
 
   const { dogBreeds, catBreeds } = usePetBreeds();
   const {
@@ -27,6 +28,8 @@ const RegisterPet = ({ onNext, onBack }: RegisterPetProps) => {
     setPetPhoto,
     petName,
     setPetName,
+    age,
+    setAge,
     species,
     setSpecies,
     breed,
@@ -59,6 +62,7 @@ const RegisterPet = ({ onNext, onBack }: RegisterPetProps) => {
       value: breed,
     }),
   );
+
   const selectedBreed = breedOptions.find((option) => option.value === breed);
 
   const advanceRegisterPet = () => {
@@ -86,20 +90,26 @@ const RegisterPet = ({ onNext, onBack }: RegisterPetProps) => {
       return setPetRegisterError("Selecione o sexo.");
     }
 
-    if (!pedigree) {
-      return setPetRegisterError("Selecione o sexo.");
+    if (pedigree === null) {
+      return setPetRegisterError("Informe se o pet possui pedigree.");
     }
 
     if (pedigree && !pedigreeFile) {
       return setPetRegisterError("Anexe o pedigree.");
     }
 
+    if (vaccinated === null) {
+      return setPetRegisterError(
+        "Informe se o pet possui carteira de vacinação.",
+      );
+    }
+
     if (vaccinated && !vaccineFile) {
       return setPetRegisterError("Anexe a carteira de vacinação.");
     }
 
-    if (!mated) {
-      return setPetRegisterError("Anexe a carteira de vacinação.");
+    if (mated === null) {
+      return setPetRegisterError("Informe se o pet já cruzou.");
     }
 
     setPetRegisterError("");
@@ -145,6 +155,41 @@ const RegisterPet = ({ onNext, onBack }: RegisterPetProps) => {
               onChange={(e) => setPetName(e.target.value)}
               placeholder="Nome do seu pet"
             />
+          </div>
+        </div>
+
+        {/* - Idade - */}
+
+        <div className="flex flex-col gap-1">
+          <label className="text-sm font-semibold text-black/70">Idade *</label>
+          <div className="relative">
+            <button
+              type="button"
+              onClick={() => setIsAgeOpen(!isAgeOpen)}
+              className={`w-full border border-black/40 rounded-lg bg-gray-200 hover:bg-amber-50 transition-colors px-4 py-2 flex items-center justify-between ${age ? "text-black" : "text-gray-500"}`}
+            >
+              {age ? `${age} ${age === "1" ? "Ano" : "Anos"}` : "Selecione..."}
+              <ChevronDown className="w-3.5 h-3.5 text-gray-500" />
+            </button>
+
+            {isAgeOpen && (
+              <div className="absolute w-full mt-1 bg-white border border-black/20 rounded-lg shadow-lg z-10 max-h-48 overflow-y-auto">
+                {Array.from({ length: 20 }, (_, index) =>
+                  String(index + 1),
+                ).map((age) => (
+                  <div
+                    key={age}
+                    onClick={() => {
+                      setAge(age);
+                      setIsAgeOpen(false);
+                    }}
+                    className="px-4 py-2 cursor-pointer hover:bg-amber-100 transition-colors"
+                  >
+                    {age} {age === "1" ? "Ano" : "Anos"}
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
 
@@ -205,7 +250,7 @@ const RegisterPet = ({ onNext, onBack }: RegisterPetProps) => {
                   <div
                     key={option.value}
                     onClick={() => {
-                      setBreed(option.value);
+                      setBreed(option.label);
                       setIsBreedOpen(false);
                     }}
                     className="px-4 py-2 cursor-pointer hover:bg-amber-100 transition-colors"
@@ -224,6 +269,7 @@ const RegisterPet = ({ onNext, onBack }: RegisterPetProps) => {
           value={gender}
           onChange={setGender}
         />
+
         <RadioGroup
           label="Possui Pedigree? *"
           options={yesOrNoOptions}
@@ -240,15 +286,23 @@ const RegisterPet = ({ onNext, onBack }: RegisterPetProps) => {
           />
         )}
 
-        <FileUpload
-          id="vaccine"
-          className="min-h-20"
-          label="Carteira de Vacinação *"
-          onChange={(file) => {
-            setVaccinated(vaccineFile ? true : false);
-            setVaccineFile(file!);
-          }}
+        <RadioGroup
+          label="Possui Carteira de Vacinação? *"
+          options={yesOrNoOptions}
+          value={vaccinated ? "Sim" : "Não"}
+          onChange={(value) => setVaccinated(value === "Sim")}
         />
+
+        {vaccinated && (
+          <FileUpload
+            id="vaccine"
+            className="min-h-20"
+            label="Anexar Carteira de Vacinação *"
+            onChange={(file) => {
+              setVaccineFile(file!);
+            }}
+          />
+        )}
 
         <RadioGroup
           label="Já cruzou? *"
