@@ -1,9 +1,23 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { PetInfo } from "./PetInfo";
 import { TutorInfo } from "./TutorInfo";
+import { supabase } from "../../../../../supabase/supabase";
 
-const MyProfile = () => {
+const TutorProfile = () => {
   const [activeTab, setActiveTab] = useState<"Tutor" | "Pet">("Tutor");
+  const [userId, setUserId] = useState<string>("");
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      if (user) {
+        setUserId(user.id);
+      }
+    };
+    fetchUsers();
+  }, []);
 
   return (
     <div className="min-h-screen w-full bg-linear-to-br from-amber-100 via-orange-100 to-red-100">
@@ -28,9 +42,9 @@ const MyProfile = () => {
           </button>
         </div>
       </div>
-      {activeTab === "Pet" ? <PetInfo /> : <TutorInfo />}
+      {activeTab === "Pet" ? <PetInfo /> : <TutorInfo user_id={userId} />}
     </div>
   );
 };
 
-export { MyProfile };
+export { TutorProfile };

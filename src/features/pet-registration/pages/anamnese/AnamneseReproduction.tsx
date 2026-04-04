@@ -1,7 +1,15 @@
 import { FaHeart } from "react-icons/fa";
-import { useRegistrationContext } from "../../hooks/useRegistrationContext";
+import { useRegistrationContext } from "../../hooks/context-hooks/useRegistrationContext";
 
-const AnamneseReproduction = () => {
+interface AnamneseReproductionProps {
+  value: string;
+  onChange: (value: string) => void;
+}
+
+const AnamneseReproduction = ({
+  value,
+  onChange,
+}: AnamneseReproductionProps) => {
   const { gender } = useRegistrationContext();
   return (
     <>
@@ -33,6 +41,8 @@ const AnamneseReproduction = () => {
         <textarea
           className="w-full border placeholder:text-gray-500 border-black/40 rounded-lg bg-gray-200 hover:bg-amber-50 transition-colors p-6 min-h-80"
           id="pet-reproduction"
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
           placeholder="Como você descreveria o histórico reprodutivo do seu pet?
           
 Quantas vezes o seu pet já cruzou? Houve alguma complicação com o seu animal ou com os filhotes? A ninhada nasceu saudável? (Em caso de fêmeas: Como foi o parto? Houve intercorrências?)"

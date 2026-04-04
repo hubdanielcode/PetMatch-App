@@ -12,7 +12,8 @@ import {
 import { RegistrationProvider } from "./features/pet-registration/context/RegistrationContext";
 import { MainPage, Modal } from "./shared";
 import { RegisterFlow } from "./features/pet-registration/pages/forms/RegisterFlow";
-import { MyProfile } from "./features/user-profiile/pages/profile/MyProfile";
+import { TutorProfile } from "./features/user-profiile/pages/profile/TutorProfile";
+import { PetProfile } from "./features/user-profiile/pages/profile/PetProfile";
 
 const AppLayout = () => {
   return (
@@ -96,7 +97,12 @@ const App = () => {
 
               <Route
                 path="/perfil"
-                element={<MyProfile />}
+                element={<TutorProfile />}
+              />
+
+              <Route
+                path="/perfil-pet"
+                element={<PetProfile />}
               />
             </Route>
           </Route>

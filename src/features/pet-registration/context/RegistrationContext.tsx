@@ -1,4 +1,5 @@
 import { createContext, useState, type ReactNode } from "react";
+import { type Testicles } from "../pages/anamnese/AnamneseTesticles";
 
 interface RegistrationContextType {
   /* - Pet - */
@@ -9,6 +10,10 @@ interface RegistrationContextType {
   setPetName: (petName: string) => void;
   age: string;
   setAge: (age: string) => void;
+  minAge: string;
+  setMinAge: (age: string) => void;
+  maxAge: string;
+  setMaxAge: (age: string) => void;
   species: string;
   setSpecies: (species: string) => void;
   breed: string;
@@ -24,7 +29,7 @@ interface RegistrationContextType {
   vaccineFile: File | null;
   setVaccineFile: (vaccineFile: File) => void;
   mated: boolean | null;
-  setMated: (mated: boolean) => void;
+  setMated: (mated: boolean | null) => void;
   cryptorchidism_unilateral: boolean;
   setCryptorchidism_unilateral: (value: boolean) => void;
   cryptorchidism_bilateral: boolean;
@@ -55,6 +60,23 @@ interface RegistrationContextType {
   zipcode: string;
   setZipcode: (zipcode: string) => void;
 
+  /* - Anamnese - */
+
+  feedingInfo: string;
+  setFeedingInfo: (feedingInfo: string) => void;
+  walksInfo: string;
+  setWalksInfo: (walksInfo: string) => void;
+  behaviorInfo: string;
+  setBehaviorInfo: (behaviorInfo: string) => void;
+  surgeriesInfo: string;
+  setSurgeriesInfo: (surgeriesInfo: string) => void;
+  diseasesInfo: string;
+  setDiseasesInfo: (diseasesInfo: string) => void;
+  testiclesInfo: Testicles;
+  setTesticlesInfo: (testiclesInfo: Testicles) => void;
+  reproductionInfo: string;
+  setReproductionInfo: (reproductionInfo: string) => void;
+
   /* - Funções - */
 
   resetContext: () => void;
@@ -68,6 +90,8 @@ const RegistrationProvider = ({ children }: { children: ReactNode }) => {
   const [petPhoto, setPetPhoto] = useState<File | null>(null);
   const [petName, setPetName] = useState("");
   const [age, setAge] = useState("");
+  const [minAge, setMinAge] = useState("");
+  const [maxAge, setMaxAge] = useState("");
   const [species, setSpecies] = useState("");
   const [breed, setBreed] = useState("");
   const [gender, setGender] = useState("");
@@ -95,6 +119,16 @@ const RegistrationProvider = ({ children }: { children: ReactNode }) => {
   const [state, setState] = useState("");
   const [zipcode, setZipcode] = useState("");
 
+  /* - Anamnese - */
+
+  const [feedingInfo, setFeedingInfo] = useState("");
+  const [walksInfo, setWalksInfo] = useState("");
+  const [behaviorInfo, setBehaviorInfo] = useState("");
+  const [surgeriesInfo, setSurgeriesInfo] = useState("");
+  const [diseasesInfo, setDiseasesInfo] = useState("");
+  const [testiclesInfo, setTesticlesInfo] = useState<Testicles>("");
+  const [reproductionInfo, setReproductionInfo] = useState("");
+
   /* - Funções - */
 
   const resetContext = () => {
@@ -103,6 +137,8 @@ const RegistrationProvider = ({ children }: { children: ReactNode }) => {
     setPetPhoto(null);
     setPetName("");
     setAge("");
+    setMinAge("");
+    setMaxAge("");
     setSpecies("");
     setBreed("");
     setGender("");
@@ -127,6 +163,16 @@ const RegistrationProvider = ({ children }: { children: ReactNode }) => {
     setCity("");
     setState("");
     setZipcode("");
+
+    // Limpando dados da anamnese
+
+    setFeedingInfo("");
+    setWalksInfo("");
+    setBehaviorInfo("");
+    setSurgeriesInfo("");
+    setDiseasesInfo("");
+    setTesticlesInfo("");
+    setReproductionInfo("");
   };
 
   return (
@@ -140,6 +186,10 @@ const RegistrationProvider = ({ children }: { children: ReactNode }) => {
         setPetName,
         age,
         setAge,
+        minAge,
+        setMinAge,
+        maxAge,
+        setMaxAge,
         species,
         setSpecies,
         breed,
@@ -185,6 +235,23 @@ const RegistrationProvider = ({ children }: { children: ReactNode }) => {
         setState,
         zipcode,
         setZipcode,
+
+        /* - Anamnese - */
+
+        feedingInfo,
+        setFeedingInfo,
+        walksInfo,
+        setWalksInfo,
+        behaviorInfo,
+        setBehaviorInfo,
+        surgeriesInfo,
+        setSurgeriesInfo,
+        diseasesInfo,
+        setDiseasesInfo,
+        testiclesInfo,
+        setTesticlesInfo,
+        reproductionInfo,
+        setReproductionInfo,
 
         /* - Funções - */
 

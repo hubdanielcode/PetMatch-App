@@ -52,7 +52,7 @@ const Missing = () => {
         />
 
         <div className="flex flex-col items-center">
-          <h1 className="text-3xl font-bold bg-linear-to-b from-orange-600 to-red-600 bg-clip-text text-transparent mb-3">
+          <h1 className="text-3xl font-bold bg-linear-to-b from-amber-600 via-orange-600 to-red-600 bg-clip-text text-transparent mb-3">
             PetMatch
           </h1>
           <p className="font-semibold text-lg text-black/70 mb-6 text-center">
@@ -62,17 +62,17 @@ const Missing = () => {
           {/* - Texto - */}
 
           <div className="bg-white border border-black/40 w-fit h-auto rounded-lg px-4 py-2 flex flex-col mx-auto">
-            <h1 className="text-5xl font-bold bg-linear-to-b from-orange-600 to-red-600 bg-clip-text text-transparent text-center">
+            <h1 className="text-5xl font-bold bg-linear-to-b from-amber-600 via-orange-600 to-red-600 bg-clip-text text-transparent text-center">
               404
             </h1>
-            <p className="text-2xl mt-8 bg-linear-to-b from-orange-600 to-red-600 bg-clip-text text-transparent font-bold text-center">
+            <p className="text-2xl mt-8 bg-linear-to-b from-amber-600 via-orange-600 to-red-600 bg-clip-text text-transparent font-bold text-center">
               Página não encontrada
             </p>
 
             {/* - Botão - */}
 
             <Link
-              className="mt-8 px-4 py-2 bg-linear-to-r from-orange-600 to-red-600 hover:from-orange-400 hover:to-red-400 rounded-lg text-white font-semibold text-sm transition text-center"
+              className="mt-8 px-4 py-2 bg-linear-to-br from-amber-600 via-orange-600 to-red-600 hover:from-amber-400 hover:via-orange-400 hover:to-red-400 rounded-lg text-white font-semibold text-sm transition text-center"
               role="link"
               to="/"
             >

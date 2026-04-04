@@ -1,6 +1,11 @@
 import { FaSyringe } from "react-icons/fa";
 
-const AnamneseSurgeries = () => {
+interface AnamneseSurgeriesProps {
+  value: string;
+  onChange: (value: string) => void;
+}
+
+const AnamneseSurgeries = ({ value, onChange }: AnamneseSurgeriesProps) => {
   return (
     <>
       {/* - Card flutuante - */}
@@ -28,6 +33,8 @@ const AnamneseSurgeries = () => {
         <textarea
           className="w-full border placeholder:text-gray-500 border-black/40 rounded-lg bg-gray-200 hover:bg-amber-50 transition-colors p-6 min-h-80"
           id="pet-walks"
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
           placeholder="O seu pet já realizou algum tipo de cirurgia, mesmo que eletiva?
           
 Se sim, qual(is)? Como foi a recuperação dele(a)? Apresentou algum tipo de complicação?"

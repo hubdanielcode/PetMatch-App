@@ -8,4 +8,14 @@ const yesOrNoOptions = [
   { label: "Não", value: "Não" },
 ];
 
-export { genderOptions, yesOrNoOptions };
+const speciesOptions = [
+  { label: "Cachorro", value: "Cachorro" },
+  { label: "Gato", value: "Gato" },
+];
+
+const matedOptions = [
+  { label: "Já Cruzou", value: "true" },
+  { label: "Primeira Vez", value: "false" },
+];
+
+export { genderOptions, yesOrNoOptions, speciesOptions, matedOptions };

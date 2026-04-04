@@ -1,6 +1,11 @@
 import { FaBrain } from "react-icons/fa";
 
-const AnamneseBehavior = () => {
+interface AnamneseBehaviorProps {
+  value: string;
+  onChange: (value: string) => void;
+}
+
+const AnamneseBehavior = ({ value, onChange }: AnamneseBehaviorProps) => {
   return (
     <>
       {/* - Card flutuante - */}
@@ -28,6 +33,8 @@ const AnamneseBehavior = () => {
         <textarea
           className="w-full border placeholder:text-gray-500 border-black/40 rounded-lg bg-gray-200 hover:bg-amber-50 transition-colors p-6 min-h-80"
           id="pet-walks"
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
           placeholder="Descreva o temperamento do seu pet. 
           
 Como ele lida com outros animais? Como ele lida com outros tutores? Como ele lida com crianças? Já mordeu ou arranhou alguém? Como ele reage em situações de barulho?"

@@ -23,3 +23,8 @@ export { Welcome } from "./pages/modal/Welcome";
 export { Missing } from "./pages/missing/Missing";
 
 /* - Hooks - */
+
+export { useCreateRating } from "./hooks/useCreateRating";
+export { useGetRatings } from "./hooks/useGetRatings";
+export { useUpdateRating } from "./hooks/useUpdateRating";
+export { useDeleteRating } from "./hooks/useDeleteRating";

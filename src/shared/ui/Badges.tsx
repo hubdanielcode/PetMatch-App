@@ -1,6 +1,7 @@
-import { usePetBadges } from "../../features/pet-registration/hooks/usePetBadges";
+import { usePetBadges } from "../../features/pet-registration/hooks/pet-hooks/usePetBadges";
 
 interface BadgeProps {
+  size?: "sm" | "md";
   species: "Cachorro" | "Gato";
   mated: boolean | null;
   pedigree: boolean | null;
@@ -10,6 +11,7 @@ interface BadgeProps {
 }
 
 const Badges: React.FC<BadgeProps> = ({
+  size = "sm",
   species,
   mated,
   pedigree,
@@ -25,12 +27,15 @@ const Badges: React.FC<BadgeProps> = ({
     cryptorchidism_bilateral,
     cryptorchidism_unilateral,
   );
+
+  const badgeSize = size === "md" ? "text-sm px-3 py-1" : "text-xs px-2 py-0.5";
+
   return (
     <div className="flex flex-wrap px-2 py-1">
       {badges.map((badge) => (
         <span
           key={badge.value}
-          className={`text-xs font-semibold px-2 py-0.5 w-fit border rounded-full m-1 ${badge.badgeBackground} ${badge.badgeBorder} ${badge.badgeText}`}
+          className={`${badgeSize} font-semibold w-fit border rounded-full m-1 ${badge.badgeBackground} ${badge.badgeBorder} ${badge.badgeText}`}
         >
           {badge.value}
         </span>
@@ -38,4 +43,5 @@ const Badges: React.FC<BadgeProps> = ({
     </div>
   );
 };
+
 export { Badges };

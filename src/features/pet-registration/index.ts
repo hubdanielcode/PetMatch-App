@@ -7,12 +7,15 @@ export { RadioGroup } from "./ui/RadioGroup";
 
 // 1. Forms
 
+export { RegisterFlow } from "./pages/forms/RegisterFlow";
+
 export { RegisterTutor } from "./pages/forms/RegisterTutor";
 export { RegisterPet } from "./pages/forms/RegisterPet";
 
 // 2. Anamnese
 
-export { Anamnese } from "./pages/anamnese/Anamnese";
+export { AnamneseFlow } from "./pages/anamnese/AnamneseFlow";
+
 export { AnamneseBehavior } from "./pages/anamnese/AnamneseBehavior";
 export { AnamneseDiseases } from "./pages/anamnese/AnamneseDiseases";
 export { AnamneseFeeding } from "./pages/anamnese/AnamneseFeeding";
@@ -23,27 +26,34 @@ export { AnamneseWalks } from "./pages/anamnese/AnamneseWalks";
 
 /* - Hooks - */
 
-// 1. General Hooks
+// 1. Pet Hooks
 
-export { usePetBreeds } from "./hooks/usePetBreeds";
-export { usePetBadges } from "./hooks/usePetBadges";
-export { useRegistrationContext } from "./hooks/useRegistrationContext";
+export { useCreatePet } from "./hooks/pet-hooks/useCreatePet";
+export { useGetPets } from "./hooks/pet-hooks/useGetPets";
+export { useUpdatePet } from "./hooks/pet-hooks/useUpdatePet";
+export { useDeletePet } from "./hooks/pet-hooks/useDeletePet";
 
-// 2. C.R.U.D. - Pets
+export { usePetBreeds } from "./hooks/pet-hooks/usePetBreeds";
+export { usePetBadges } from "./hooks/pet-hooks/usePetBadges";
 
-export { useCreatePet } from "./hooks/useCreatePet";
-export { useGetPets } from "./hooks/useGetPets";
-export { useUpdatePet } from "./hooks/useUpdatePet";
-export { useDeletePet } from "./hooks/useDeletePet";
+// 2. Tutor Hooks
 
-// 3. C.R.U.D. - Tutors
+export { useCreateTutor } from "./hooks/tutor-hooks/useCreateTutor";
+export { useGetTutors } from "./hooks/tutor-hooks/useGetTutors";
+export { useUpdateTutor } from "./hooks/tutor-hooks/useUpdateTutor";
+export { useDeleteTutor } from "./hooks/tutor-hooks/useDeleteTutor";
 
-export { useCreateTutor } from "./hooks/useCreateTutor";
-export { useGetTutors } from "./hooks/useGetTutors";
-export { useUpdateTutor } from "./hooks/useUpdateTutor";
-export { useDeleteTutor } from "./hooks/useDeleteTutor";
+// 3. Anamnese Hooks
+
+export { useCreateAnamnese } from "./hooks/anamnese-hooks/useCreateAnamnese";
+export { useGetAnamnese } from "./hooks/anamnese-hooks/useGetAnamnese";
+
+// 4. Context Hooks
+
+export { useRegistrationContext } from "./hooks/context-hooks/useRegistrationContext";
 
 /* - Types - */
 
 export type { Pet } from "./types/pet";
 export type { Tutor } from "./types/tutor";
+export type { Anamnese } from "./types/anamnsese";

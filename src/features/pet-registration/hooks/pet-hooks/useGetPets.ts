@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { getPets as getPetsService } from "../services/petService";
-import type { Pet } from "../types/pet";
+import { getPets as getPetService } from "../../services/petService";
+import type { Pet } from "../../types/pet";
 
 const useGetPets = () => {
   const [newPet, setNewPet] = useState<Pet[]>([]);
@@ -10,7 +10,7 @@ const useGetPets = () => {
   const getPets = async () => {
     setIsLoading(true);
     try {
-      const data = await getPetsService();
+      const data = await getPetService();
       setNewPet(data);
     } catch (error) {
       setGetPetError("Erro ao retornar pets cadastrados.");

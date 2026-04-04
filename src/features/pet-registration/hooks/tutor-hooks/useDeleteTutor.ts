@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { deleteTutor as deleteTutorService } from "../services/tutorService";
-import type { Tutor } from "../types/tutor";
+import { deleteTutor as deleteTutorService } from "../../services/tutorService";
+import type { Tutor } from "../../types/tutor";
 
 const useDeleteTutor = () => {
   const [updatedTutorList, setUpdatedtutorList] = useState<Tutor[]>([]);

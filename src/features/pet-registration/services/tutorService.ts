@@ -1,6 +1,25 @@
 import type { Tutor } from "./../types/tutor";
 import { supabase } from "../../../../supabase/supabase";
 
+/* - Upload da foto - */
+
+const uploadTutorPhoto = async (photo: File, userId: string) => {
+  const fileExtension = photo.name.split(".").pop();
+  const fileName = `${userId}/${Date.now()}.${fileExtension}`;
+
+  const { error } = await supabase.storage
+    .from("tutor-photos")
+    .upload(fileName, photo);
+
+  if (error) {
+    throw new Error("Erro ao fazer upload da foto.");
+  }
+
+  const { data } = supabase.storage.from("tutor-photos").getPublicUrl(fileName);
+
+  return data.publicUrl;
+};
+
 /* - C.R.U.D de tutores - */
 
 // 1. Create
@@ -30,7 +49,7 @@ const createTutor = async (
 
 // 2. Read
 
-const getTutors = async () => {
+const getTutors = async (user_id: string) => {
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -42,7 +61,7 @@ const getTutors = async () => {
   const { data, error } = await supabase
     .from("tutors")
     .select("*")
-    .eq("user_id", user.id)
+    .eq("user_id", user_id)
     .single();
 
   if (error) {
@@ -101,4 +120,4 @@ const deleteTutor = async (id: string) => {
   return data;
 };
 
-export { createTutor, getTutors, updateTutor, deleteTutor };
+export { createTutor, getTutors, updateTutor, deleteTutor, uploadTutorPhoto };

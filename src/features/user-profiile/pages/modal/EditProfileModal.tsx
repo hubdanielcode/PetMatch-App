@@ -1,37 +1,47 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { MdMail, MdPhone } from "react-icons/md";
 import { FaLocationDot } from "react-icons/fa6";
 import { FaUser } from "react-icons/fa";
-import { useRegistrationContext } from "../../../pet-registration";
 import { regex } from "../../../../shared/utils/regex";
 import { masks } from "../../../../shared/utils/masks";
+import { useGetTutors, useUpdateTutor } from "../../../pet-registration";
 
 interface EditProfileModalProps {
   onClose: () => void;
+  onSave: () => void;
+  userId: string;
 }
 
-const EditProfileModal = ({ onClose }: EditProfileModalProps) => {
-  const {
-    name,
-    setName,
-    email,
-    setEmail,
-    city,
-    setCity,
-    state,
-    setState,
-    phoneNumber,
-    setPhoneNumber,
-  } = useRegistrationContext();
+const EditProfileModal = ({
+  onClose,
+  onSave,
+  userId,
+}: EditProfileModalProps) => {
+  const { getTutors, tutor } = useGetTutors();
+  const { updateTutor } = useUpdateTutor();
 
-  const [localName, setLocalName] = useState(name);
-  const [localEmail, setLocalEmail] = useState(email);
-  const [localPhone, setLocalPhone] = useState(phoneNumber);
-  const [localCity, setLocalCity] = useState(city);
-  const [localState, setLocalState] = useState(state);
+  const [localName, setLocalName] = useState("");
+  const [localEmail, setLocalEmail] = useState("");
+  const [localPhone, setLocalPhone] = useState("");
+  const [localCity, setLocalCity] = useState("");
+  const [localState, setLocalState] = useState("");
   const [error, setError] = useState("");
 
-  const handleSave = () => {
+  useEffect(() => {
+    if (userId) getTutors(userId);
+  }, [userId]);
+
+  useEffect(() => {
+    if (tutor) {
+      setLocalName(tutor.name ?? "");
+      setLocalEmail(tutor.email ?? "");
+      setLocalPhone(tutor.phone ?? "");
+      setLocalCity(tutor.city ?? "");
+      setLocalState(tutor.state ?? "");
+    }
+  }, [tutor]);
+
+  const handleSave = async () => {
     if (!localName || !regex.petName.test(localName))
       return setError("Nome inválido.");
 
@@ -47,13 +57,16 @@ const EditProfileModal = ({ onClose }: EditProfileModalProps) => {
     if (!localState || !regex.state.test(localState))
       return setError("Estado inválido.");
 
-    setName(localName);
-    setEmail(localEmail);
-    setPhoneNumber(localPhone);
-    setCity(localCity);
-    setState(localState);
+    await updateTutor({
+      ...tutor!,
+      name: localName,
+      email: localEmail,
+      phone: localPhone,
+      city: localCity,
+      state: localState,
+    });
 
-    onClose();
+    onSave();
   };
 
   return (
@@ -63,14 +76,10 @@ const EditProfileModal = ({ onClose }: EditProfileModalProps) => {
           Editar Perfil
         </h2>
 
-        {/* - Nome - */}
-
         <div className="flex flex-col gap-1">
           <label className="text-sm font-semibold text-black/70">Nome</label>
-
           <div className="flex items-center border border-black/40 rounded-lg bg-gray-200 hover:bg-amber-50 transition-colors px-4 py-2 gap-3">
             <FaUser className="text-amber-600 w-4 h-4 shrink-0" />
-
             <input
               className="bg-transparent w-full focus:outline-none text-black"
               value={localName}
@@ -80,14 +89,10 @@ const EditProfileModal = ({ onClose }: EditProfileModalProps) => {
           </div>
         </div>
 
-        {/* - Email - */}
-
         <div className="flex flex-col gap-1">
           <label className="text-sm font-semibold text-black/70">Email</label>
-
           <div className="flex items-center border border-black/40 rounded-lg bg-gray-200 hover:bg-amber-50 transition-colors px-4 py-2 gap-3">
             <MdMail className="text-amber-600 w-5 h-5 shrink-0" />
-
             <input
               className="bg-transparent w-full focus:outline-none text-black"
               value={localEmail}
@@ -97,16 +102,12 @@ const EditProfileModal = ({ onClose }: EditProfileModalProps) => {
           </div>
         </div>
 
-        {/* - Telefone - */}
-
         <div className="flex flex-col gap-1">
           <label className="text-sm font-semibold text-black/70">
             Telefone
           </label>
-
           <div className="flex items-center border border-black/40 rounded-lg bg-gray-200 hover:bg-amber-50 transition-colors px-4 py-2 gap-3">
             <MdPhone className="text-amber-600 w-5 h-5 shrink-0" />
-
             <input
               className="bg-transparent w-full focus:outline-none text-black"
               value={localPhone}
@@ -116,25 +117,19 @@ const EditProfileModal = ({ onClose }: EditProfileModalProps) => {
           </div>
         </div>
 
-        {/* - Localização - */}
-
         <div className="flex flex-col gap-1">
           <label className="text-sm font-semibold text-black/70">
             Localização
           </label>
-
           <div className="flex items-center border border-black/40 rounded-lg bg-gray-200 hover:bg-amber-50 transition-colors px-4 py-2 gap-3">
             <FaLocationDot className="text-amber-600 w-5 h-5 shrink-0" />
-
             <input
               className="bg-transparent w-full focus:outline-none text-black"
               value={localCity}
               onChange={(e) => setLocalCity(e.target.value)}
               placeholder="Cidade"
             />
-
             <span className="text-black/40">/</span>
-
             <input
               className="bg-transparent w-16 focus:outline-none text-black"
               value={localState}
@@ -145,15 +140,11 @@ const EditProfileModal = ({ onClose }: EditProfileModalProps) => {
           </div>
         </div>
 
-        {/* - Erro - */}
-
         {error && (
           <p className="flex items-center justify-center min-h-10 rounded-lg bg-red-100 border border-red-300 text-red-700 text-sm font-semibold text-center px-4">
             {error}
           </p>
         )}
-
-        {/* - Botões - */}
 
         <div className="flex gap-3 justify-end mt-2">
           <button

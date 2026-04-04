@@ -1,17 +1,22 @@
 import { FeedCard } from "../../ui/FeedCard";
 import type { Pet } from "../../../features/pet-registration/types/pet";
+import { useNavigate } from "react-router-dom";
+import { getTutors } from "../../../features/pet-registration/services/tutorService";
 
 interface PetFeedProps {
   pets: Pet[];
 }
 
 const PetFeed = ({ pets }: PetFeedProps) => {
+  const navigate = useNavigate();
+
   return (
     <div>
       {/* - Contagem de filtrados - */}
 
       <p className="text-sm font-bold text-black/70 mb-6 ml-4">
-        {pets.length} Animais Encontrados
+        {pets.length}{" "}
+        {pets.length === 1 ? "Animal Encontrado" : "Animais Encontrados"}
       </p>
 
       {/* - Grid do feed - */}
@@ -22,6 +27,10 @@ const PetFeed = ({ pets }: PetFeedProps) => {
             key={pet.id}
             pet={pet}
             index={index}
+            onClick={async () => {
+              const tutor = await getTutors(pet.user_id);
+              navigate("/perfil-pet", { state: { pet, tutor } });
+            }}
           />
         ))}
       </div>

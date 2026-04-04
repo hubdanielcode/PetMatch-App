@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { createTutor as createTutorService } from "../services/tutorService";
-import type { Tutor } from "../types/tutor";
+import { createTutor as createTutorService } from "../../services/tutorService";
+import type { Tutor } from "../../types/tutor";
 
 const useCreateTutor = () => {
   const [createTutorError, setCreateTutorError] = useState("");

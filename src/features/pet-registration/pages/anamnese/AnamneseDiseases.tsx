@@ -1,6 +1,11 @@
 import { FaVirus } from "react-icons/fa";
 
-const AnamneseDiseases = () => {
+interface AnamneseDiseasesProps {
+  value: string;
+  onChange: (value: string) => void;
+}
+
+const AnamneseDiseases = ({ value, onChange }: AnamneseDiseasesProps) => {
   return (
     <>
       {/* - Card flutuante - */}
@@ -28,6 +33,8 @@ const AnamneseDiseases = () => {
         <textarea
           className="w-full border placeholder:text-gray-500 border-black/40 rounded-lg bg-gray-200 hover:bg-amber-50 transition-colors p-6 min-h-80"
           id="pet-walks"
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
           placeholder="Como você descreveria a saúde do seu pet? * 
           
 Ele apresentou alguma doença nos últimos 90 dias? Seu pet está vermifugado? Quando foi a última vez que você fez o remédio de verme dele? Está fazendo algum tipo de acompanhamento profissional ou realizando algum tratamento? Se sim, qual(is)? Está fazendo uso de alguma medicação? Quando foi a última vez que o seu pet foi ao veterinário?"

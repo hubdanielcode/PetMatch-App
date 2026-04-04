@@ -57,8 +57,8 @@ const Footer = () => {
 
         <div className="py-5">
           <h1 className="text-lg font-bold text-black mb-3">Contato</h1>
-          <p className="text-sm text-black/70 mb-2">contato@petmatch.com</p>
-          <p className="text-sm text-black/70 mb-2">(99) 99999-9999</p>
+          <p className="text-sm text-black mb-2">contato@petmatch.com</p>
+          <p className="text-sm text-black mb-2">(99) 99999-9999</p>
         </div>
       </div>
       <div className="border-t border-black/20 flex mx-20">

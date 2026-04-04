@@ -1,8 +1,11 @@
-import { useState } from "react";
 import { FaUtensils } from "react-icons/fa";
 
-const AnamneseFeeding = () => {
-  const [diet, setDiet] = useState("");
+interface AnamneseFeedingProps {
+  value: string;
+  onChange: (value: string) => void;
+}
+
+const AnamneseFeeding = ({ value, onChange }: AnamneseFeedingProps) => {
   return (
     <>
       {/* - Card flutuante - */}
@@ -32,8 +35,8 @@ const AnamneseFeeding = () => {
           placeholder="Descreva como é a alimentação do seu pet. 
           
 Que tipo de ração ele come? Qual é a marca? Ele come só ração, ou come comidas naturais? Ele possui algum tipo de restrição ou alergia alimentar?"
-          value={diet}
-          onChange={(e) => setDiet(e.target.value)}
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
           required
           maxLength={650}
         />

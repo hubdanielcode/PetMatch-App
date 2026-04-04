@@ -1,6 +1,11 @@
 import { FaWalking } from "react-icons/fa";
 
-const AnamneseWalks = () => {
+interface AnamneseWalksProps {
+  value: string;
+  onChange: (value: string) => void;
+}
+
+const AnamneseWalks = ({ value, onChange }: AnamneseWalksProps) => {
   return (
     <>
       {/* - Card flutuante - */}
@@ -28,6 +33,8 @@ const AnamneseWalks = () => {
         <textarea
           className="w-full border placeholder:text-gray-500 border-black/40 rounded-lg bg-gray-200 hover:bg-amber-50 transition-colors p-6 min-h-80"
           id="pet-walks"
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
           placeholder="Descreva como são os passeios do seu pet. 
           
 Com que frequência ele(a) passeia? Quanto tempo, em média, dura o passeio? Caso você não possa passear com ele(a), você libera o seu pet para ir na rua? Se sim, você supervisiona?"

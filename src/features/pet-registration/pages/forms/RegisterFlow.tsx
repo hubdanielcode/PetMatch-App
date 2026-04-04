@@ -1,13 +1,13 @@
 import { useState } from "react";
-import { Anamnese } from "../anamnese/Anamnese";
+import { AnamneseFlow } from "../anamnese/AnamneseFlow";
 import { RegisterTutor } from "./RegisterTutor";
 import { RegisterPet } from "./RegisterPet";
 import { useNavigate, useLocation } from "react-router-dom";
-import { useCreatePet } from "../../hooks/useCreatePet";
-import { useRegistrationContext } from "../../hooks/useRegistrationContext";
+import { useCreatePet, useCreateTutor } from "../../../pet-registration";
+import { useRegistrationContext } from "../../hooks/context-hooks/useRegistrationContext";
 import { supabase } from "../../../../../supabase/supabase";
 import { uploadPetPhoto } from "../../services/petService";
-import { useCreateTutor } from "../../hooks/useCreateTutor";
+import { createAnamnese } from "../../services/anamneseService";
 
 const RegisterFlow = () => {
   const { createPet } = useCreatePet();
@@ -38,6 +38,16 @@ const RegisterFlow = () => {
     neighborhood,
     city,
     state,
+
+    /* - Dados da anamnese - */
+
+    feedingInfo,
+    walksInfo,
+    behaviorInfo,
+    surgeriesInfo,
+    diseasesInfo,
+    testiclesInfo,
+    reproductionInfo,
   } = useRegistrationContext();
 
   const handleFinishRegistration = async () => {
@@ -45,31 +55,39 @@ const RegisterFlow = () => {
       data: { user },
     } = await supabase.auth.getUser();
 
-    if (!user) {
-      throw new Error("Usuário não autenticado!");
-    }
+    if (!user) throw new Error("Usuário não autenticado!");
 
     try {
-      await createTutor({
-        name: user.user_metadata?.full_name ?? user.email ?? "",
-        photo_url: null,
-        email: user.email ?? "",
-        phone: phoneNumber,
-        street,
-        number: houseNumber,
-        complement,
-        neighborhood,
-        city,
-        state,
-      });
-      console.log("tutor criado");
+      const { data: existingTutor } = await supabase
+        .from("tutors")
+        .select("id")
+        .eq("user_id", user.id)
+        .single();
+
+      if (!existingTutor) {
+        await createTutor({
+          name:
+            (`${user.user_metadata?.firstName ?? ""} ${user.user_metadata?.lastName ?? ""}`.trim() ||
+              user.email) ??
+            "",
+          photo_url: null,
+          email: user.email ?? "",
+          phone: phoneNumber,
+          street,
+          number: houseNumber,
+          complement,
+          neighborhood,
+          city,
+          state,
+        });
+      }
     } catch (err) {
       console.log("erro no tutor:", err);
     }
 
     const photoUrl = petPhoto ? await uploadPetPhoto(petPhoto, user.id) : "";
 
-    await createPet({
+    const createdPet = await createPet({
       photo_url: photoUrl,
       name: petName,
       species: species,
@@ -82,6 +100,18 @@ const RegisterFlow = () => {
       cryptorchidism_bilateral: cryptorchidism_bilateral,
       cryptorchidism_unilateral: cryptorchidism_unilateral,
     });
+
+    await createAnamnese({
+      pet_id: createdPet.id,
+      feeding_info: feedingInfo,
+      walks_info: walksInfo,
+      behavior_info: behaviorInfo,
+      surgeries_info: surgeriesInfo,
+      diseases_info: diseasesInfo,
+      testicles_info: testiclesInfo,
+      reproduction_info: reproductionInfo,
+    });
+
     resetContext();
   };
 
@@ -112,7 +142,7 @@ const RegisterFlow = () => {
   }
 
   return (
-    <Anamnese
+    <AnamneseFlow
       onNext={async () => {
         await handleFinishRegistration();
         navigate("/pagina-principal", { replace: true });

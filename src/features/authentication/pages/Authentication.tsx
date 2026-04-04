@@ -9,6 +9,7 @@ import { supabase } from "../../../../supabase/supabase";
 import { AnimatePresence, motion } from "framer-motion";
 import { CircleCheck, Eye, EyeClosed } from "lucide-react";
 import { regex } from "../../../shared/utils/regex";
+import { masks } from "../../../shared/utils/masks";
 
 const Authentication = () => {
   /* - Nome - */
@@ -187,6 +188,7 @@ const Authentication = () => {
           <h1 className="text-3xl font-bold bg-linear-to-b from-amber-600 via-orange-600 to-red-600 bg-clip-text text-transparent mb-3">
             PetMatch
           </h1>
+
           <p className=" text-lg text-black/70 mb-6 text-center">
             Cruzamento com segurança para seu Pet.
           </p>
@@ -207,13 +209,14 @@ const Authentication = () => {
 
             <div className="w-full border border-black/40 bg-gray-100 rounded-lg flex px-4 py-2 focus-within:ring-2 focus-within:ring-amber-500 mb-1">
               <FaUser className="h-4 w-4 mr-3 mt-1 text-amber-600" />
+
               <input
-                className="w-full h-fit bg-transparent focus:outline-none rounded-lg placeholder:text-gray-500 text-black"
+                className="w-full h-fit bg-transparent focus:outline-none placeholder:text-gray-500 text-black"
                 id="wholeName"
                 type="text"
                 placeholder="Seu Nome"
                 value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
+                onChange={(e) => setFirstName(masks.name(e.target.value))}
               />
             </div>
 
@@ -228,13 +231,14 @@ const Authentication = () => {
 
             <div className="w-full border border-black/40 bg-gray-100 rounded-lg flex px-4 py-2 focus-within:ring-2 focus-within:ring-amber-500 mb-1">
               <FaUser className="h-4 w-4 mr-3 mt-1 text-amber-600" />
+
               <input
-                className="w-full h-fit bg-transparent focus:outline-none rounded-lg placeholder:text-gray-500 text-black"
+                className="w-full h-fit bg-transparent focus:outline-none placeholder:text-gray-500 text-black"
                 id="lastName"
                 type="text"
                 placeholder="Seu Sobrenome"
                 value={lastName}
-                onChange={(e) => setLastName(e.target.value)}
+                onChange={(e) => setLastName(masks.name(e.target.value))}
               />
             </div>
 
@@ -249,8 +253,9 @@ const Authentication = () => {
 
             <div className="w-full border border-black/40 bg-gray-100 rounded-lg flex px-4 py-2 focus-within:ring-2 focus-within:ring-amber-500 mb-1">
               <MdEmail className="h-4 w-4 mr-3 mt-1 text-amber-600" />
+
               <input
-                className="w-full h-fit bg-transparent focus:outline-none rounded-lg placeholder:text-gray-500 text-black"
+                className="w-full h-fit bg-transparent focus:outline-none placeholder:text-gray-500 text-black"
                 id="email"
                 type="email"
                 placeholder="exemplo@email.com"
@@ -270,14 +275,16 @@ const Authentication = () => {
 
             <div className="w-full border border-black/40 bg-gray-100 rounded-lg flex px-4 py-2 focus-within:ring-2 focus-within:ring-amber-500 mb-1">
               <RiLockPasswordFill className="h-4 w-4 mr-3 mt-1 text-amber-600" />
+
               <input
-                className="w-full h-fit bg-transparent focus:outline-none rounded-lg placeholder:text-gray-500 text-black"
+                className="w-full h-fit bg-transparent focus:outline-none placeholder:text-gray-500 text-black"
                 id="password"
                 type={isPrivate ? "password" : "text"}
                 placeholder="********"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
+
               <button
                 className="flex items-center gap-2 bg-transparent rounded-lg py-1 px-2  whitespace-nowrap outline-none cursor-pointer"
                 onClick={() => setIsPrivate(!isPrivate)}
@@ -301,8 +308,9 @@ const Authentication = () => {
 
             <div className="w-full border border-black/40 bg-gray-100 rounded-lg flex px-4 py-2 focus-within:ring-2 focus-within:ring-amber-500 mb-4">
               <RiLockPasswordFill className="h-4 w-4 mr-3 mt-1 text-amber-600" />
+
               <input
-                className="w-full h-fit bg-transparent focus:outline-none rounded-lg placeholder:text-gray-500 text-black"
+                className="w-full h-fit bg-transparent focus:outline-none placeholder:text-gray-500 text-black"
                 id="password"
                 type={isConfirmPrivate ? "password" : "text"}
                 placeholder="********"
@@ -325,7 +333,7 @@ const Authentication = () => {
             {/* - Botão - */}
 
             <button
-              className="w-full h-10 bg-linear-to-r from-amber-600 via-orange-600 to-red-600 text-white text-lg rounded-lg px-4 cursor-pointer hover:from-amber-400 hover:via-orange-400 hover:to-red-400 font-semibold"
+              className="w-full h-10 bg-linear-to-r from-amber-600 via-orange-600 to-red-600 text-white text-lg rounded-lg px-4 cursor-pointer hover:from-amber-400 hover:via-orange-400 hover:to-red-400 font-semibold border border-black/40"
               ref={signUpRef}
               onClick={createNewAccount}
             >

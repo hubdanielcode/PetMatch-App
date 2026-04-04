@@ -1,7 +1,7 @@
 import { ChevronDown } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaArrowLeft } from "react-icons/fa";
-import { usePetBreeds } from "../../hooks/usePetBreeds";
+import { usePetBreeds } from "../../hooks/pet-hooks/usePetBreeds";
 import {
   genderOptions,
   yesOrNoOptions,
@@ -9,7 +9,8 @@ import {
 import { FileUpload } from "../../ui/FileUpload";
 import { RadioGroup } from "../../ui/RadioGroup";
 import { regex } from "../../../../shared/utils/regex";
-import { useRegistrationContext } from "../../hooks/useRegistrationContext";
+import { useRegistrationContext } from "../../hooks/context-hooks/useRegistrationContext";
+import { validateDocument } from "../../services/petService";
 
 interface RegisterPetProps {
   onNext: () => void;
@@ -17,12 +18,22 @@ interface RegisterPetProps {
 }
 
 const RegisterPet = ({ onNext, onBack }: RegisterPetProps) => {
+  /* - Estado de erro - */
+
   const [petRegisterError, setPetRegisterError] = useState("");
+
+  /* - Estados de dropdown - */
+
   const [isSpeciesOpen, setIsSpeciesOpen] = useState(false);
   const [isBreedOpen, setIsBreedOpen] = useState(false);
   const [isAgeOpen, setIsAgeOpen] = useState(false);
 
+  /* - Estado de carregamento - */
+
+  const [isLoading, setIsLoading] = useState(false);
+
   const { dogBreeds, catBreeds } = usePetBreeds();
+
   const {
     petPhoto,
     setPetPhoto,
@@ -48,6 +59,26 @@ const RegisterPet = ({ onNext, onBack }: RegisterPetProps) => {
     setMated,
   } = useRegistrationContext();
 
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      const target = e.target as Element;
+
+      if (!target.closest("#pet-age-container")) {
+        setIsAgeOpen(false);
+      }
+
+      if (!target.closest("#pet-species-container")) {
+        setIsSpeciesOpen(false);
+      }
+
+      if (!target.closest("#pet-breed-container")) {
+        setIsBreedOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
   const speciesOptions = [
     { label: "Cachorro", value: "Cachorro" },
     { label: "Gato", value: "Gato" },
@@ -65,7 +96,9 @@ const RegisterPet = ({ onNext, onBack }: RegisterPetProps) => {
 
   const selectedBreed = breedOptions.find((option) => option.value === breed);
 
-  const advanceRegisterPet = () => {
+  const advanceRegisterPet = async () => {
+    /* - Validação dos campos - */
+
     if (!petPhoto) {
       return setPetRegisterError("Adicione uma foto do pet.");
     }
@@ -110,6 +143,34 @@ const RegisterPet = ({ onNext, onBack }: RegisterPetProps) => {
 
     if (mated === null) {
       return setPetRegisterError("Informe se o pet já cruzou.");
+    }
+
+    /* - Validação dos documentos - */
+
+    setIsLoading(true);
+
+    try {
+      if (pedigree && pedigreeFile) {
+        const result = await validateDocument(pedigreeFile, "pedigree");
+        if (!result.isValid) {
+          return setPetRegisterError(`Pedigree inválido: ${result.reason}`);
+        }
+      }
+
+      if (vaccinated && vaccineFile) {
+        const result = await validateDocument(vaccineFile, "vaccination_card");
+        if (!result.isValid) {
+          return setPetRegisterError(
+            `Carteira de vacinação inválida: ${result.reason}`,
+          );
+        }
+      }
+    } catch {
+      return setPetRegisterError(
+        "Erro ao validar documentos. Tente novamente.",
+      );
+    } finally {
+      setIsLoading(false);
     }
 
     setPetRegisterError("");
@@ -162,32 +223,72 @@ const RegisterPet = ({ onNext, onBack }: RegisterPetProps) => {
 
         <div className="flex flex-col gap-1">
           <label className="text-sm font-semibold text-black/70">Idade *</label>
-          <div className="relative">
+
+          <div
+            className="relative"
+            id="pet-age-container"
+          >
             <button
+              className={` cursor-pointer w-full border border-black/40 rounded-lg bg-gray-200 hover:bg-amber-50 transition-colors px-4 py-2 flex items-center justify-between ${selectedSpecies ? "text-black" : "text-gray-500"}`}
               type="button"
               onClick={() => setIsAgeOpen(!isAgeOpen)}
-              className={`w-full border border-black/40 rounded-lg bg-gray-200 hover:bg-amber-50 transition-colors px-4 py-2 flex items-center justify-between ${age ? "text-black" : "text-gray-500"}`}
             >
-              {age ? `${age} ${age === "1" ? "Ano" : "Anos"}` : "Selecione..."}
+              {age
+                ? (() => {
+                    const petAge = Number(age);
+                    console.log("age:", age);
+                    return petAge < 12
+                      ? `${petAge} ${petAge === 1 ? "Mês" : "Meses"}`
+                      : `${petAge} ${petAge / 12 === 1 ? "Ano" : "Anos"}`;
+                  })()
+                : "Selecione..."}
               <ChevronDown className="w-3.5 h-3.5 text-gray-500" />
             </button>
 
             {isAgeOpen && (
-              <div className="absolute w-full mt-1 bg-white border border-black/20 rounded-lg shadow-lg z-10 max-h-48 overflow-y-auto">
-                {Array.from({ length: 20 }, (_, index) =>
-                  String(index + 1),
-                ).map((age) => (
-                  <div
-                    key={age}
-                    onClick={() => {
-                      setAge(age);
-                      setIsAgeOpen(false);
-                    }}
-                    className="px-4 py-2 cursor-pointer hover:bg-amber-100 transition-colors"
-                  >
-                    {age} {age === "1" ? "Ano" : "Anos"}
-                  </div>
-                ))}
+              <div className="absolute w-full mt-1 bg-white border border-black/20 rounded-lg shadow-lg z-10 overflow-hidden max-h-72 overflow-y-auto">
+                <div className="px-4 py-2 font-semibold text-white bg-black">
+                  MESES
+                </div>
+                <ul>
+                  {/* - Meses: 1 a 11 - */}
+
+                  {Array.from({ length: 11 }, (_, index) => index + 1).map(
+                    (month) => (
+                      <li
+                        className="px-4 py-2 cursor-pointer hover:bg-amber-100"
+                        key={`m-${month}`}
+                        onClick={() => {
+                          setAge(String(month));
+                          setIsAgeOpen(false);
+                        }}
+                      >
+                        {month} {month === 1 ? "Mês" : "Meses"}
+                      </li>
+                    ),
+                  )}
+
+                  {/* - Anos: 1 a 20 - */}
+
+                  <li className="px-4 py-2 font-semibold text-white bg-black">
+                    ANOS
+                  </li>
+
+                  {Array.from({ length: 20 }, (_, index) => index + 1).map(
+                    (year) => (
+                      <li
+                        className="px-4 py-2 cursor-pointer hover:bg-amber-100"
+                        key={`y-${year}`}
+                        onClick={() => {
+                          setAge(String(year * 12));
+                          setIsAgeOpen(false);
+                        }}
+                      >
+                        {year} {year === 1 ? "Ano" : "Anos"}
+                      </li>
+                    ),
+                  )}
+                </ul>
               </div>
             )}
           </div>
@@ -199,11 +300,15 @@ const RegisterPet = ({ onNext, onBack }: RegisterPetProps) => {
           <label className="text-sm font-semibold text-black/70">
             Espécie *
           </label>
-          <div className="relative">
+
+          <div
+            className="relative"
+            id="pet-species-container"
+          >
             <button
+              className={`w-full border border-black/40 rounded-lg bg-gray-200 hover:bg-amber-50 transition-colors px-4 py-2 flex items-center justify-between cursor-pointer ${selectedSpecies ? "text-black" : "text-gray-500"}`}
               type="button"
               onClick={() => setIsSpeciesOpen(!isSpeciesOpen)}
-              className={`w-full border border-black/40 rounded-lg bg-gray-200 hover:bg-amber-50 transition-colors px-4 py-2 flex items-center justify-between ${selectedSpecies ? "text-black" : "text-gray-500"}`}
             >
               {selectedSpecies?.value || "Selecione..."}
               <ChevronDown className="w-3.5 h-3.5 text-gray-500" />
@@ -233,7 +338,10 @@ const RegisterPet = ({ onNext, onBack }: RegisterPetProps) => {
 
         <div className="flex flex-col gap-1">
           <label className="text-sm font-semibold text-black/70">Raça *</label>
-          <div className="relative">
+          <div
+            className="relative"
+            id="pet-breed-container"
+          >
             <button
               type="button"
               disabled={!species}
@@ -273,7 +381,7 @@ const RegisterPet = ({ onNext, onBack }: RegisterPetProps) => {
         <RadioGroup
           label="Possui Pedigree? *"
           options={yesOrNoOptions}
-          value={pedigree ? "Sim" : "Não"}
+          value={pedigree === null ? "" : pedigree ? "Sim" : "Não"}
           onChange={(value) => setPedigree(value === "Sim")}
         />
 
@@ -289,7 +397,7 @@ const RegisterPet = ({ onNext, onBack }: RegisterPetProps) => {
         <RadioGroup
           label="Possui Carteira de Vacinação? *"
           options={yesOrNoOptions}
-          value={vaccinated ? "Sim" : "Não"}
+          value={vaccinated === null ? "" : vaccinated ? "Sim" : "Não"}
           onChange={(value) => setVaccinated(value === "Sim")}
         />
 
@@ -307,23 +415,24 @@ const RegisterPet = ({ onNext, onBack }: RegisterPetProps) => {
         <RadioGroup
           label="Já cruzou? *"
           options={yesOrNoOptions}
-          value={mated ? "Sim" : "Não"}
+          value={mated === null ? "" : mated ? "Sim" : "Não"}
           onChange={(value) => setMated(value === "Sim")}
         />
 
         <button
           type="button"
           onClick={advanceRegisterPet}
-          className="bg-linear-to-r from-amber-600 via-orange-600 to-red-600 text-white font-semibold text-lg rounded-lg px-6 py-2 hover:from-amber-400 hover:via-orange-400 hover:to-red-400 cursor-pointer"
+          disabled={isLoading}
+          className="bg-linear-to-r from-amber-600 via-orange-600 to-red-600 text-white font-semibold text-lg rounded-lg px-6 py-2 hover:from-amber-400 hover:via-orange-400 hover:to-red-400 cursor-pointer border border-black/40 disabled:opacity-60 disabled:cursor-not-allowed"
         >
-          Continuar
+          {isLoading ? "Validando..." : "Continuar"}
         </button>
 
         {/* - Erro - */}
 
-        <div className="min-h-10">
+        <div className="min-h-12">
           {petRegisterError && (
-            <p className="flex items-center justify-center min-h-10 rounded-lg bg-red-100 border border-red-300 text-red-700 text-sm font-semibold text-center py-2">
+            <p className="flex items-center justify-center min-h-12 rounded-lg bg-red-100 border border-red-300 text-red-700 text-sm font-semibold text-center py-2">
               {petRegisterError}
             </p>
           )}

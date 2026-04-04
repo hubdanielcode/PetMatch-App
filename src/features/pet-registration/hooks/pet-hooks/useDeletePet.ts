@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { deletePet as deletePetService } from "../services/petService";
-import type { Pet } from "../types/pet";
+import { deletePet as deletePetService } from "../../services/petService";
+import type { Pet } from "../../types/pet";
 
 const useDeletePet = () => {
   const [updatedPetList, setUpdatedPetList] = useState<Pet[]>([]);

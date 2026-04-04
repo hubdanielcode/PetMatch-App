@@ -122,8 +122,9 @@ const RecoverPassword = () => {
 
             <div className="w-full border border-black/40 bg-gray-100 rounded-lg flex px-4 py-2 focus-within:ring-2 focus-within:ring-amber-500 mb-4">
               <MdMail className="h-4 w-4 mr-3 mt-1 text-amber-600" />
+
               <input
-                className="w-full h-fit bg-transparent focus:outline-none rounded-lg placeholder:text-gray-500 text-black"
+                className="w-full h-fit bg-transparent focus:outline-none placeholder:text-gray-500 text-black"
                 id="recoverEmail"
                 type="email"
                 placeholder="exemplo@email.com"
@@ -135,7 +136,7 @@ const RecoverPassword = () => {
             {/* - Botão - */}
 
             <button
-              className="w-full h-10 bg-linear-to-r from-amber-600 via-orange-600 to-red-600 text-white font-semibold text-lg rounded-lg px-4 cursor-pointer hover:from-amber-400 hover:via-orange-400 hover:to-red-400"
+              className="w-full h-10 bg-linear-to-r from-amber-600 via-orange-600 to-red-600 text-white font-semibold text-lg rounded-lg px-4 cursor-pointer hover:from-amber-400 hover:via-orange-400 hover:to-red-400 border border-black/40"
               ref={buttonRef}
               onClick={handleResetPassword}
             >

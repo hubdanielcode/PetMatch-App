@@ -1,10 +1,9 @@
-import { useState } from "react";
 import { FaMars } from "react-icons/fa";
-import { useRegistrationContext } from "../../hooks/useRegistrationContext";
+import { useRegistrationContext } from "../../hooks/context-hooks/useRegistrationContext";
 
 export type Testicles = "0" | "1" | "2" | "";
 
-const options = [
+export const TesticleOptions = [
   {
     value: "0" as const,
     label: "Nenhum testículo",
@@ -47,13 +46,17 @@ const options = [
   },
 ];
 
-const AnamneseTesticles = () => {
+interface AnamneseTesticlesProps {
+  value: Testicles;
+  onChange: (value: Testicles) => void;
+}
+
+const AnamneseTesticles = ({ value, onChange }: AnamneseTesticlesProps) => {
+  const selectedOption = TesticleOptions.find(
+    (option) => option.value === value,
+  );
   const { setCryptorchidism_bilateral, setCryptorchidism_unilateral } =
     useRegistrationContext();
-
-  const [selected, setSelected] = useState<Testicles>("");
-
-  const selectedOption = options.find((o) => o.value === selected);
 
   return (
     <>
@@ -79,8 +82,8 @@ const AnamneseTesticles = () => {
       </label>
 
       <div className="mx-6 -mb-7">
-        {options.map((option) => {
-          const isSelected = selected === option.value;
+        {TesticleOptions.map((option) => {
+          const isSelected = value === option.value;
 
           return (
             <button
@@ -92,7 +95,7 @@ const AnamneseTesticles = () => {
               key={option.value}
               type="button"
               onClick={() => {
-                setSelected(option.value);
+                onChange(option.value);
                 setCryptorchidism_bilateral(option.value === "0");
                 setCryptorchidism_unilateral(option.value === "1");
               }}

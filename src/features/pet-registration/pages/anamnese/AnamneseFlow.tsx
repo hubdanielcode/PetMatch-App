@@ -8,16 +8,33 @@ import { AnamneseSurgeries } from "./AnamneseSurgeries";
 import { AnamneseDiseases } from "./AnamneseDiseases";
 import { AnamneseTesticles } from "./AnamneseTesticles";
 import { AnamneseReproduction } from "./AnamneseReproduction";
-import { useRegistrationContext } from "../../hooks/useRegistrationContext";
+import { useRegistrationContext } from "../../hooks/context-hooks/useRegistrationContext";
 
 interface AnamneseProps {
   onNext: () => Promise<void>;
   onBack?: () => void;
 }
 
-const Anamnese = ({ onNext, onBack }: AnamneseProps) => {
+const AnamneseFlow = ({ onNext, onBack }: AnamneseProps) => {
   const [currentStep, setCurrentStep] = useState(1);
-  const { gender, mated } = useRegistrationContext();
+  const {
+    gender,
+    mated,
+    feedingInfo,
+    setFeedingInfo,
+    walksInfo,
+    setWalksInfo,
+    behaviorInfo,
+    setBehaviorInfo,
+    surgeriesInfo,
+    setSurgeriesInfo,
+    diseasesInfo,
+    setDiseasesInfo,
+    testiclesInfo,
+    setTesticlesInfo,
+    reproductionInfo,
+    setReproductionInfo,
+  } = useRegistrationContext();
 
   const steps = [
     "Alimentação",
@@ -92,16 +109,55 @@ const Anamnese = ({ onNext, onBack }: AnamneseProps) => {
 
         {/* - Conteúdo - */}
 
-        {steps[currentStep - 1] === "Alimentação" && <AnamneseFeeding />}
-        {steps[currentStep - 1] === "Passeios" && <AnamneseWalks />}
-        {steps[currentStep - 1] === "Comportamento" && <AnamneseBehavior />}
-        {steps[currentStep - 1] === "Cirurgias" && <AnamneseSurgeries />}
-        {steps[currentStep - 1] === "Histórico de Doenças" && (
-          <AnamneseDiseases />
+        {steps[currentStep - 1] === "Alimentação" && (
+          <AnamneseFeeding
+            value={feedingInfo}
+            onChange={(value) => setFeedingInfo(value)}
+          />
         )}
-        {steps[currentStep - 1] === "Testículos" && <AnamneseTesticles />}
+
+        {steps[currentStep - 1] === "Passeios" && (
+          <AnamneseWalks
+            value={walksInfo}
+            onChange={(value) => setWalksInfo(value)}
+          />
+        )}
+
+        {steps[currentStep - 1] === "Comportamento" && (
+          <AnamneseBehavior
+            value={behaviorInfo}
+            onChange={(value) => setBehaviorInfo(value)}
+          />
+        )}
+
+        {steps[currentStep - 1] === "Cirurgias" && (
+          <AnamneseSurgeries
+            value={surgeriesInfo}
+            onChange={(value) => setSurgeriesInfo(value)}
+          />
+        )}
+
+        {steps[currentStep - 1] === "Histórico de Doenças" && (
+          <AnamneseDiseases
+            value={diseasesInfo}
+            onChange={(value) => setDiseasesInfo(value)}
+          />
+        )}
+
+        {steps[currentStep - 1] === "Testículos" && (
+          <AnamneseTesticles
+            value={testiclesInfo}
+            onChange={(value) => {
+              setTesticlesInfo(value);
+            }}
+          />
+        )}
+
         {steps[currentStep - 1] === "Histórico Reprodutivo" && (
-          <AnamneseReproduction />
+          <AnamneseReproduction
+            value={reproductionInfo}
+            onChange={(value) => setReproductionInfo(value)}
+          />
         )}
 
         {/* - Navegação Inferior - */}
@@ -130,4 +186,4 @@ const Anamnese = ({ onNext, onBack }: AnamneseProps) => {
   );
 };
 
-export { Anamnese };
+export { AnamneseFlow };

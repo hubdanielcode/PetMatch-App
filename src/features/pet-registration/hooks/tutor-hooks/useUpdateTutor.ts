@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { updateTutor as updateTutorService } from "../services/tutorService";
-import type { Tutor } from "./../types/tutor";
+import { updateTutor as updateTutorService } from "../../services/tutorService";
+import type { Tutor } from "../../types/tutor";
 
 const useUpdateTutor = () => {
   const [updatedTutorList, setUpdatedTutorList] = useState<Tutor[]>([]);
