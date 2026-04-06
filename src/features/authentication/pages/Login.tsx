@@ -100,11 +100,11 @@ const Login = () => {
         </div>
       </div>
 
-      <div className="min-h-screen max-w-full bg-linear-to-br from-amber-100 via-orange-100 to-red-100 flex items-center justify-center relative">
+      <div className="min-h-screen max-w-full bg-linear-to-br from-amber-100 via-orange-100 to-red-100 flex flex-col items-center justify-center relative">
         {/* - Logo - */}
 
         <img
-          className="absolute top-43 right-118 h-20 w-30"
+          className="absolute top-40 right-118 h-20 w-30"
           src={PetMatch}
           alt="PetMatch Logo"
         />
@@ -180,7 +180,7 @@ const Login = () => {
 
             <div className="flex gap-2 justify-center">
               <Link
-                className="flex justify-center text-sm hover:bg-linear-to-r hover:from-amber-600 hover:via-orange-600 hover:to-red-600 hover:bg-clip-text hover:text-transparent hover:underline my-2 cursor-pointer font-semibold"
+                className="flex justify-center text-sm hover:bg-linear-to-b hover:from-amber-600 hover:via-orange-600 hover:to-red-600 hover:bg-clip-text hover:text-transparent hover:underline my-2 cursor-pointer font-semibold"
                 to="/recuperar-senha"
               >
                 Esqueci minha senha
@@ -215,13 +215,31 @@ const Login = () => {
               </p>
 
               <Link
-                className="text-sm hover:bg-linear-to-r hover:from-amber-600 hover:via-orange-600 hover:to-red-600 hover:bg-clip-text hover:text-transparent hover:underline my-2 cursor-pointer font-semibold"
+                className="text-sm hover:bg-linear-to-b hover:from-amber-600 hover:via-orange-600 hover:to-red-600 hover:bg-clip-text hover:text-transparent hover:underline my-2 cursor-pointer font-semibold"
                 to="/cadastro"
               >
                 Cadastre-se
               </Link>
             </div>
           </div>
+        </div>
+        <div className="flex flex-col pt-10">
+          <p className="text-black text-sm font-semibold">
+            Ao continuar, você concorda com nossos{" "}
+            <Link
+              className="bg-clip-text text-transparent bg-linear-to-b from-amber-600 via-orange-600 to-red-600 hover:underline cursor-pointer"
+              to="/termos-de-uso"
+            >
+              Termos de Uso{" "}
+            </Link>
+            e{" "}
+            <Link
+              className="bg-clip-text text-transparent bg-linear-to-b from-amber-600 via-orange-600 to-red-600 hover:underline cursor-pointer"
+              to="/ploitica-de-privacidade"
+            >
+              Política de Privacidade
+            </Link>
+          </p>
         </div>
       </div>
     </div>

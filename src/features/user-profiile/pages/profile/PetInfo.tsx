@@ -1,27 +1,45 @@
 import { CirclePlus } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useGetPets, useGetTutors } from "../../../pet-registration";
-import { FaTrashAlt, FaPenAlt } from "react-icons/fa";
+import { deletePet } from "../../../pet-registration/services/petService";
+import { FaTrashAlt } from "react-icons/fa";
 import { motion } from "framer-motion";
 import { Badges } from "../../../../shared/ui/Badges";
 import { supabase } from "../../../../../supabase/supabase";
 
 const PetInfo = () => {
   const navigate = useNavigate();
-  const { getPets, newPet } = useGetPets();
+  const { getPets, pets } = useGetPets();
   const { getTutors, tutor } = useGetTutors();
 
+  const [isLoading, setIsLoading] = useState<boolean | null>(null);
+  const [fetchActiveUserError, setFetchActiveUserError] = useState("");
+
   useEffect(() => {
-    const fetch = async () => {
-      await getPets();
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
-      if (user) getTutors(user.id);
+    const fetchActiveUser = async () => {
+      setIsLoading(true);
+      try {
+        await getPets();
+        const {
+          data: { user },
+        } = await supabase.auth.getUser();
+        if (user) getTutors(user.id);
+      } catch (error) {
+        if (fetchActiveUserError) {
+          setFetchActiveUserError("Erro ao buscar usuário logado");
+        }
+      } finally {
+        setIsLoading(false);
+      }
     };
-    fetch();
+    fetchActiveUser();
   }, []);
+
+  const handleDeletePet = async (id: string) => {
+    await deletePet(id);
+    await getPets();
+  };
 
   return (
     <div className="flex flex-col bg-white p-8 mx-[15%] w-[70%] border border-black/40 rounded-lg my-10 gap-6">
@@ -38,17 +56,22 @@ const PetInfo = () => {
           }
         >
           <CirclePlus className="h-4 w-4 my-1 mr-2 text-white" />
-          Adicionar Pet
+          Cadastrar Pet
         </div>
       </div>
 
       <div className="flex flex-wrap gap-4">
-        {newPet.length === 0 ? (
-          <p className="text-black/50 text-sm">
-            Ainda não há nenhum pet cadastrado.
-          </p>
-        ) : (
-          newPet.map((pet, index) => (
+        {/* - Carregando a lista de pets - */}
+
+        {isLoading && (
+          <p className="text-black/50 text-sm">Carregando seus pets...</p>
+        )}
+
+        {/* - Mostrando a lista de pets (com pets) - */}
+
+        {!isLoading &&
+          pets.length >= 1 &&
+          pets.map((pet, index) => (
             <motion.div
               key={pet.id}
               className="flex flex-col bg-white border border-black/40 rounded-xl w-72 overflow-hidden shadow-sm hover:shadow-lg shadow-black/20 cursor-pointer"
@@ -106,17 +129,23 @@ const PetInfo = () => {
                     Ver Perfil
                   </button>
 
-                  <button className="rounded-lg p-2 hover:bg-gray-200 cursor-pointer text-black hover:text-blue-500">
-                    <FaPenAlt className="h-5 w-5" />
-                  </button>
-
-                  <button className="rounded-lg p-2 hover:bg-gray-200 cursor-pointer text-black hover:text-red-500">
+                  <button
+                    className="rounded-lg p-2 hover:bg-gray-200 cursor-pointer text-black hover:text-red-500"
+                    onClick={() => handleDeletePet(pet.id)}
+                  >
                     <FaTrashAlt className="h-5 w-5" />
                   </button>
                 </div>
               </div>
             </motion.div>
-          ))
+          ))}
+
+        {/* - Carregando a lista de pets (sem pets) - */}
+
+        {!isLoading && pets.length === 0 && (
+          <p className="text-black/50 text-sm">
+            Ainda não há nenhum pet cadastrado.
+          </p>
         )}
       </div>
     </div>

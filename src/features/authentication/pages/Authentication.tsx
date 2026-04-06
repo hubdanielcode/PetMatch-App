@@ -144,7 +144,7 @@ const Authentication = () => {
         )}
       </AnimatePresence>
 
-      <div className="bg-[url('/animais-cama.png')] bg-cover bg-center bg-no-repeat text-white  border border-black/40">
+      <div className="bg-[url('/animais-cama.png')] bg-cover bg-center bg-no-repeat text-white border border-black/40">
         <div className="bg-linear-to-br from-orange-800/50 to-red-800/50 min-h-screen">
           <Card className="p-4 white text-justify mx-6">
             <CardTitle
@@ -175,11 +175,11 @@ const Authentication = () => {
         </div>
       </div>
 
-      <div className="min-h-screen max-w-full bg-linear-to-br from-amber-100 via-orange-100 to-red-100 flex items-center justify-center relative">
+      <div className="min-h-screen max-w-full bg-linear-to-br from-amber-100 via-orange-100 to-red-100 flex flex-col items-center justify-center relative">
         {/* - Logo - */}
 
         <img
-          className="absolute top-15 right-118 h-20 w-30"
+          className="absolute top-12 right-118 h-20 w-30"
           src={PetMatch}
           alt="PetMatch Logo"
         />
@@ -358,13 +358,31 @@ const Authentication = () => {
               </p>
 
               <Link
-                className="text-sm hover:bg-linear-to-r hover:from-amber-600 hover:via-orange-600 hover:to-red-600 hover:bg-clip-text hover:text-transparent hover:underline font-semibold my-2 cursor-pointer "
+                className="text-sm hover:bg-linear-to-b hover:from-amber-600 hover:via-orange-600 hover:to-red-600 hover:bg-clip-text hover:text-transparent hover:underline font-semibold my-2 cursor-pointer"
                 to="/"
               >
                 Faça Login!
               </Link>
             </div>
           </div>
+        </div>
+        <div className="flex flex-col pt-10">
+          <p className="text-black text-sm font-semibold">
+            Ao continuar, você concorda com nossos{" "}
+            <Link
+              className="bg-clip-text text-transparent bg-linear-to-b from-amber-600 via-orange-600 to-red-600 hover:underline cursor-pointer"
+              to="/termos-de-uso"
+            >
+              Termos de Uso{" "}
+            </Link>
+            e{" "}
+            <Link
+              className="bg-clip-text text-transparent bg-linear-to-b from-amber-600 via-orange-600 to-red-600 hover:underline cursor-pointer"
+              to="/ploitica-de-privacidade"
+            >
+              Política de Privacidade
+            </Link>
+          </p>
         </div>
       </div>
     </div>

@@ -89,7 +89,7 @@ const RecoverPassword = () => {
         </div>
       </div>
 
-      <div className="min-h-screen max-w-full bg-linear-to-br from-amber-100 via-orange-100 to-red-100 flex items-center justify-center relative">
+      <div className="min-h-screen max-w-full bg-linear-to-br from-amber-100 via-orange-100 to-red-100 flex flex-col items-center justify-center relative">
         {/* - Logo - */}
 
         <img
@@ -124,7 +124,8 @@ const RecoverPassword = () => {
               <MdMail className="h-4 w-4 mr-3 mt-1 text-amber-600" />
 
               <input
-                className="w-full h-fit bg-transparent focus:outline-none placeholder:text-gray-500 text-black"
+                className="w-full h-fit bg-transparent focus:outline-none
+                 placeholder:text-gray-500 text-black"
                 id="recoverEmail"
                 type="email"
                 placeholder="exemplo@email.com"
@@ -157,12 +158,30 @@ const RecoverPassword = () => {
 
             <div className="flex gap-2 justify-center">
               <Link
-                className="text-sm hover:bg-linear-to-r hover:from-amber-600 via-orange-600 hover:to-red-600 hover:bg-clip-text hover:text-transparent hover:underline my-2 cursor-pointer font-semibold"
+                className="text-sm hover:bg-linear-to-b hover:from-amber-600 via-orange-600 hover:to-red-600 hover:bg-clip-text hover:text-transparent hover:underline my-2 cursor-pointer font-semibold"
                 to="/"
               >
                 Voltar para a tela de Login
               </Link>
             </div>
+          </div>
+          <div className="flex flex-col pt-10">
+            <p className="text-black text-sm font-semibold">
+              Ao continuar, você concorda com nossos{" "}
+              <Link
+                className="bg-clip-text text-transparent bg-linear-to-b from-amber-600 via-orange-600 to-red-600 hover:underline cursor-pointer"
+                to="/termos-de-uso"
+              >
+                Termos de Uso{" "}
+              </Link>
+              e{" "}
+              <Link
+                className="bg-clip-text text-transparent bg-linear-to-b from-amber-600 via-orange-600 to-red-600 hover:underline cursor-pointer"
+                to="/ploitica-de-privacidade"
+              >
+                Política de Privacidade
+              </Link>
+            </p>
           </div>
         </div>
       </div>

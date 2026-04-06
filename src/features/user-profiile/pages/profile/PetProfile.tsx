@@ -30,19 +30,32 @@ import { deleteComment } from "../../services/commentService";
 const PetProfile = () => {
   const { newAnamnese, getAnamnese } = useGetAnamnese();
   const { comments, getComments } = useGetComments();
-
   const { updateComment } = useUpdateComment();
-
   const { createComment } = useCreateComment();
+
+  const [userId, setUserId] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchActiveUser = async () => {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      if (!user) {
+        throw new Error("Usuário não autenticado!");
+      }
+      setUserId(user?.id ?? null);
+    };
+    fetchActiveUser();
+  }, []);
 
   const navigate = useNavigate();
   const location = useLocation();
   const pet: Pet = location.state?.pet;
-  const tutor: Tutor = location.state?.tutor;
 
   /* - Definindo dados do tutor - */
 
   const [tutorPhotos, setTutorPhotos] = useState<Record<string, string>>({});
+  const [tutor, setTutor] = useState<Tutor | null>(null);
 
   /* - Definindo comentários - */
 
@@ -127,6 +140,8 @@ const PetProfile = () => {
     const fetch = async () => {
       getAnamnese(pet.id);
       getComments(pet.id);
+      const data = await getTutors(pet.user_id);
+      setTutor(data);
     };
     fetch();
   }, []);
@@ -440,13 +455,15 @@ const PetProfile = () => {
             Avaliações ({comments?.length})
           </p>
 
-          <button
-            className="flex bg-linear-to-br from-amber-600 via-orange-600 to-red-600 hover:from-amber-400 hover:via-orange-400 hover:to-red-400 text-white font-semibold px-4 py-2 border border-black/40 rounded-lg cursor-pointer"
-            type="button"
-            onClick={() => setIsRatingFormOpen(!isRatingFormOpen)}
-          >
-            Avaliar
-          </button>
+          {userId !== pet.user_id && (
+            <button
+              className="flex bg-linear-to-br from-amber-600 via-orange-600 to-red-600 hover:from-amber-400 hover:via-orange-400 hover:to-red-400 text-white font-semibold px-4 py-2 border border-black/40 rounded-lg cursor-pointer"
+              type="button"
+              onClick={() => setIsRatingFormOpen(!isRatingFormOpen)}
+            >
+              Avaliar
+            </button>
+          )}
         </div>
         {isRatingFormOpen && (
           <div className="w-full h-fit bg-gray-100 rounded-lg p-6 my-5">
@@ -573,12 +590,14 @@ const PetProfile = () => {
                           </div>
 
                           <div className="flex gap-3">
-                            <button
-                              className="flex bg-linear-to-br from-amber-600 via-orange-600 to-red-600 hover:from-amber-400 hover:via-orange-400 hover:to-red-400 text-white font-semibold px-4 py-2 border border-black/40 rounded-lg cursor-pointer"
-                              onClick={() => handleEditComment(comment.id)}
-                            >
-                              Salvar
-                            </button>
+                            {userId === comment.user_id && (
+                              <button
+                                className="flex bg-linear-to-br from-amber-600 via-orange-600 to-red-600 hover:from-amber-400 hover:via-orange-400 hover:to-red-400 text-white font-semibold px-4 py-2 border border-black/40 rounded-lg cursor-pointer"
+                                onClick={() => handleEditComment(comment.id)}
+                              >
+                                Salvar
+                              </button>
+                            )}
 
                             <button
                               className="flex bg-black hover:bg-gray-600 text-white font-semibold px-4 py-2 border border-black/40 rounded-lg cursor-pointer"
@@ -608,14 +627,15 @@ const PetProfile = () => {
                           <FaPenAlt className="h-5 w-5" />
                         </button>
                       )}
-
-                      <button
-                        className="rounded-lg p-2 hover:bg-gray-200 cursor-pointer text-black hover:text-red-500 ml-1"
-                        type="button"
-                        onClick={() => handleDeleteComment(comment.id)}
-                      >
-                        <FaTrashAlt className="h-5 w-5" />
-                      </button>
+                      {userId === comment.user_id && (
+                        <button
+                          className="rounded-lg p-2 hover:bg-gray-200 cursor-pointer text-black hover:text-red-500 ml-1"
+                          type="button"
+                          onClick={() => handleDeleteComment(comment.id)}
+                        >
+                          <FaTrashAlt className="h-5 w-5" />
+                        </button>
+                      )}
                     </div>
                   </div>
                 </li>
@@ -624,9 +644,15 @@ const PetProfile = () => {
           </div>
         ) : (
           <div>
-            <p className="text-md text-black/70 text-center mt-2">
-              Ainda não há avaliações aqui! Seja o primeiro.
-            </p>
+            {userId === pet.user_id ? (
+              <p className="text-md text-black/70 text-center mt-2">
+                Ainda não há avaliações para o seu pet!
+              </p>
+            ) : (
+              <p className="text-md text-black/70 text-center mt-2">
+                Ainda não há avaliações para este pet! Seja o primeiro.
+              </p>
+            )}
           </div>
         )}
       </div>

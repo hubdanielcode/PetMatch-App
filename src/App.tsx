@@ -2,7 +2,7 @@ import { supabase } from "../supabase/supabase";
 import type { AuthChangeEvent, Session } from "@supabase/supabase-js";
 import { useState, useEffect } from "react";
 import { Route, Routes, Outlet, useNavigate } from "react-router-dom";
-import { Header, Footer, Missing } from "./shared";
+import { Header, Footer, Missing, TermsOfUse, PrivacyPolicy } from "./shared";
 import {
   Authentication,
   Login,
@@ -14,6 +14,8 @@ import { MainPage, Modal } from "./shared";
 import { RegisterFlow } from "./features/pet-registration/pages/forms/RegisterFlow";
 import { TutorProfile } from "./features/user-profiile/pages/profile/TutorProfile";
 import { PetProfile } from "./features/user-profiile/pages/profile/PetProfile";
+import { About } from "./shared/pages/footer-links/About";
+import { HowDoesItWork } from "./shared/pages/footer-links/HowDoesItWork";
 
 const AppLayout = () => {
   return (
@@ -103,6 +105,28 @@ const App = () => {
               <Route
                 path="/perfil-pet"
                 element={<PetProfile />}
+              />
+
+              {/* - Rotas dos Link do Footer - */}
+
+              <Route
+                path="/sobre"
+                element={<About />}
+              />
+
+              <Route
+                path="/como-funciona"
+                element={<HowDoesItWork />}
+              />
+
+              <Route
+                path="/termos-de-uso"
+                element={<TermsOfUse />}
+              />
+
+              <Route
+                path="/politica-de-privacidade"
+                element={<PrivacyPolicy />}
               />
             </Route>
           </Route>

@@ -17,10 +17,12 @@ input:-webkit-autofill:active {
 
 html,
 body {
-  min-height: 100vh;
+  height: auto;
+  min-height: 100%;
   margin: 0;
   overflow-x: hidden;
 }
+
 #root {
   min-height: 100vh;
   display: flex;

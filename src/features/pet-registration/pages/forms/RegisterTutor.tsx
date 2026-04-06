@@ -9,6 +9,7 @@ import { useRegistrationContext } from "../../hooks/context-hooks/useRegistratio
 interface RegisterTutorProps {
   onNext: () => void;
   onBack?: () => void;
+  userId?: string;
 }
 
 const RegisterTutor = ({ onNext, onBack }: RegisterTutorProps) => {

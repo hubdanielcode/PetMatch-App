@@ -47,7 +47,7 @@ const MainPage = () => {
   }, [newPet, species, breed, mated, city, minAge, maxAge]);
 
   return (
-    <div className="bg-linear-to-br from-amber-100 via-orange-100 to-red-100 min-h-screen max-w-full">
+    <div className="bg-linear-to-br from-amber-100 via-orange-100 to-red-100 h-full max-w-full">
       <div className="flex flex-col w-[25%] ml-[15%] py-12">
         <h1 className="text-3xl font-bold text-black mb-1">Feed de Pets</h1>
         <p className="text-base font-semibold text-black/70">
@@ -55,7 +55,7 @@ const MainPage = () => {
         </p>
       </div>
 
-      <div className="flex gap-8 items-start ml-[15%] min-h-screen">
+      <div className="flex gap-8 items-start ml-[15%]">
         <PetFilter />
         <PetFeed pets={filteredPets} />
       </div>

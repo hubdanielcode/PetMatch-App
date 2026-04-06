@@ -14,7 +14,7 @@ import { supabase } from "../../../../../supabase/supabase";
 const TutorInfo = ({ user_id }: { user_id: string }) => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const { getTutors, tutor } = useGetTutors();
-  const { getPets, newPet } = useGetPets();
+  const { getPets, pets } = useGetPets();
 
   useEffect(() => {
     const fetchInformation = async () => {
@@ -107,7 +107,7 @@ const TutorInfo = ({ user_id }: { user_id: string }) => {
         <div className="flex flex-col">
           <p className="text-black font-semibold text-2xl">{tutor?.name}</p>
           <p className="text-sm text-black/70">
-            Tutor de {newPet.length} {newPet.length === 1 ? "pet" : "pets"}
+            Tutor de {pets.length} {pets.length === 1 ? "pet" : "pets"}
           </p>
         </div>
       </div>
