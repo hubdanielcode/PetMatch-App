@@ -2,7 +2,15 @@ import { supabase } from "../supabase/supabase";
 import type { AuthChangeEvent, Session } from "@supabase/supabase-js";
 import { useState, useEffect } from "react";
 import { Route, Routes, Outlet, useNavigate } from "react-router-dom";
-import { Header, Footer, Missing, TermsOfUse, PrivacyPolicy } from "./shared";
+import { motion } from "framer-motion";
+import {
+  Header,
+  Footer,
+  Missing,
+  TermsOfUse,
+  PrivacyPolicy,
+  Welcome,
+} from "./shared";
 import {
   Authentication,
   Login,
@@ -10,7 +18,7 @@ import {
   ProtectedRoute,
 } from "./features/authentication";
 import { RegistrationProvider } from "./features/pet-registration/context/RegistrationContext";
-import { MainPage, Modal } from "./shared";
+import { MainPage } from "./shared";
 import { RegisterFlow } from "./features/pet-registration/pages/forms/RegisterFlow";
 import { TutorProfile } from "./features/user-profiile/pages/profile/TutorProfile";
 import { PetProfile } from "./features/user-profiile/pages/profile/PetProfile";
@@ -31,9 +39,23 @@ const AppLayout = () => {
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
+  const [loadingDots, setLoadingDots] = useState<string[]>([]);
   const [session, setSession] = useState<Session | null>(null);
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setLoadingDots((prev) => {
+        if (prev.length > 3) {
+          return [];
+        } else {
+          return [...prev, "."];
+        }
+      });
+    }, 600);
+    return () => clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     const fetchSession = async () => {
@@ -64,7 +86,27 @@ const App = () => {
   }, []);
 
   if (isLoading) {
-    return <div>Carregando...</div>;
+    return (
+      <div className="justify-center items-center min-h-screen flex bg-linear-to-br from-amber-100 via-orange-100 to-red-100">
+        <span className="flex mx-auto text-5xl w-80 min-h-30 font-bold bg-clip-text text-transparent bg-linear-to-b from-amber-600 via-orange-600 to-red-600">
+          Carregando
+          <motion.span className="flex">
+            {loadingDots.map((dot, index) => (
+              <motion.span
+                className="ml-1"
+                key={index}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.2 }}
+              >
+                {dot}
+              </motion.span>
+            ))}
+          </motion.span>
+        </span>
+      </div>
+    );
   }
 
   return (
@@ -78,6 +120,20 @@ const App = () => {
             element={<Login />}
           />
 
+          {/* - Rota de Termos de Uso - */}
+
+          <Route
+            path="/termos-de-uso"
+            element={<TermsOfUse />}
+          />
+
+          {/* - Rota de Política de Privacidade - */}
+
+          <Route
+            path="/politica-de-privacidade"
+            element={<PrivacyPolicy />}
+          />
+
           {/* - Rota do Layout Principal: Protegida!! - */}
 
           <Route element={<ProtectedRoute session={session} />}>
@@ -88,8 +144,8 @@ const App = () => {
               />
 
               <Route
-                path="/modal"
-                element={<Modal />}
+                path="/bem-vindo"
+                element={<Welcome />}
               />
 
               <Route
@@ -117,16 +173,6 @@ const App = () => {
               <Route
                 path="/como-funciona"
                 element={<HowDoesItWork />}
-              />
-
-              <Route
-                path="/termos-de-uso"
-                element={<TermsOfUse />}
-              />
-
-              <Route
-                path="/politica-de-privacidade"
-                element={<PrivacyPolicy />}
               />
             </Route>
           </Route>

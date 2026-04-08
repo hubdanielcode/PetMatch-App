@@ -9,7 +9,6 @@ import { TesticleOptions } from "../../../pet-registration/pages/anamnese/Anamne
 import { StarRating } from "../../../../shared/ui/StarRating";
 import { useGetComments } from "../../hooks/useGetComments";
 import { useUpdateComment } from "../../../user-profiile/hooks/useUpdateComment";
-
 import {
   FaBrain,
   FaHeart,
@@ -162,8 +161,9 @@ const PetProfile = () => {
   }, [comments]);
 
   return (
-    <div className="flex flex-col p-5 bg-linear-to-br from-amber-100 via-orange-100 to-red-100 min-h-screen w-full">
-      <div className="w-[50%] mx-[12%] mb-4 flex">
+    <div className="flex flex-col p-3 sm:p-5 bg-linear-to-br from-amber-100 via-orange-100 to-red-100 min-h-screen w-full">
+      {/* Botão voltar */}
+      <div className="w-full sm:w-[50%] sm:mx-[12%] mb-4 flex">
         <button
           className="flex items-center text-black font-semibold px-4 py-2 cursor-pointer hover:bg-linear-to-br hover:from-amber-200 hover:via-orange-200 hover:to-red-200 rounded-lg"
           type="button"
@@ -174,25 +174,26 @@ const PetProfile = () => {
         </button>
       </div>
 
-      {/* - Carta do pet - */}
+      {/* - Carta do pet + Informações do tutor - */}
 
-      <div className="flex">
-        <div className="flex flex-col ml-[12%] mr-[2%] bg-white border border-black/40 rounded-xl w-[40%]">
+      <div className="flex flex-col lg:flex-row lg:items-start px-0 sm:px-[12%] lg:px-0">
+        {/* Carta do pet */}
+        <div className="flex flex-col mx-3 sm:mx-0 lg:ml-[12%] lg:mr-[2%] bg-white border border-black/40 rounded-xl w-auto lg:w-[40%]">
           <img
-            className="w-full h-130 object-cover object-center rounded-t-xl"
+            className="w-full h-64 sm:h-96 lg:h-130 object-cover object-center rounded-t-xl"
             src={pet?.photo_url}
             alt={pet?.name}
           />
 
           <div className="flex flex-col p-3 relative">
-            <div className="flex">
-              <p className="text-2xl text-black font-bold ml-4 mb-2 mr-120 whitespace-nowrap">
+            <div className="flex items-start">
+              <p className="text-xl sm:text-2xl text-black font-bold ml-2 sm:ml-4 mb-2 whitespace-nowrap">
                 {pet?.name}
               </p>
 
-              <div className="flex w-full">
+              <div className="flex w-full justify-end">
                 <StarRating
-                  className="absolute top-5 right-8"
+                  className="mt-1"
                   reviews={comments.length || undefined}
                   rating={handleCalculateRating(
                     comments.map((comment) => comment.rating),
@@ -201,7 +202,7 @@ const PetProfile = () => {
               </div>
             </div>
 
-            <p className="text-lg text-black/70 mx-4">
+            <p className="text-sm sm:text-lg text-black/70 mx-2 sm:mx-4">
               {pet?.breed ?? "Raça indisponível"} •{" "}
               {pet?.gender ?? "Gênero indisponível"} •{" "}
               {(() => {
@@ -212,7 +213,7 @@ const PetProfile = () => {
               })()}
             </p>
 
-            <div className="mt-2">
+            <div className="mt-2 mx-1 sm:mx-0">
               <Badges
                 size="md"
                 species={pet?.species as "Cachorro" | "Gato"}
@@ -228,7 +229,7 @@ const PetProfile = () => {
 
         {/* - Informações do tutor - */}
 
-        <div className="bg-white border border-black/40 rounded-xl p-6 flex flex-col gap-4 w-90 shrink-0 h-100">
+        <div className="bg-white border border-black/40 rounded-xl p-5 sm:p-6 flex flex-col gap-4 mx-3 sm:mx-0 mt-4 lg:mt-0 lg:w-90 shrink-0">
           <p className="text-lg font-bold text-black border-b border-black/20 pb-3">
             Informações do Tutor
           </p>
@@ -256,7 +257,6 @@ const PetProfile = () => {
           <div className="flex flex-col gap-3 text-sm text-black/70">
             <div className="flex items-center gap-3">
               <FaLocationDot className="h-4 w-4 text-amber-600 shrink-0" />
-
               <p>
                 {pet?.city && pet?.state ? `${pet.city}, ${pet.state}` : "—"}
               </p>
@@ -264,13 +264,11 @@ const PetProfile = () => {
 
             <div className="flex items-center gap-3">
               <MdMail className="h-4 w-4 text-amber-600 shrink-0" />
-
-              <p>{tutor?.email}</p>
+              <p className="break-all">{tutor?.email}</p>
             </div>
 
             <div className="flex items-center gap-3">
               <MdPhone className="h-4 w-4 text-amber-600 shrink-0" />
-
               <p>{tutor?.phone}</p>
             </div>
           </div>
@@ -295,7 +293,7 @@ const PetProfile = () => {
 
       {/* - Seção da anamnese - */}
 
-      <div className="flex flex-col ml-[12%] mr-[2%] mt-8 bg-white border border-black/40 rounded-xl w-[40%] p-6 shrink-0 h-full">
+      <div className="flex flex-col mx-3 sm:mx-[12%] lg:ml-[12%] lg:mr-[2%] mt-8 bg-white border border-black/40 rounded-xl lg:w-[40%] p-5 sm:p-6 shrink-0 h-full">
         <div className="flex flex-col mb-2">
           <p className="text-xl font-bold text-black border-b border-black/20 pb-3">
             Resumo da Anamnese
@@ -307,7 +305,6 @@ const PetProfile = () => {
             <div className="w-7 h-7 bg-orange-100 text-orange-600 flex items-center justify-center shrink-0 rounded-lg">
               <FaUtensils className="w-4 h-4" />
             </div>
-
             <p className="text-md font-semibold text-black">Alimentação</p>
           </div>
 
@@ -323,7 +320,6 @@ const PetProfile = () => {
             <div className="w-7 h-7 bg-orange-100 text-orange-600 flex items-center justify-center shrink-0 rounded-lg">
               <FaUtensils className="w-4 h-4" />
             </div>
-
             <p className="text-md font-semibold text-black">Passeios</p>
           </div>
 
@@ -339,7 +335,6 @@ const PetProfile = () => {
             <div className="w-7 h-7 bg-orange-100 text-orange-600 flex items-center justify-center shrink-0 rounded-lg">
               <FaBrain className="w-4 h-4" />
             </div>
-
             <p className="text-md font-semibold text-black">Comportamento</p>
           </div>
 
@@ -355,7 +350,6 @@ const PetProfile = () => {
             <div className="w-7 h-7 bg-orange-100 text-orange-600 flex items-center justify-center shrink-0 rounded-lg">
               <FaSyringe className="w-4 h-4" />
             </div>
-
             <p className="text-md font-semibold text-black">
               Histórico de Cirurgias
             </p>
@@ -373,7 +367,6 @@ const PetProfile = () => {
             <div className="w-7 h-7 bg-orange-100 text-orange-600 flex items-center justify-center shrink-0 rounded-lg">
               <FaVirus className="w-4 h-4" />
             </div>
-
             <p className="text-md font-semibold text-black">
               Histórico de Doenças
             </p>
@@ -392,7 +385,6 @@ const PetProfile = () => {
               <div className="w-7 h-7 bg-orange-100 text-orange-600 flex items-center justify-center shrink-0 rounded-lg">
                 <FaMars className="w-4 h-4" />
               </div>
-
               <p className="text-md font-semibold text-black">Testículos</p>
             </div>
 
@@ -409,7 +401,6 @@ const PetProfile = () => {
                       <p className="text-sm font-semibold text-black">
                         {selected.label}
                       </p>
-
                       <p className="text-xs text-black/70">
                         {selected.description}
                       </p>
@@ -434,7 +425,6 @@ const PetProfile = () => {
               <div className="w-7 h-7 bg-orange-100 text-orange-600 flex items-center justify-center shrink-0 rounded-lg">
                 <FaHeart className="w-4 h-4" />
               </div>
-
               <p className="text-md font-semibold text-black">
                 Histórico Reprodutivo
               </p>
@@ -449,7 +439,7 @@ const PetProfile = () => {
 
       {/* - Seção de comentários - */}
 
-      <div className="flex flex-col ml-[12%] mr-[2%] mt-8 bg-white border border-black/40 rounded-xl w-[40%] p-6 shrink-0 h-full">
+      <div className="flex flex-col mx-3 sm:mx-[12%] lg:ml-[12%] lg:mr-[2%] mt-8 bg-white border border-black/40 rounded-xl lg:w-[40%] p-5 sm:p-6 shrink-0 h-full">
         <div className="flex items-center">
           <p className="font-bold text-base mr-auto">
             Avaliações ({comments?.length})
@@ -465,49 +455,49 @@ const PetProfile = () => {
             </button>
           )}
         </div>
+
         {isRatingFormOpen && (
-          <div className="w-full h-fit bg-gray-100 rounded-lg p-6 my-5">
+          <div className="w-full h-fit bg-gray-100 rounded-lg p-4 sm:p-6 my-5">
             <div>
               <label className="text-md font-semibold text-black mt-5">
                 Sua Avaliação
               </label>
 
-              <ul className="flex p-1 gap-2 mb-1">
+              <ul className="flex p-1 gap-1 sm:gap-2 mb-1">
                 {stars.map((star, index) => (
                   <li key={index}>
-                    {
-                      <FaStar
-                        className={`flex gap-3 h-12 w-12 cursor-pointer ${star <= (hoveredStar ?? actualRating) ? "text-amber-400" : "text-gray-400"}`}
-                        onClick={() => setActualRating(star)}
-                        onMouseEnter={() => setHoveredStar(star)}
-                        onMouseLeave={() => setHoveredStar(null)}
-                      />
-                    }
+                    <FaStar
+                      className={`flex gap-3 h-8 w-8 sm:h-12 sm:w-12 cursor-pointer ${star <= (hoveredStar ?? actualRating) ? "text-amber-400" : "text-gray-400"}`}
+                      onClick={() => setActualRating(star)}
+                      onMouseEnter={() => setHoveredStar(star)}
+                      onMouseLeave={() => setHoveredStar(null)}
+                    />
                   </li>
                 ))}
               </ul>
             </div>
+
             <label className="text-md font-semibold text-black mt-5">
               Comentário
             </label>
 
             <textarea
-              className="w-full p-3 min-h-30 border-black-40 bg-gray-200 hover:bg-amber-50 rounded-lg focus-within:ring-2 focus-within:ring-amber-600 placeholder:text-gray-500 my-4"
+              className="w-full p-3 min-h-24 sm:min-h-30 border-black-40 bg-gray-200 hover:bg-amber-50 rounded-lg focus-within:ring-2 focus-within:ring-amber-600 placeholder:text-gray-500 my-4"
               placeholder="Compartilhe a sua experiência..."
               value={text}
               onChange={(e) => setText(e.target.value)}
             />
 
-            <div className="flex justify-between mx-8">
+            <div className="flex justify-between gap-3 px-0 sm:px-8">
               <button
-                className="flex bg-linear-to-br from-amber-600 via-orange-600 to-red-600 hover:from-amber-400 hover:via-orange-400 hover:to-red-400 text-white font-semibold px-4 py-2 border border-black/40 rounded-lg cursor-pointer"
+                className="flex bg-linear-to-br from-amber-600 via-orange-600 to-red-600 hover:from-amber-400 hover:via-orange-400 hover:to-red-400 text-white font-semibold px-3 sm:px-4 py-2 border border-black/40 rounded-lg cursor-pointer text-sm sm:text-base"
                 onClick={addComment}
               >
                 Enviar Avaliação
               </button>
 
               <button
-                className="flex bg-black hover:bg-gray-600 text-white font-semibold px-4 py-2 border border-black/40 rounded-lg cursor-pointer"
+                className="flex bg-black hover:bg-gray-600 text-white font-semibold px-3 sm:px-4 py-2 border border-black/40 rounded-lg cursor-pointer text-sm sm:text-base"
                 onClick={() => setIsRatingFormOpen(false)}
               >
                 Cancelar
@@ -535,7 +525,7 @@ const PetProfile = () => {
                   key={index}
                 >
                   <div className="flex items-center gap-3">
-                    <div className="h-10 w-10 border border-black/40 rounded-full overflow-hidden flex items-center justify-center">
+                    <div className="h-10 w-10 border border-black/40 rounded-full overflow-hidden flex items-center justify-center shrink-0">
                       {tutorPhotos[comment.user_id] ? (
                         <img
                           className="h-full w-full object-cover"
@@ -551,11 +541,11 @@ const PetProfile = () => {
                       )}
                     </div>
 
-                    <p className="font-bold text-lg text-black">
+                    <p className="font-bold text-base sm:text-lg text-black truncate">
                       {comment.name}
                     </p>
 
-                    <p className="text-sm text-black/50 ml-auto">
+                    <p className="text-xs sm:text-sm text-black/50 ml-auto shrink-0">
                       {new Date(comment.created_at).toLocaleDateString("pt-BR")}
                     </p>
                   </div>
@@ -569,10 +559,10 @@ const PetProfile = () => {
                     ))}
                   </div>
 
-                  <div className="flex gap-3 items-center">
-                    <div className="text-sm text-black/70 text-start">
+                  <div className="flex gap-3 items-start sm:items-center">
+                    <div className="text-sm text-black/70 text-start flex-1">
                       {editingId === comment.id ? (
-                        <div className="flex flex-col gap-2 w-140">
+                        <div className="flex flex-col gap-2 w-full">
                           <textarea
                             className="w-full p-3 bg-gray-200 rounded-lg"
                             value={editText}
@@ -592,7 +582,7 @@ const PetProfile = () => {
                           <div className="flex gap-3">
                             {userId === comment.user_id && (
                               <button
-                                className="flex bg-linear-to-br from-amber-600 via-orange-600 to-red-600 hover:from-amber-400 hover:via-orange-400 hover:to-red-400 text-white font-semibold px-4 py-2 border border-black/40 rounded-lg cursor-pointer"
+                                className="flex bg-linear-to-br from-amber-600 via-orange-600 to-red-600 hover:from-amber-400 hover:via-orange-400 hover:to-red-400 text-white font-semibold px-4 py-2 border border-black/40 rounded-lg cursor-pointer text-sm"
                                 onClick={() => handleEditComment(comment.id)}
                               >
                                 Salvar
@@ -600,7 +590,7 @@ const PetProfile = () => {
                             )}
 
                             <button
-                              className="flex bg-black hover:bg-gray-600 text-white font-semibold px-4 py-2 border border-black/40 rounded-lg cursor-pointer"
+                              className="flex bg-black hover:bg-gray-600 text-white font-semibold px-4 py-2 border border-black/40 rounded-lg cursor-pointer text-sm"
                               onClick={() => setEditingId(null)}
                             >
                               Cancelar
@@ -612,7 +602,7 @@ const PetProfile = () => {
                       )}
                     </div>
 
-                    <div className="ml-auto">
+                    <div className="flex shrink-0">
                       {new Date(comment.created_at).getTime() >=
                         Date.now() - 60000 && (
                         <button
@@ -624,7 +614,7 @@ const PetProfile = () => {
                             setEditRating(comment.rating);
                           }}
                         >
-                          <FaPenAlt className="h-5 w-5" />
+                          <FaPenAlt className="h-4 w-4 sm:h-5 sm:w-5" />
                         </button>
                       )}
                       {userId === comment.user_id && (
@@ -633,7 +623,7 @@ const PetProfile = () => {
                           type="button"
                           onClick={() => handleDeleteComment(comment.id)}
                         >
-                          <FaTrashAlt className="h-5 w-5" />
+                          <FaTrashAlt className="h-4 w-4 sm:h-5 sm:w-5" />
                         </button>
                       )}
                     </div>

@@ -27,6 +27,7 @@ const RecoverPassword = () => {
       setRecoverErrorMessage("Digite um endereço de email válido.");
       return;
     }
+
     const redirectUrl = import.meta.env.VITE_REDIRECT_URL;
 
     const { error } = await supabase.auth.resetPasswordForEmail(recoverEmail, {
@@ -57,8 +58,8 @@ const RecoverPassword = () => {
   }, []);
 
   return (
-    <div className="grid grid-cols-[1fr_2fr] min-h-screen">
-      <div className="bg-[url('/animais-cama.png')] bg-cover bg-center bg-no-repeat text-white font-semibold border border-black/40">
+    <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] min-h-screen">
+      <div className="hidden lg:block bg-[url('/animais-cama.png')] bg-cover bg-center bg-no-repeat text-white font-semibold border border-black/40">
         <div className="bg-linear-to-br from-orange-800/50 to-red-800/50 min-h-screen">
           <Card className="p-4 white text-justify mx-6">
             <CardTitle
@@ -70,6 +71,7 @@ const RecoverPassword = () => {
               className="my-12 text-xl"
               text="O PetMatch facilita encontros seguros para cruzamento de pets, conectando tutores que se preocupam com a saúde e bem-estar dos animais."
             />
+
             <CardActions className="flex-col space-y-8 text-md font-semibold">
               <FeatureItem
                 text="Perfis Verificados"
@@ -80,6 +82,7 @@ const RecoverPassword = () => {
                 text="Avaliações Confiáveis"
                 description="Sistema de reviews para garantir segurança."
               />
+
               <FeatureItem
                 text="Contato Direto"
                 description="Converse diretamente com outros tutores."
@@ -89,24 +92,25 @@ const RecoverPassword = () => {
         </div>
       </div>
 
-      <div className="min-h-screen max-w-full bg-linear-to-br from-amber-100 via-orange-100 to-red-100 flex flex-col items-center justify-center relative">
+      <div className="min-h-screen max-w-full bg-linear-to-br from-amber-100 via-orange-100 to-red-100 flex flex-col items-center justify-center relative px-4 py-8 lg:px-0">
         {/* - Logo - */}
 
         <img
-          className="absolute top-58 right-118 h-20 w-30"
+          className="absolute top-39 right-16 md:right-69 md:top-4 lg:top-56 lg:right-122 h-16 w-auto"
           src={PetMatch}
           alt="PetMatch Logo"
         />
 
-        <div className="flex flex-col items-center">
-          <h1 className="text-3xl font-bold bg-linear-to-b from-orange-600 to-red-600 bg-clip-text text-transparent mb-3">
+        <div className="flex flex-col items-center w-full">
+          <h1 className="text-3xl font-bold bg-linear-to-b from-amber-600 via-orange-600 to-red-600 bg-clip-text text-transparent mb-3">
             PetMatch
           </h1>
+
           <p className="font-semibold text-lg text-black/70 mb-6 text-center">
             Cruzamento com segurança para seu Pet.
           </p>
 
-          <div className="bg-white border border-black/40 w-120 h-auto rounded-lg px-4 py-2 flex flex-col mx-auto">
+          <div className="bg-white border border-black/40 w-full max-w-sm lg:max-w-md h-auto rounded-lg px-4 py-2 flex flex-col mx-auto">
             {/* - Input de email - */}
 
             <h1 className="font-bold text-3xl text-black text-center py-3">
@@ -124,8 +128,7 @@ const RecoverPassword = () => {
               <MdMail className="h-4 w-4 mr-3 mt-1 text-amber-600" />
 
               <input
-                className="w-full h-fit bg-transparent focus:outline-none
-                 placeholder:text-gray-500 text-black"
+                className="w-full bg-transparent focus:outline-none placeholder:text-gray-500 text-black"
                 id="recoverEmail"
                 type="email"
                 placeholder="exemplo@email.com"
@@ -158,14 +161,15 @@ const RecoverPassword = () => {
 
             <div className="flex gap-2 justify-center">
               <Link
-                className="text-sm hover:bg-linear-to-b hover:from-amber-600 via-orange-600 hover:to-red-600 hover:bg-clip-text hover:text-transparent hover:underline my-2 cursor-pointer font-semibold"
+                className="text-sm hover:bg-linear-to-b hover:from-amber-600 hover:via-orange-600 hover:to-red-600 hover:bg-clip-text hover:text-transparent hover:underline my-2 cursor-pointer font-semibold"
                 to="/"
               >
                 Voltar para a tela de Login
               </Link>
             </div>
           </div>
-          <div className="flex flex-col pt-10">
+
+          <div className="flex flex-col pt-8 px-4 text-center">
             <p className="text-black text-sm font-semibold">
               Ao continuar, você concorda com nossos{" "}
               <Link
@@ -177,7 +181,7 @@ const RecoverPassword = () => {
               e{" "}
               <Link
                 className="bg-clip-text text-transparent bg-linear-to-b from-amber-600 via-orange-600 to-red-600 hover:underline cursor-pointer"
-                to="/ploitica-de-privacidade"
+                to="/politica-de-privacidade"
               >
                 Política de Privacidade
               </Link>
@@ -188,4 +192,5 @@ const RecoverPassword = () => {
     </div>
   );
 };
+
 export { RecoverPassword };

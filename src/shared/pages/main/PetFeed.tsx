@@ -14,14 +14,14 @@ const PetFeed = ({ pets }: PetFeedProps) => {
     <div>
       {/* - Contagem de filtrados - */}
 
-      <p className="text-sm font-bold text-black/70 mb-6 ml-4">
+      <p className="text-sm font-bold text-black/70 mb-6 ml-8">
         {pets.length}{" "}
         {pets.length === 1 ? "Animal Encontrado" : "Animais Encontrados"}
       </p>
 
       {/* - Grid do feed - */}
 
-      <div className="grid grid-cols-4 grid-rows-3 gap-6 m-4">
+      <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 w-90 md:w-95 lg:w-full mx-auto gap-6 md:m-8 lg:gap-8">
         {pets.map((pet, index) => (
           <FeedCard
             key={pet.id}

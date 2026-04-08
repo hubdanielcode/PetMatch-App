@@ -37,22 +37,24 @@ const Header = () => {
   ];
 
   return (
-    <header className="flex w-full min-h-15 border-b border-black/40 bg-white justify-between items-center px-[10%] relative">
+    <header className="flex w-full min-h-15 border-b border-black/40 bg-white items-center px-4 md:px-8 lg:px-[10%] relative">
       {/* - Nome do app - */}
 
       <Link
         to="/pagina-principal"
         replace
-        className="text-2xl font-bold bg-linear-to-b from-amber-600 via-orange-600 to-red-600 bg-clip-text text-transparent"
+        className="text-xl md:text-2xl font-bold bg-linear-to-b from-amber-600 via-orange-600 to-red-600 bg-clip-text text-transparent"
       >
         PetMatch
       </Link>
 
-      <div className="flex items-center ml-auto mr-12">
+      {/* - Lado direito - */}
+
+      <div className="flex items-center ml-auto gap-3 md:gap-6">
         {/* - Cadastrar pet - */}
 
         <button
-          className="border border-black/40 bg-linear-to-r from-amber-600 via-orange-600 to-red-600 font-semibold text-white hover:from-amber-400 hover:via-orange-400 hover:to-red-400 rounded-lg px-4 py-2 flex gap-2 cursor-pointer"
+          className="border border-black/40 bg-linear-to-r from-amber-600 via-orange-600 to-red-600 font-semibold text-white hover:from-amber-400 hover:via-orange-400 hover:to-red-400 rounded-lg px-3 md:px-4 py-2 flex gap-2 cursor-pointer text-sm md:text-base"
           onClick={() =>
             navigate("/registrar-pet", {
               replace: true,
@@ -60,20 +62,18 @@ const Header = () => {
             })
           }
         >
-          <CirclePlus className="w-5 h-5 my-auto" />
-          Cadastrar Pet
+          <CirclePlus className="w-4 h-4 md:w-5 md:h-5 my-auto" />
+          <span className="hidden sm:inline">Cadastrar Pet</span>
         </button>
 
         {/* - Sessão do usuário: Nome e foto - */}
 
-        <div className="flex absolute right-25">
-          <span className="flex items-center text-black text-md font-semibold">
-            {tutor?.name ?? null}
-          </span>
+        <div className="hidden md:flex items-center text-black text-sm md:text-md font-semibold">
+          {tutor?.name ?? null}
         </div>
 
         <div
-          className="flex border border-black/40 h-10 w-10 rounded-full bg-linear-to-br from-amber-600 via-orange-600 to-red-600 text-white font-semibold text-xl items-center justify-center cursor-pointer overflow-hidden absolute right-10"
+          className="flex border border-black/40 h-9 w-9 md:h-10 md:w-10 rounded-full bg-linear-to-br from-amber-600 via-orange-600 to-red-600 text-white font-semibold text-lg items-center justify-center cursor-pointer overflow-hidden"
           role="button"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
         >
@@ -97,12 +97,13 @@ const Header = () => {
         {isMenuOpen && (
           <motion.div
             id="header-dropdown-menu"
-            initial={{ y: -155, x: 185, opacity: 0 }}
-            animate={{ y: -30, x: 185, opacity: 1 }}
-            exit={{ y: -155, opacity: 0 }}
-            transition={{ duration: 0.5 }}
+            initial={{ y: -20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: -20, opacity: 0 }}
+            transition={{ duration: 0.25 }}
+            className="absolute top-14 right-4 md:right-8 lg:right-[10%] z-10"
           >
-            <div className="absolute top-15 right-5 bg-white border border-t-0 border-black/40 rounded-lg shadow-lg w-50 z-10 font-semibold">
+            <div className="bg-white border border-black/40 rounded-lg shadow-lg w-44 md:w-50 font-semibold">
               <ul className="flex flex-col">
                 {menuOptions.map((option) => (
                   <li

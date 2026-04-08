@@ -42,14 +42,14 @@ const PetInfo = () => {
   };
 
   return (
-    <div className="flex flex-col bg-white p-8 mx-[15%] w-[70%] border border-black/40 rounded-lg my-10 gap-6">
-      <div className="flex justify-between border-b border-black/20 pb-4">
-        <span className="text-black font-bold text-2xl">
+    <div className="flex flex-col bg-white p-5 sm:p-8 m-8 sm:mx-[10%] lg:mx-[15%] w-auto sm:w-[80%] lg:w-[70%] border border-black/40 rounded-lg mt-6 sm:mt-10 gap-6">
+      <div className="flex flex-col sm:flex-row justify-between gap-4 sm:items-center border-b border-black/20 pb-4">
+        <span className="text-black font-bold text-xl sm:text-2xl">
           Meus Pets Cadastrados
         </span>
 
         <div
-          className="flex border border-black/40 bg-linear-to-br from-amber-600 via-orange-600 to-red-600 hover:from-amber-400 hover:via-orange-400 hover:to-red-400 rounded-lg px-4 py-2 font-semibold cursor-pointer text-white"
+          className="flex justify-center sm:justify-start border border-black/40 bg-linear-to-br from-amber-600 via-orange-600 to-red-600 hover:from-amber-400 hover:via-orange-400 hover:to-red-400 rounded-lg px-4 py-2 font-semibold cursor-pointer text-white text-sm sm:text-base"
           role="button"
           onClick={() =>
             navigate("/registrar-pet", { state: { from: "/perfil" } })
@@ -60,7 +60,7 @@ const PetInfo = () => {
         </div>
       </div>
 
-      <div className="flex flex-wrap gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {/* - Carregando a lista de pets - */}
 
         {isLoading && (
@@ -74,16 +74,16 @@ const PetInfo = () => {
           pets.map((pet, index) => (
             <motion.div
               key={pet.id}
-              className="flex flex-col bg-white border border-black/40 rounded-xl w-72 overflow-hidden shadow-sm hover:shadow-lg shadow-black/20 cursor-pointer"
+              className="flex flex-col bg-white border border-black/40 rounded-xl w-full overflow-hidden shadow-sm hover:shadow-lg shadow-black/20 cursor-pointer"
               initial={{ y: 0, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.8, delay: index * 0.3 }}
+              transition={{ duration: 0.6, delay: index * 0.2 }}
             >
               <div className="relative overflow-hidden">
                 <motion.img
                   src={pet.photo_url}
                   alt={pet.name}
-                  className="w-full h-48 object-cover object-center"
+                  className="w-full h-40 sm:h-48 object-cover object-center"
                   whileHover={{ scale: 1.05 }}
                   transition={{ duration: 0.3 }}
                 />
@@ -102,22 +102,26 @@ const PetInfo = () => {
 
               <div className="flex flex-col p-4 gap-3">
                 <div>
-                  <p className="text-black font-bold text-lg">{pet.name}</p>
-                  <p className="text-sm text-black/70 mt-1">
+                  <p className="text-black font-bold text-base sm:text-lg">
+                    {pet.name}
+                  </p>
+                  <p className="text-xs sm:text-sm text-black/70 mt-1">
                     {pet?.breed ?? "Raça indisponível"} •{" "}
                     {pet?.gender ?? "Gênero indisponível"} •{" "}
                     {(() => {
                       const petAge = Number(pet?.age ?? 0);
                       return petAge < 12
                         ? `${petAge} ${petAge === 1 ? "Mês" : "Meses"}`
-                        : `${Math.floor(petAge / 12)} ${Math.floor(petAge / 12) === 1 ? "Ano" : "Anos"}`;
+                        : `${Math.floor(petAge / 12)} ${
+                            Math.floor(petAge / 12) === 1 ? "Ano" : "Anos"
+                          }`;
                     })()}
                   </p>
                 </div>
 
                 <div className="flex gap-2 items-center">
                   <button
-                    className="flex-1 border border-black/40 rounded-lg py-2 text-sm font-semibold text-white bg-linear-to-br from-amber-600 via-orange-600 to-red-600 hover:from-amber-400 hover:via-orange-400 hover:to-red-400 cursor-pointer"
+                    className="flex-1 border border-black/40 rounded-lg py-2 text-xs sm:text-sm font-semibold text-white bg-linear-to-br from-amber-600 via-orange-600 to-red-600 hover:from-amber-400 hover:via-orange-400 hover:to-red-400 cursor-pointer"
                     onClick={() => {
                       console.log("tutor ao navegar:", tutor);
                       navigate("/perfil-pet", {

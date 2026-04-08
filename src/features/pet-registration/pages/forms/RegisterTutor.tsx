@@ -69,7 +69,7 @@ const RegisterTutor = ({ onNext, onBack }: RegisterTutorProps) => {
 
   return (
     <div className="flex flex-col justify-center p-5 bg-linear-to-br from-amber-100 via-orange-100 to-red-100 min-h-screen w-full">
-      <div className="w-[50%] mx-auto mb-4 flex">
+      <div className="w-full sm:w-[50%] mx-auto mb-4 flex">
         <button
           className="flex items-center text-black font-semibold px-4 py-2 cursor-pointer hover:bg-linear-to-br hover:from-amber-200 hover:via-orange-200 hover:to-red-200 rounded-lg"
           type="button"
@@ -80,7 +80,7 @@ const RegisterTutor = ({ onNext, onBack }: RegisterTutorProps) => {
         </button>
       </div>
 
-      <form className="flex flex-col bg-white border border-black/40 rounded-lg w-[50%] mx-auto overflow-y-auto gap-6 p-8">
+      <form className="flex flex-col bg-white border border-black/40 rounded-lg w-full sm:w-[50%] mx-auto overflow-y-auto gap-6 p-8">
         <h1 className="text-3xl font-semibold text-center border-b border-black/20 pb-4">
           Dados do Tutor
         </h1>
@@ -92,7 +92,7 @@ const RegisterTutor = ({ onNext, onBack }: RegisterTutorProps) => {
             Telefone *
           </label>
 
-          <div className="flex items-center border border-black/40 rounded-lg bg-gray-200 hover:bg-amber-50 transition-colors px-4 py-2 gap-3">
+          <div className="flex sm:flex-row items-center sm:items-stretch border border-black/40 rounded-lg bg-gray-200 hover:bg-amber-50 transition-colors px-4 py-2 gap-3">
             <FaPhone className="h-4 w-4 text-amber-600 shrink-0" />
             <input
               className="w-full bg-transparent focus:outline-none placeholder:text-gray-500 text-black"
@@ -109,14 +109,13 @@ const RegisterTutor = ({ onNext, onBack }: RegisterTutorProps) => {
         <div className="flex flex-col gap-4">
           <div className="flex items-center gap-2">
             <FaLocationDot className="h-5 w-5 text-amber-600" />
-
             <label className="text-sm font-semibold text-black/70">
               Endereço *
             </label>
           </div>
 
           <div className="flex flex-col gap-4 border border-black/10 rounded-lg p-4 bg-gray-50">
-            <div className="flex gap-3">
+            <div className="flex flex-col sm:flex-row gap-3">
               <div className="flex-1">
                 <label className="text-sm font-semibold mb-1 block text-black/70">
                   Logradouro *
@@ -130,7 +129,7 @@ const RegisterTutor = ({ onNext, onBack }: RegisterTutorProps) => {
                 />
               </div>
 
-              <div className="w-24">
+              <div className="w-full sm:w-24">
                 <label className="text-sm font-semibold mb-1 block text-black/70">
                   Número *
                 </label>
@@ -144,7 +143,7 @@ const RegisterTutor = ({ onNext, onBack }: RegisterTutorProps) => {
               </div>
             </div>
 
-            <div className="flex gap-3">
+            <div className="flex flex-col sm:flex-row gap-3">
               <div className="flex-1">
                 <label className="text-sm font-semibold mb-1 block text-black/70">
                   Complemento
@@ -172,7 +171,7 @@ const RegisterTutor = ({ onNext, onBack }: RegisterTutorProps) => {
               </div>
             </div>
 
-            <div className="flex gap-3">
+            <div className="flex flex-col sm:flex-row gap-3">
               <div className="flex-1">
                 <label className="text-sm font-semibold mb-1 block text-black/70">
                   Cidade *
@@ -186,7 +185,7 @@ const RegisterTutor = ({ onNext, onBack }: RegisterTutorProps) => {
                 />
               </div>
 
-              <div className="w-24">
+              <div className="w-full sm:w-24">
                 <label className="text-sm font-semibold mb-1 block text-black/70">
                   Estado *
                 </label>
@@ -203,7 +202,7 @@ const RegisterTutor = ({ onNext, onBack }: RegisterTutorProps) => {
               </div>
             </div>
 
-            <div className="w-40">
+            <div className="w-full sm:w-40">
               <label className="text-sm font-semibold mb-1 block text-black/70">
                 CEP *
               </label>

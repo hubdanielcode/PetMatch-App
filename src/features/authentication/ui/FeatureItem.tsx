@@ -13,14 +13,23 @@ const FeatureItem: React.FC<FeatureItemProps> = ({
   className,
 }) => {
   return (
-    <div className={`flex items-center gap-3 ${className}`}>
-      <CircleCheck className="rounded-full bg-gray-100/80 text-green-600 h-10 w-10" />
+    <div className={`flex items-start gap-4 ${className}`}>
+      {/* - Wrapper fixo do ícone - */}
 
+      <div className="h-9 w-9 flex items-center justify-center rounded-full bg-gray-100/80 shrink-0">
+        <CircleCheck className="text-green-600 h-9 w-9" />
+      </div>
+
+      {/* - Texto - */}
       <div style={{ textShadow: "0 0 2px black" }}>
-        <p className="text-lg font-semibold mb-1">{text}</p>
-        {description && <p className="text-md text-white/90">{description}</p>}
+        <p className="text-lg font-semibold mb-1 leading-tight">{text}</p>
+
+        {description && (
+          <p className="text-md text-white/90 leading-snug">{description}</p>
+        )}
       </div>
     </div>
   );
 };
+
 export { FeatureItem };

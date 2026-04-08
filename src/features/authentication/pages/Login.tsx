@@ -50,7 +50,7 @@ const Login = () => {
       return;
     }
 
-    navigate("/modal", { replace: true });
+    navigate("/bem-vindo", { replace: true });
   };
 
   useEffect(() => {
@@ -66,8 +66,8 @@ const Login = () => {
   }, []);
 
   return (
-    <div className="grid grid-cols-[1fr_2fr] min-h-screen">
-      <div className="bg-[url('/animais-cama.png')] bg-cover bg-center bg-no-repeat text-white font-semibold border border-black/40">
+    <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] min-h-screen">
+      <div className="hidden lg:block bg-[url('/animais-cama.png')] bg-cover bg-center bg-no-repeat text-white font-semibold border border-black/40">
         <div className="bg-linear-to-br from-orange-800/50 to-red-800/50 min-h-screen">
           <Card className="p-4 white text-justify mx-6">
             <CardTitle
@@ -100,16 +100,16 @@ const Login = () => {
         </div>
       </div>
 
-      <div className="min-h-screen max-w-full bg-linear-to-br from-amber-100 via-orange-100 to-red-100 flex flex-col items-center justify-center relative">
+      <div className="min-h-screen max-w-full bg-linear-to-br from-amber-100 via-orange-100 to-red-100 flex flex-col items-center justify-center relative px-4 py-8 lg:px-0 lg:py-0">
         {/* - Logo - */}
 
         <img
-          className="absolute top-40 right-118 h-20 w-30"
+          className="absolute top-23 right-12 md:top-3 md:right-64 lg:top-40 lg:right-118 h-20 w-30"
           src={PetMatch}
           alt="PetMatch Logo"
         />
 
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center w-full">
           <h1 className="text-3xl font-bold bg-linear-to-b from-amber-600 via-orange-600 to-red-600 bg-clip-text text-transparent mb-3">
             PetMatch
           </h1>
@@ -117,7 +117,7 @@ const Login = () => {
             Cruzamento com segurança para seu Pet.
           </p>
 
-          <div className="bg-white border border-black/40 w-120 h-auto rounded-lg px-4 py-2 flex flex-col mx-auto">
+          <div className="bg-white border border-black/40 w-full max-w-sm lg:w-120 h-auto rounded-lg px-4 py-2 flex flex-col mx-auto">
             {/* - Input de email - */}
 
             <h1 className="font-bold text-3xl text-black text-center py-3">
@@ -235,7 +235,7 @@ const Login = () => {
             e{" "}
             <Link
               className="bg-clip-text text-transparent bg-linear-to-b from-amber-600 via-orange-600 to-red-600 hover:underline cursor-pointer"
-              to="/ploitica-de-privacidade"
+              to="/politica-de-privacidade"
             >
               Política de Privacidade
             </Link>

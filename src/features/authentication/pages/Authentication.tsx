@@ -48,6 +48,7 @@ const Authentication = () => {
 
     if (!regex.email.test(email)) {
       setSignUpError("Formato de email inválido.");
+      return;
     }
 
     if (!firstName || !lastName || !email || !password || !confirmPassowrd) {
@@ -62,6 +63,7 @@ const Authentication = () => {
 
     if (password.length <= 5) {
       setSignUpError("A senha deve conter, pelo menos, 6 caracteres.");
+      return;
     }
 
     const redirectUrl = import.meta.env.VITE_REDIRECT_URL;
@@ -78,6 +80,7 @@ const Authentication = () => {
         emailRedirectTo: `${redirectUrl}/`,
       },
     });
+
     if (error) {
       setSignUpError(error.message);
       return;
@@ -93,6 +96,7 @@ const Authentication = () => {
         },
       ]);
     }
+
     if (!data.session) {
       setSignUpSuccess(true);
       setTimeout(() => setSignUpSuccess(false), 8000);
@@ -112,18 +116,17 @@ const Authentication = () => {
   }, []);
 
   return (
-    <div className="grid grid-cols-[1fr_2fr] min-h-screen">
+    <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] min-h-screen">
       {/* - Animação de criação de conta - */}
 
       <AnimatePresence>
         {signUpSuccess && (
           <motion.div
-            className="bg-gray-50 border border-green-600 rounded-lg w-76 p-4"
+            className="bg-gray-50 border border-green-600 rounded-lg w-72 md:w-80 p-4"
             style={{ position: "fixed", top: 24, right: 24, zIndex: 999 }}
             initial={{ x: 120, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             exit={{ x: 120, opacity: 0 }}
-            transition={{ duration: 1 }}
           >
             <div className="flex items-center mb-2">
               <CircleCheck className="text-green-600 h-5 w-5 mr-2" />
@@ -137,14 +140,13 @@ const Authentication = () => {
                 initial={{ width: "100%" }}
                 animate={{ width: "0%" }}
                 transition={{ duration: 3.5, ease: "linear" }}
-                onAnimationComplete={() => setSignUpSuccess(false)}
               />
             </div>
           </motion.div>
         )}
       </AnimatePresence>
 
-      <div className="bg-[url('/animais-cama.png')] bg-cover bg-center bg-no-repeat text-white border border-black/40">
+      <div className="hidden lg:block bg-[url('/animais-cama.png')] bg-cover bg-center bg-no-repeat text-white border border-black/40">
         <div className="bg-linear-to-br from-orange-800/50 to-red-800/50 min-h-screen">
           <Card className="p-4 white text-justify mx-6">
             <CardTitle
@@ -156,7 +158,7 @@ const Authentication = () => {
               className="my-12 text-xl"
               text="O PetMatch facilita encontros seguros para cruzamento de pets, conectando tutores que se preocupam com a saúde e bem-estar dos animais."
             />
-            <CardActions className="flex-col space-y-8 text-md ">
+            <CardActions className="flex flex-col space-y-8 text-md">
               <FeatureItem
                 text="Perfis Verificados"
                 description="Informações completas sobre saúde e histórico dos pets."
@@ -175,16 +177,16 @@ const Authentication = () => {
         </div>
       </div>
 
-      <div className="min-h-screen max-w-full bg-linear-to-br from-amber-100 via-orange-100 to-red-100 flex flex-col items-center justify-center relative">
+      <div className="min-h-screen max-w-full bg-linear-to-br from-amber-100 via-orange-100 to-red-100 flex flex-col items-center justify-center relative px-4 py-8 lg:px-0">
         {/* - Logo - */}
 
         <img
-          className="absolute top-12 right-118 h-20 w-30"
+          className="absolute top-4 right-16 md:top-4 md:right-69 lg:top-14 lg:right-122 h-16 w-auto"
           src={PetMatch}
           alt="PetMatch Logo"
         />
 
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center w-full">
           <h1 className="text-3xl font-bold bg-linear-to-b from-amber-600 via-orange-600 to-red-600 bg-clip-text text-transparent mb-3">
             PetMatch
           </h1>
@@ -193,7 +195,7 @@ const Authentication = () => {
             Cruzamento com segurança para seu Pet.
           </p>
 
-          <div className="bg-white border border-black/40 w-120 h-auto rounded-lg px-4 py-2 flex flex-col mx-auto">
+          <div className="bg-white border border-black/40 w-full max-w-sm lg:max-w-md rounded-lg px-4 py-2 flex flex-col mx-auto">
             {/* -  input do primeiro nome - */}
 
             <h1 className="font-bold text-3xl text-black text-center py-3">
@@ -211,7 +213,7 @@ const Authentication = () => {
               <FaUser className="h-4 w-4 mr-3 mt-1 text-amber-600" />
 
               <input
-                className="w-full h-fit bg-transparent focus:outline-none placeholder:text-gray-500 text-black"
+                className="w-full bg-transparent focus:outline-none placeholder:text-gray-500 text-black"
                 id="wholeName"
                 type="text"
                 placeholder="Seu Nome"
@@ -233,7 +235,7 @@ const Authentication = () => {
               <FaUser className="h-4 w-4 mr-3 mt-1 text-amber-600" />
 
               <input
-                className="w-full h-fit bg-transparent focus:outline-none placeholder:text-gray-500 text-black"
+                className="w-full bg-transparent focus:outline-none placeholder:text-gray-500 text-black"
                 id="lastName"
                 type="text"
                 placeholder="Seu Sobrenome"
@@ -255,7 +257,7 @@ const Authentication = () => {
               <MdEmail className="h-4 w-4 mr-3 mt-1 text-amber-600" />
 
               <input
-                className="w-full h-fit bg-transparent focus:outline-none placeholder:text-gray-500 text-black"
+                className="w-full bg-transparent focus:outline-none placeholder:text-gray-500 text-black"
                 id="email"
                 type="email"
                 placeholder="exemplo@email.com"
@@ -277,7 +279,7 @@ const Authentication = () => {
               <RiLockPasswordFill className="h-4 w-4 mr-3 mt-1 text-amber-600" />
 
               <input
-                className="w-full h-fit bg-transparent focus:outline-none placeholder:text-gray-500 text-black"
+                className="w-full bg-transparent focus:outline-none placeholder:text-gray-500 text-black"
                 id="password"
                 type={isPrivate ? "password" : "text"}
                 placeholder="********"
@@ -285,14 +287,11 @@ const Authentication = () => {
                 onChange={(e) => setPassword(e.target.value)}
               />
 
-              <button
-                className="flex items-center gap-2 bg-transparent rounded-lg py-1 px-2  whitespace-nowrap outline-none cursor-pointer"
-                onClick={() => setIsPrivate(!isPrivate)}
-              >
+              <button onClick={() => setIsPrivate(!isPrivate)}>
                 {isPrivate ? (
-                  <EyeClosed className="text-gray-500 h-4 w-4" />
+                  <EyeClosed className="h-4 w-4 text-gray-500" />
                 ) : (
-                  <Eye className="text-gray-500 h-4 w-4" />
+                  <Eye className="h-4 w-4 text-gray-500" />
                 )}
               </button>
             </div>
@@ -310,7 +309,7 @@ const Authentication = () => {
               <RiLockPasswordFill className="h-4 w-4 mr-3 mt-1 text-amber-600" />
 
               <input
-                className="w-full h-fit bg-transparent focus:outline-none placeholder:text-gray-500 text-black"
+                className="w-full bg-transparent focus:outline-none placeholder:text-gray-500 text-black"
                 id="password"
                 type={isConfirmPrivate ? "password" : "text"}
                 placeholder="********"
@@ -318,14 +317,11 @@ const Authentication = () => {
                 onChange={(e) => setConfirmPassword(e.target.value)}
               />
 
-              <button
-                className="flex items-center gap-2 bg-transparent rounded-lg py-1 px-2 whitespace-nowrap outline-none cursor-pointer"
-                onClick={() => setIsConfirmPrivate(!isConfirmPrivate)}
-              >
+              <button onClick={() => setIsConfirmPrivate(!isConfirmPrivate)}>
                 {isConfirmPrivate ? (
-                  <EyeClosed className="text-gray-500 h-4 w-4" />
+                  <EyeClosed className="h-4 w-4 text-gray-500" />
                 ) : (
-                  <Eye className="text-gray-500 h-4 w-4" />
+                  <Eye className="h-4 w-4 text-gray-500" />
                 )}
               </button>
             </div>
@@ -366,7 +362,8 @@ const Authentication = () => {
             </div>
           </div>
         </div>
-        <div className="flex flex-col pt-10">
+
+        <div className="flex flex-col pt-8 px-4 text-center">
           <p className="text-black text-sm font-semibold">
             Ao continuar, você concorda com nossos{" "}
             <Link
@@ -378,7 +375,7 @@ const Authentication = () => {
             e{" "}
             <Link
               className="bg-clip-text text-transparent bg-linear-to-b from-amber-600 via-orange-600 to-red-600 hover:underline cursor-pointer"
-              to="/ploitica-de-privacidade"
+              to="/politica-de-privacidade"
             >
               Política de Privacidade
             </Link>
@@ -388,4 +385,5 @@ const Authentication = () => {
     </div>
   );
 };
+
 export { Authentication };

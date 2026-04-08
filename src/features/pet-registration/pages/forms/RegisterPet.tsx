@@ -63,17 +63,9 @@ const RegisterPet = ({ onNext, onBack }: RegisterPetProps) => {
     const handleClickOutside = (e: MouseEvent) => {
       const target = e.target as Element;
 
-      if (!target.closest("#pet-age-container")) {
-        setIsAgeOpen(false);
-      }
-
-      if (!target.closest("#pet-species-container")) {
-        setIsSpeciesOpen(false);
-      }
-
-      if (!target.closest("#pet-breed-container")) {
-        setIsBreedOpen(false);
-      }
+      if (!target.closest("#pet-age-container")) setIsAgeOpen(false);
+      if (!target.closest("#pet-species-container")) setIsSpeciesOpen(false);
+      if (!target.closest("#pet-breed-container")) setIsBreedOpen(false);
     };
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
@@ -99,71 +91,41 @@ const RegisterPet = ({ onNext, onBack }: RegisterPetProps) => {
   const advanceRegisterPet = async () => {
     /* - Validação dos campos - */
 
-    if (!petPhoto) {
-      return setPetRegisterError("Adicione uma foto do pet.");
-    }
-
-    if (!petName) {
-      return setPetRegisterError("Preencha o nome do pet.");
-    }
-
-    if (!regex.petName.test(petName)) {
+    if (!petPhoto) return setPetRegisterError("Adicione uma foto do pet.");
+    if (!petName) return setPetRegisterError("Preencha o nome do pet.");
+    if (!regex.petName.test(petName))
       return setPetRegisterError("Nome do pet inválido.");
-    }
-
-    if (!species) {
-      return setPetRegisterError("Selecione a espécie.");
-    }
-
-    if (!breed) {
-      return setPetRegisterError("Selecione a raça.");
-    }
-
-    if (!gender) {
-      return setPetRegisterError("Selecione o sexo.");
-    }
-
-    if (pedigree === null) {
+    if (!species) return setPetRegisterError("Selecione a espécie.");
+    if (!breed) return setPetRegisterError("Selecione a raça.");
+    if (!gender) return setPetRegisterError("Selecione o sexo.");
+    if (pedigree === null)
       return setPetRegisterError("Informe se o pet possui pedigree.");
-    }
-
-    if (pedigree && !pedigreeFile) {
+    if (pedigree && !pedigreeFile)
       return setPetRegisterError("Anexe o pedigree.");
-    }
-
-    if (vaccinated === null) {
+    if (vaccinated === null)
       return setPetRegisterError(
         "Informe se o pet possui carteira de vacinação.",
       );
-    }
-
-    if (vaccinated && !vaccineFile) {
+    if (vaccinated && !vaccineFile)
       return setPetRegisterError("Anexe a carteira de vacinação.");
-    }
-
-    if (mated === null) {
+    if (mated === null)
       return setPetRegisterError("Informe se o pet já cruzou.");
-    }
 
     /* - Validação dos documentos - */
 
     setIsLoading(true);
-
     try {
       if (pedigree && pedigreeFile) {
         const result = await validateDocument(pedigreeFile, "pedigree");
-        if (!result.isValid) {
+        if (!result.isValid)
           return setPetRegisterError(`Pedigree inválido: ${result.reason}`);
-        }
       }
-
       if (vaccinated && vaccineFile) {
         const result = await validateDocument(vaccineFile, "vaccination_card");
-        if (!result.isValid) {
+        if (!result.isValid)
           return setPetRegisterError(
             `Carteira de vacinação inválida: ${result.reason}`,
           );
-        }
       }
     } catch {
       return setPetRegisterError(
@@ -179,7 +141,7 @@ const RegisterPet = ({ onNext, onBack }: RegisterPetProps) => {
 
   return (
     <div className="flex flex-col justify-center p-5 bg-linear-to-br from-amber-100 via-orange-100 to-red-100 min-h-screen w-full">
-      <div className="w-[50%] mx-auto mb-4 flex">
+      <div className="w-full max-w-2xl mx-auto mb-4 flex">
         <button
           className="flex items-center text-black font-semibold px-4 py-2 cursor-pointer hover:bg-linear-to-br hover:from-amber-200 hover:via-orange-200 hover:to-red-200 rounded-lg"
           type="button"
@@ -190,8 +152,8 @@ const RegisterPet = ({ onNext, onBack }: RegisterPetProps) => {
         </button>
       </div>
 
-      <form className="flex flex-col bg-white border border-black/40 rounded-lg w-[50%] mx-auto overflow-y-auto gap-6 p-8">
-        <h1 className="text-3xl font-semibold text-center border-b border-black/20 pb-4">
+      <form className="flex flex-col bg-white border border-black/40 rounded-lg w-full max-w-2xl mx-auto overflow-y-auto gap-6 p-6 sm:p-8">
+        <h1 className="text-2xl sm:text-3xl font-semibold text-center border-b border-black/20 pb-4">
           Cadastrar Pet
         </h1>
 
@@ -199,7 +161,7 @@ const RegisterPet = ({ onNext, onBack }: RegisterPetProps) => {
 
         <FileUpload
           id="pet-picture"
-          className="min-h-95"
+          className="min-h-80 sm:min-h-95"
           label="Foto do Pet *"
           accept="image/*"
           onChange={(file) => setPetPhoto(file!)}
@@ -223,20 +185,18 @@ const RegisterPet = ({ onNext, onBack }: RegisterPetProps) => {
 
         <div className="flex flex-col gap-1">
           <label className="text-sm font-semibold text-black/70">Idade *</label>
-
           <div
             className="relative"
             id="pet-age-container"
           >
             <button
-              className={` cursor-pointer w-full border border-black/40 rounded-lg bg-gray-200 hover:bg-amber-50 transition-colors px-4 py-2 flex items-center justify-between ${selectedSpecies ? "text-black" : "text-gray-500"}`}
+              className={`cursor-pointer w-full border border-black/40 rounded-lg bg-gray-200 hover:bg-amber-50 transition-colors px-4 py-2 flex items-center justify-between ${selectedSpecies ? "text-black" : "text-gray-500"}`}
               type="button"
               onClick={() => setIsAgeOpen(!isAgeOpen)}
             >
               {age
                 ? (() => {
                     const petAge = Number(age);
-                    console.log("age:", age);
                     return petAge < 12
                       ? `${petAge} ${petAge === 1 ? "Mês" : "Meses"}`
                       : `${petAge} ${petAge / 12 === 1 ? "Ano" : "Anos"}`;
@@ -251,8 +211,6 @@ const RegisterPet = ({ onNext, onBack }: RegisterPetProps) => {
                   MESES
                 </div>
                 <ul>
-                  {/* - Meses: 1 a 11 - */}
-
                   {Array.from({ length: 11 }, (_, index) => index + 1).map(
                     (month) => (
                       <li
@@ -267,13 +225,9 @@ const RegisterPet = ({ onNext, onBack }: RegisterPetProps) => {
                       </li>
                     ),
                   )}
-
-                  {/* - Anos: 1 a 20 - */}
-
                   <li className="px-4 py-2 font-semibold text-white bg-black">
                     ANOS
                   </li>
-
                   {Array.from({ length: 20 }, (_, index) => index + 1).map(
                     (year) => (
                       <li
@@ -300,7 +254,6 @@ const RegisterPet = ({ onNext, onBack }: RegisterPetProps) => {
           <label className="text-sm font-semibold text-black/70">
             Espécie *
           </label>
-
           <div
             className="relative"
             id="pet-species-container"
@@ -358,7 +311,7 @@ const RegisterPet = ({ onNext, onBack }: RegisterPetProps) => {
                   <div
                     key={option.value}
                     onClick={() => {
-                      setBreed(option.label);
+                      setBreed(option.value);
                       setIsBreedOpen(false);
                     }}
                     className="px-4 py-2 cursor-pointer hover:bg-amber-100 transition-colors"
@@ -406,9 +359,7 @@ const RegisterPet = ({ onNext, onBack }: RegisterPetProps) => {
             id="vaccine"
             className="min-h-20"
             label="Anexar Carteira de Vacinação *"
-            onChange={(file) => {
-              setVaccineFile(file!);
-            }}
+            onChange={(file) => setVaccineFile(file!)}
           />
         )}
 

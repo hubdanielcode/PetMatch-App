@@ -26,12 +26,12 @@ const AnamneseBehavior = ({ value, onChange }: AnamneseBehaviorProps) => {
         className="px-6 text-lg font-semibold mb-3 block"
         htmlFor="pet-walks"
       >
-        Como você descreveria o comportamento do seu pet? *
+        Como você descreveria o comportamento do seu pet?
       </label>
 
       <div className="mx-6 mb-6">
         <textarea
-          className="w-full border placeholder:text-gray-500 border-black/40 rounded-lg bg-gray-200 hover:bg-amber-50 transition-colors p-6 min-h-80"
+          className="w-full border placeholder:text-gray-500 border-black/40 rounded-lg bg-gray-200 hover:bg-amber-50 transition-colors p-4 sm:p-6 h-50   resize-none box-border"
           id="pet-walks"
           value={value}
           onChange={(e) => onChange(e.target.value)}

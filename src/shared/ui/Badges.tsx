@@ -28,14 +28,26 @@ const Badges: React.FC<BadgeProps> = ({
     cryptorchidism_unilateral,
   );
 
-  const badgeSize = size === "md" ? "text-sm px-3 py-1" : "text-xs px-2 py-0.5";
+  const badgeSize =
+    size === "md"
+      ? "text-xs sm:text-sm px-3 py-1"
+      : "text-[10px] sm:text-xs px-2 py-0.5";
 
   return (
-    <div className="flex flex-wrap px-2 py-1">
+    <div className="flex flex-wrap gap-1 px-1 sm:px-2 py-1">
       {badges.map((badge) => (
         <span
           key={badge.value}
-          className={`${badgeSize} font-semibold w-fit border rounded-full m-1 ${badge.badgeBackground} ${badge.badgeBorder} ${badge.badgeText}`}
+          className={`
+            ${badgeSize}
+            font-semibold
+            border
+            rounded-full
+            whitespace-nowrap
+            ${badge.badgeBackground}
+            ${badge.badgeBorder}
+            ${badge.badgeText}
+          `}
         >
           {badge.value}
         </span>

@@ -51,8 +51,8 @@ const PetFilter = () => {
   };
 
   return (
-    <div className=" bg-white border border-black/40 p-3 rounded-lg w-80 sticky top-6 self-start">
-      <form>
+    <div className="flex mx-auto bg-white border border-black/40 p-3 rounded-lg w-90 sticky top-6 self-start">
+      <form className="p-4 w-full">
         <p className="font-semibold text-lg text-black mb-6">Filtros</p>
 
         {/* - Filtrar por espécie - */}
@@ -63,7 +63,6 @@ const PetFilter = () => {
         >
           Espécies
         </label>
-
         <div
           className="w-full border border-black/40 bg-gray-100 rounded-lg flex px-2 py-1 focus-within:ring-2 focus-within:ring-amber-500 my-1"
           id="pet-species-container"
@@ -77,9 +76,8 @@ const PetFilter = () => {
             placeholder="Filtrar por Espécie"
             autoComplete="off"
           />
-
           {isSpeciesOpen && (
-            <div className="absolute w-65  mt-1 bg-white border border-black/20 rounded-lg shadow-lg z-10 overflow-hidden">
+            <div className="absolute w-65 mt-1 bg-white border border-black/20 rounded-lg shadow-lg z-10 overflow-hidden">
               {speciesOptions.map((option) => (
                 <div
                   className="px-4 py-2 cursor-pointer hover:bg-amber-100 transition-colors m-1 rounded-lg"
@@ -105,7 +103,6 @@ const PetFilter = () => {
         >
           Raça
         </label>
-
         <div className="w-full border border-black/40 bg-gray-100 rounded-lg flex px-2 py-1 focus-within:ring-2 focus-within:ring-amber-500 my-1">
           <input
             className="w-full h-6 bg-transparent text-sm focus:outline-none rounded-lg placeholder:text-gray-500 text-black ml-2"
@@ -126,7 +123,6 @@ const PetFilter = () => {
         >
           Idade (Anos)
         </label>
-
         <div className="w-full flex px-2 py-1 my-1 gap-3">
           <input
             className="w-full border border-black/40 focus:outline-none bg-gray-100 rounded-lg flex px-2 py-1 focus-within:ring-2 focus-within:ring-amber-500 my-1"
@@ -141,7 +137,6 @@ const PetFilter = () => {
             placeholder="Min"
             autoComplete="off"
           />
-
           <input
             className="w-full border border-black/40 focus:outline-none bg-gray-100 rounded-lg flex px-2 py-1 focus-within:ring-2 focus-within:ring-amber-500 my-1"
             id="max-pet-age"
@@ -165,7 +160,6 @@ const PetFilter = () => {
         >
           Experiência
         </label>
-
         <div
           className="w-full border border-black/40 bg-gray-100 rounded-lg flex px-2 py-1 focus-within:ring-2 focus-within:ring-amber-500 my-1"
           id="pet-mated-container"
@@ -179,9 +173,8 @@ const PetFilter = () => {
             placeholder="Todas"
             autoComplete="off"
           />
-
           {isMatedOpen && (
-            <div className="absolute w-65  mt-1 bg-white border border-black/20 rounded-lg shadow-lg z-10 overflow-hidden">
+            <div className="absolute w-65 mt-1 bg-white border border-black/20 rounded-lg shadow-lg z-10 overflow-hidden">
               {matedOptions.map((option) => (
                 <div
                   className="px-4 py-2 cursor-pointer hover:bg-amber-100 transition-colors m-1 rounded-lg"
@@ -206,7 +199,6 @@ const PetFilter = () => {
         >
           Região
         </label>
-
         <div className="w-full border border-black/40 bg-gray-100 rounded-lg flex px-2 py-1 focus-within:ring-2 focus-within:ring-amber-500 my-1">
           <input
             className="w-full h-6 bg-transparent text-sm focus:outline-none rounded-lg placeholder:text-gray-500 text-black ml-2"

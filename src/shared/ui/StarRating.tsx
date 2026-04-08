@@ -11,21 +11,35 @@ interface StarRatingProps {
 const StarRating = ({ rating, reviews, className }: StarRatingProps) => {
   return (
     <div
-      className={`flex flex-col bg-linear-to-br from-amber-200 via-orange-200 to-red-200 px-4 py-1 rounded-lg border border-black/40 ${className ?? ""}`}
+      className={`
+        flex flex-col items-center
+        bg-linear-to-br from-amber-200 via-orange-200 to-red-200
+        px-2 sm:px-3 py-1
+        rounded-lg border border-black/40
+        w-fit
+        ${className ?? ""}
+      `}
       aria-readonly
     >
-      <div className="flex items-center justify-start">
-        <FaStar className="h-4 w-4 text-black" />
-        <p className="text-black text-md font-semibold ml-2">
+      {/* - Nota - */}
+
+      <div className="flex items-center gap-1">
+        <FaStar className="h-3 w-3 sm:h-4 sm:w-4 text-black" />
+
+        <p className="text-xs sm:text-sm font-semibold text-black">
           {rating.toFixed(1)}
         </p>
       </div>
-      {reviews && (
-        <p className="text-sm text-black/70 whitespace-nowrap text-center">
+
+      {/* - Quantidade de avaliações - */}
+
+      {reviews !== undefined && (
+        <p className="text-[10px] sm:text-xs text-black/70 whitespace-nowrap">
           {reviews} {reviews === 1 ? "Avaliação" : "Avaliações"}
         </p>
       )}
     </div>
   );
 };
+
 export { StarRating };
