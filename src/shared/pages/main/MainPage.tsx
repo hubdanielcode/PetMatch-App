@@ -39,15 +39,15 @@ const MainPage = () => {
   }, [newPet, species, breed, mated, city, minAge, maxAge]);
 
   return (
-    <div className="bg-linear-to-br from-amber-100 via-orange-100 to-red-100 min-h-screen w-full px-4 md:px-8 lg:px-[10%] py-8">
+    <div className="bg-linear-to-br from-amber-100 via-orange-100 to-red-100 dark:from-amber-950 dark:via-orange-950 dark:to-red-950 min-h-screen w-full px-4 md:px-8 lg:px-[10%] py-8">
       {/* - Título - */}
 
       <div className="mb-6 md:mb-10 max-w-xl">
-        <h1 className="text-2xl md:text-3xl font-bold text-black mb-1">
+        <h1 className="text-2xl md:text-3xl font-bold text-black dark:text-white mb-1">
           Feed de Pets
         </h1>
 
-        <p className="text-sm md:text-base font-semibold text-black/70">
+        <p className="text-sm md:text-base font-semibold text-black/70 dark:text-white/70">
           Encontre o match perfeito para o seu pet!
         </p>
       </div>

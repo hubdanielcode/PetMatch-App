@@ -68,10 +68,10 @@ const RegisterTutor = ({ onNext, onBack }: RegisterTutorProps) => {
   };
 
   return (
-    <div className="flex flex-col justify-center p-5 bg-linear-to-br from-amber-100 via-orange-100 to-red-100 min-h-screen w-full">
+    <div className="flex flex-col justify-center p-5 bg-linear-to-br from-amber-100 via-orange-100 to-red-100 dark:from-amber-950 dark:via-orange-950 dark:to-red-950 min-h-screen w-full">
       <div className="w-full sm:w-[50%] mx-auto mb-4 flex">
         <button
-          className="flex items-center text-black font-semibold px-4 py-2 cursor-pointer hover:bg-linear-to-br hover:from-amber-200 hover:via-orange-200 hover:to-red-200 rounded-lg"
+          className="flex items-center text-black dark:text-white font-semibold px-4 py-2 cursor-pointer hover:bg-linear-to-br hover:from-amber-200 hover:via-orange-200 hover:to-red-200 dark:hover:from-amber-600/40 dark:hover:via-orange-600/40 dark:hover:to-red-600/40 rounded-lg transition-colors"
           type="button"
           onClick={onBack}
         >
@@ -80,22 +80,22 @@ const RegisterTutor = ({ onNext, onBack }: RegisterTutorProps) => {
         </button>
       </div>
 
-      <form className="flex flex-col bg-white border border-black/40 rounded-lg w-full sm:w-[50%] mx-auto overflow-y-auto gap-6 p-8">
-        <h1 className="text-3xl font-semibold text-center border-b border-black/20 pb-4">
+      <form className="flex flex-col bg-white dark:bg-gray-800 border border-black/40 dark:border-white/20 rounded-lg w-full sm:w-[50%] mx-auto overflow-y-auto gap-6 p-8">
+        <h1 className="text-3xl font-semibold text-center border-b border-black/20 dark:border-white/20 pb-4 text-black dark:text-white">
           Dados do Tutor
         </h1>
 
         {/* - Telefone - */}
 
         <div className="flex flex-col gap-1">
-          <label className="text-sm font-semibold text-black/70">
+          <label className="text-sm font-semibold text-black/70 dark:text-white/70">
             Telefone *
           </label>
 
-          <div className="flex sm:flex-row items-center sm:items-stretch border border-black/40 rounded-lg bg-gray-200 hover:bg-amber-50 transition-colors px-4 py-2 gap-3">
+          <div className="flex sm:flex-row items-center sm:items-stretch border border-black/40 dark:border-white/20 rounded-lg bg-gray-200 dark:bg-gray-700 hover:bg-amber-50 dark:hover:bg-amber-900/30 transition-colors px-4 py-2 gap-3">
             <FaPhone className="h-4 w-4 text-amber-600 shrink-0" />
             <input
-              className="w-full bg-transparent focus:outline-none placeholder:text-gray-500 text-black"
+              className="w-full bg-transparent focus:outline-none placeholder:text-gray-500 dark:placeholder:text-gray-400 text-black dark:text-white"
               type="tel"
               placeholder="(00) 00000-0000"
               value={phoneNumber}
@@ -109,20 +109,20 @@ const RegisterTutor = ({ onNext, onBack }: RegisterTutorProps) => {
         <div className="flex flex-col gap-4">
           <div className="flex items-center gap-2">
             <FaLocationDot className="h-5 w-5 text-amber-600" />
-            <label className="text-sm font-semibold text-black/70">
+            <label className="text-sm font-semibold text-black/70 dark:text-white/70">
               Endereço *
             </label>
           </div>
 
-          <div className="flex flex-col gap-4 border border-black/10 rounded-lg p-4 bg-gray-50">
+          <div className="flex flex-col gap-4 border border-black/10 dark:border-white/10 rounded-lg p-4 bg-gray-50 dark:bg-gray-700/50">
             <div className="flex flex-col sm:flex-row gap-3">
               <div className="flex-1">
-                <label className="text-sm font-semibold mb-1 block text-black/70">
+                <label className="text-sm font-semibold mb-1 block text-black/70 dark:text-white/70">
                   Logradouro *
                 </label>
 
                 <input
-                  className="w-full min-h-10 border border-black/40 rounded-lg bg-gray-200 hover:bg-amber-50 focus:bg-amber-50 transition-colors px-4 focus:outline-none"
+                  className="w-full min-h-10 border border-black/40 dark:border-white/20 rounded-lg bg-gray-200 dark:bg-gray-700 hover:bg-amber-50 dark:hover:bg-amber-900/30 focus:bg-amber-50 dark:focus:bg-amber-900/30 transition-colors px-4 focus:outline-none text-black dark:text-white placeholder:text-gray-500 dark:placeholder:text-gray-400"
                   placeholder="Nome da rua"
                   value={street}
                   onChange={(e) => setStreet(e.target.value)}
@@ -130,12 +130,12 @@ const RegisterTutor = ({ onNext, onBack }: RegisterTutorProps) => {
               </div>
 
               <div className="w-full sm:w-24">
-                <label className="text-sm font-semibold mb-1 block text-black/70">
+                <label className="text-sm font-semibold mb-1 block text-black/70 dark:text-white/70">
                   Número *
                 </label>
 
                 <input
-                  className="w-full min-h-10 border border-black/40 rounded-lg bg-gray-200 hover:bg-amber-50 focus:bg-amber-50 transition-colors px-4 focus:outline-none"
+                  className="w-full min-h-10 border border-black/40 dark:border-white/20 rounded-lg bg-gray-200 dark:bg-gray-700 hover:bg-amber-50 dark:hover:bg-amber-900/30 focus:bg-amber-50 dark:focus:bg-amber-900/30 transition-colors px-4 focus:outline-none text-black dark:text-white placeholder:text-gray-500 dark:placeholder:text-gray-400"
                   placeholder="Nº"
                   value={houseNumber}
                   onChange={(e) => setHouseNumber(masks.number(e.target.value))}
@@ -145,12 +145,12 @@ const RegisterTutor = ({ onNext, onBack }: RegisterTutorProps) => {
 
             <div className="flex flex-col sm:flex-row gap-3">
               <div className="flex-1">
-                <label className="text-sm font-semibold mb-1 block text-black/70">
+                <label className="text-sm font-semibold mb-1 block text-black/70 dark:text-white/70">
                   Complemento
                 </label>
 
                 <input
-                  className="w-full min-h-10 border border-black/40 rounded-lg bg-gray-200 hover:bg-amber-50 focus:bg-amber-50 transition-colors px-4 focus:outline-none"
+                  className="w-full min-h-10 border border-black/40 dark:border-white/20 rounded-lg bg-gray-200 dark:bg-gray-700 hover:bg-amber-50 dark:hover:bg-amber-900/30 focus:bg-amber-50 dark:focus:bg-amber-900/30 transition-colors px-4 focus:outline-none text-black dark:text-white placeholder:text-gray-500 dark:placeholder:text-gray-400"
                   placeholder="Apto, bloco..."
                   value={complement}
                   onChange={(e) => setComplement(e.target.value)}
@@ -158,12 +158,12 @@ const RegisterTutor = ({ onNext, onBack }: RegisterTutorProps) => {
               </div>
 
               <div className="flex-1">
-                <label className="text-sm font-semibold mb-1 block text-black/70">
+                <label className="text-sm font-semibold mb-1 block text-black/70 dark:text-white/70">
                   Bairro *
                 </label>
 
                 <input
-                  className="w-full min-h-10 border border-black/40 rounded-lg bg-gray-200 hover:bg-amber-50 focus:bg-amber-50 transition-colors px-4 focus:outline-none"
+                  className="w-full min-h-10 border border-black/40 dark:border-white/20 rounded-lg bg-gray-200 dark:bg-gray-700 hover:bg-amber-50 dark:hover:bg-amber-900/30 focus:bg-amber-50 dark:focus:bg-amber-900/30 transition-colors px-4 focus:outline-none text-black dark:text-white placeholder:text-gray-500 dark:placeholder:text-gray-400"
                   placeholder="Bairro"
                   value={neighborhood}
                   onChange={(e) => setNeighborhood(e.target.value)}
@@ -173,12 +173,12 @@ const RegisterTutor = ({ onNext, onBack }: RegisterTutorProps) => {
 
             <div className="flex flex-col sm:flex-row gap-3">
               <div className="flex-1">
-                <label className="text-sm font-semibold mb-1 block text-black/70">
+                <label className="text-sm font-semibold mb-1 block text-black/70 dark:text-white/70">
                   Cidade *
                 </label>
 
                 <input
-                  className="w-full min-h-10 border border-black/40 rounded-lg bg-gray-200 hover:bg-amber-50 focus:bg-amber-50 transition-colors px-4 focus:outline-none"
+                  className="w-full min-h-10 border border-black/40 dark:border-white/20 rounded-lg bg-gray-200 dark:bg-gray-700 hover:bg-amber-50 dark:hover:bg-amber-900/30 focus:bg-amber-50 dark:focus:bg-amber-900/30 transition-colors px-4 focus:outline-none text-black dark:text-white placeholder:text-gray-500 dark:placeholder:text-gray-400"
                   placeholder="Cidade"
                   value={city}
                   onChange={(e) => setCity(masks.city(e.target.value))}
@@ -186,12 +186,12 @@ const RegisterTutor = ({ onNext, onBack }: RegisterTutorProps) => {
               </div>
 
               <div className="w-full sm:w-24">
-                <label className="text-sm font-semibold mb-1 block text-black/70">
+                <label className="text-sm font-semibold mb-1 block text-black/70 dark:text-white/70">
                   Estado *
                 </label>
 
                 <input
-                  className="w-full min-h-10 border border-black/40 rounded-lg bg-gray-200 hover:bg-amber-50 focus:bg-amber-50 transition-colors px-4 focus:outline-none"
+                  className="w-full min-h-10 border border-black/40 dark:border-white/20 rounded-lg bg-gray-200 dark:bg-gray-700 hover:bg-amber-50 dark:hover:bg-amber-900/30 focus:bg-amber-50 dark:focus:bg-amber-900/30 transition-colors px-4 focus:outline-none text-black dark:text-white placeholder:text-gray-500 dark:placeholder:text-gray-400"
                   placeholder="UF"
                   maxLength={2}
                   value={state}
@@ -203,12 +203,12 @@ const RegisterTutor = ({ onNext, onBack }: RegisterTutorProps) => {
             </div>
 
             <div className="w-full sm:w-40">
-              <label className="text-sm font-semibold mb-1 block text-black/70">
+              <label className="text-sm font-semibold mb-1 block text-black/70 dark:text-white/70">
                 CEP *
               </label>
 
               <input
-                className="w-full min-h-10 border border-black/40 rounded-lg bg-gray-200 hover:bg-amber-50 focus:bg-amber-50 transition-colors px-4 focus:outline-none"
+                className="w-full min-h-10 border border-black/40 dark:border-white/20 rounded-lg bg-gray-200 dark:bg-gray-700 hover:bg-amber-50 dark:hover:bg-amber-900/30 focus:bg-amber-50 dark:focus:bg-amber-900/30 transition-colors px-4 focus:outline-none text-black dark:text-white placeholder:text-gray-500 dark:placeholder:text-gray-400"
                 placeholder="00000-000"
                 value={zipcode}
                 onChange={(e) => setZipcode(masks.zipcode(e.target.value))}
@@ -220,7 +220,7 @@ const RegisterTutor = ({ onNext, onBack }: RegisterTutorProps) => {
         <button
           type="button"
           onClick={completeRegistration}
-          className="bg-linear-to-r from-amber-600 via-orange-600 to-red-600 text-white font-semibold text-lg rounded-lg px-6 py-2 hover:from-amber-400 hover:via-orange-400 hover:to-red-400 cursor-pointer border border-black/40"
+          className="bg-linear-to-r from-amber-600 via-orange-600 to-red-600 text-white font-semibold text-lg rounded-lg px-6 py-2 hover:from-amber-400 hover:via-orange-400 hover:to-red-400 cursor-pointer border border-black/40 dark:border-white/20"
         >
           Cadastrar
         </button>
@@ -229,7 +229,7 @@ const RegisterTutor = ({ onNext, onBack }: RegisterTutorProps) => {
 
         <div className="min-h-12">
           {tutorRegisterError && (
-            <p className="flex items-center justify-center min-h-12 rounded-lg bg-red-100 border border-red-300 text-red-700 text-sm font-semibold text-center py-2">
+            <p className="flex items-center justify-center min-h-12 rounded-lg bg-red-100 dark:bg-red-600/40 border border-red-300 dark:border-red-500 text-red-700 dark:text-red-300 text-sm font-semibold text-center py-2">
               {tutorRegisterError}
             </p>
           )}

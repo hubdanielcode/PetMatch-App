@@ -18,18 +18,10 @@ interface RegisterPetProps {
 }
 
 const RegisterPet = ({ onNext, onBack }: RegisterPetProps) => {
-  /* - Estado de erro - */
-
   const [petRegisterError, setPetRegisterError] = useState("");
-
-  /* - Estados de dropdown - */
-
   const [isSpeciesOpen, setIsSpeciesOpen] = useState(false);
   const [isBreedOpen, setIsBreedOpen] = useState(false);
   const [isAgeOpen, setIsAgeOpen] = useState(false);
-
-  /* - Estado de carregamento - */
-
   const [isLoading, setIsLoading] = useState(false);
 
   const { dogBreeds, catBreeds } = usePetBreeds();
@@ -89,8 +81,6 @@ const RegisterPet = ({ onNext, onBack }: RegisterPetProps) => {
   const selectedBreed = breedOptions.find((option) => option.value === breed);
 
   const advanceRegisterPet = async () => {
-    /* - Validação dos campos - */
-
     if (!petPhoto) return setPetRegisterError("Adicione uma foto do pet.");
     if (!petName) return setPetRegisterError("Preencha o nome do pet.");
     if (!regex.petName.test(petName))
@@ -110,8 +100,6 @@ const RegisterPet = ({ onNext, onBack }: RegisterPetProps) => {
       return setPetRegisterError("Anexe a carteira de vacinação.");
     if (mated === null)
       return setPetRegisterError("Informe se o pet já cruzou.");
-
-    /* - Validação dos documentos - */
 
     setIsLoading(true);
     try {
@@ -140,10 +128,10 @@ const RegisterPet = ({ onNext, onBack }: RegisterPetProps) => {
   };
 
   return (
-    <div className="flex flex-col justify-center p-5 bg-linear-to-br from-amber-100 via-orange-100 to-red-100 min-h-screen w-full">
+    <div className="flex flex-col justify-center p-5 bg-linear-to-br from-amber-100 via-orange-100 to-red-100 dark:from-amber-950 dark:via-orange-950 dark:to-red-950 min-h-screen w-full">
       <div className="w-full max-w-2xl mx-auto mb-4 flex">
         <button
-          className="flex items-center text-black font-semibold px-4 py-2 cursor-pointer hover:bg-linear-to-br hover:from-amber-200 hover:via-orange-200 hover:to-red-200 rounded-lg"
+          className="flex items-center text-black dark:text-white font-semibold px-4 py-2 cursor-pointer hover:bg-linear-to-br hover:from-amber-200 hover:via-orange-200 hover:to-red-200 dark:hover:from-amber-600/40 dark:hover:via-orange-600/40 dark:hover:to-red-600/40 rounded-lg transition-colors"
           type="button"
           onClick={onBack}
         >
@@ -152,8 +140,8 @@ const RegisterPet = ({ onNext, onBack }: RegisterPetProps) => {
         </button>
       </div>
 
-      <form className="flex flex-col bg-white border border-black/40 rounded-lg w-full max-w-2xl mx-auto overflow-y-auto gap-6 p-6 sm:p-8">
-        <h1 className="text-2xl sm:text-3xl font-semibold text-center border-b border-black/20 pb-4">
+      <form className="flex flex-col bg-white dark:bg-gray-800 border border-black/40 dark:border-white/20 rounded-lg w-full max-w-2xl mx-auto overflow-y-auto gap-6 p-6 sm:p-8">
+        <h1 className="text-2xl sm:text-3xl font-semibold text-center border-b border-black/20 dark:border-white/20 pb-4 text-black dark:text-white">
           Cadastrar Pet
         </h1>
 
@@ -170,10 +158,12 @@ const RegisterPet = ({ onNext, onBack }: RegisterPetProps) => {
         {/* - Nome - */}
 
         <div className="flex flex-col gap-1">
-          <label className="text-sm font-semibold text-black/70">Nome *</label>
-          <div className="flex items-center border border-black/40 rounded-lg bg-gray-200 hover:bg-amber-50 transition-colors px-4 py-2 gap-3">
+          <label className="text-sm font-semibold text-black/70 dark:text-white/70">
+            Nome *
+          </label>
+          <div className="flex items-center border border-black/40 dark:border-white/20 rounded-lg bg-gray-200 dark:bg-gray-700 hover:bg-amber-50 dark:hover:bg-amber-900/30 transition-colors px-4 py-2 gap-3">
             <input
-              className="bg-transparent w-full focus:outline-none text-black placeholder:text-gray-500"
+              className="bg-transparent w-full focus:outline-none text-black dark:text-white placeholder:text-gray-500 dark:placeholder:text-gray-400"
               value={petName}
               onChange={(e) => setPetName(e.target.value)}
               placeholder="Nome do seu pet"
@@ -184,13 +174,15 @@ const RegisterPet = ({ onNext, onBack }: RegisterPetProps) => {
         {/* - Idade - */}
 
         <div className="flex flex-col gap-1">
-          <label className="text-sm font-semibold text-black/70">Idade *</label>
+          <label className="text-sm font-semibold text-black/70 dark:text-white/70">
+            Idade *
+          </label>
           <div
             className="relative"
             id="pet-age-container"
           >
             <button
-              className={`cursor-pointer w-full border border-black/40 rounded-lg bg-gray-200 hover:bg-amber-50 transition-colors px-4 py-2 flex items-center justify-between ${selectedSpecies ? "text-black" : "text-gray-500"}`}
+              className={`cursor-pointer w-full border border-black/40 dark:border-white/20 rounded-lg bg-gray-200 dark:bg-gray-700 hover:bg-amber-50 dark:hover:bg-amber-900/30 transition-colors px-4 py-2 flex items-center justify-between ${age ? "text-black dark:text-white" : "text-gray-500 dark:text-gray-400"}`}
               type="button"
               onClick={() => setIsAgeOpen(!isAgeOpen)}
             >
@@ -202,19 +194,19 @@ const RegisterPet = ({ onNext, onBack }: RegisterPetProps) => {
                       : `${petAge} ${petAge / 12 === 1 ? "Ano" : "Anos"}`;
                   })()
                 : "Selecione..."}
-              <ChevronDown className="w-3.5 h-3.5 text-gray-500" />
+              <ChevronDown className="w-3.5 h-3.5 text-gray-500 dark:text-gray-400" />
             </button>
 
             {isAgeOpen && (
-              <div className="absolute w-full mt-1 bg-white border border-black/20 rounded-lg shadow-lg z-10 overflow-hidden max-h-72 overflow-y-auto">
-                <div className="px-4 py-2 font-semibold text-white bg-black">
+              <div className="absolute w-full mt-1 bg-white dark:bg-gray-800 border border-black/20 dark:border-white/20 rounded-lg shadow-lg z-10 overflow-hidden max-h-72 overflow-y-auto">
+                <div className="px-4 py-2 font-semibold text-white bg-black dark:bg-gray-900">
                   MESES
                 </div>
                 <ul>
                   {Array.from({ length: 11 }, (_, index) => index + 1).map(
                     (month) => (
                       <li
-                        className="px-4 py-2 cursor-pointer hover:bg-amber-100"
+                        className="px-4 py-2 cursor-pointer hover:bg-amber-100 dark:hover:bg-amber-600/40 text-black dark:text-white"
                         key={`m-${month}`}
                         onClick={() => {
                           setAge(String(month));
@@ -225,13 +217,13 @@ const RegisterPet = ({ onNext, onBack }: RegisterPetProps) => {
                       </li>
                     ),
                   )}
-                  <li className="px-4 py-2 font-semibold text-white bg-black">
+                  <li className="px-4 py-2 font-semibold text-white bg-black dark:bg-gray-900">
                     ANOS
                   </li>
                   {Array.from({ length: 20 }, (_, index) => index + 1).map(
                     (year) => (
                       <li
-                        className="px-4 py-2 cursor-pointer hover:bg-amber-100"
+                        className="px-4 py-2 cursor-pointer hover:bg-amber-100 dark:hover:bg-amber-600/40 text-black dark:text-white"
                         key={`y-${year}`}
                         onClick={() => {
                           setAge(String(year * 12));
@@ -251,7 +243,7 @@ const RegisterPet = ({ onNext, onBack }: RegisterPetProps) => {
         {/* - Espécie - */}
 
         <div className="flex flex-col gap-1">
-          <label className="text-sm font-semibold text-black/70">
+          <label className="text-sm font-semibold text-black/70 dark:text-white/70">
             Espécie *
           </label>
           <div
@@ -259,16 +251,16 @@ const RegisterPet = ({ onNext, onBack }: RegisterPetProps) => {
             id="pet-species-container"
           >
             <button
-              className={`w-full border border-black/40 rounded-lg bg-gray-200 hover:bg-amber-50 transition-colors px-4 py-2 flex items-center justify-between cursor-pointer ${selectedSpecies ? "text-black" : "text-gray-500"}`}
+              className={`w-full border border-black/40 dark:border-white/20 rounded-lg bg-gray-200 dark:bg-gray-700 hover:bg-amber-50 dark:hover:bg-amber-900/30 transition-colors px-4 py-2 flex items-center justify-between cursor-pointer ${selectedSpecies ? "text-black dark:text-white" : "text-gray-500 dark:text-gray-400"}`}
               type="button"
               onClick={() => setIsSpeciesOpen(!isSpeciesOpen)}
             >
               {selectedSpecies?.value || "Selecione..."}
-              <ChevronDown className="w-3.5 h-3.5 text-gray-500" />
+              <ChevronDown className="w-3.5 h-3.5 text-gray-500 dark:text-gray-400" />
             </button>
 
             {isSpeciesOpen && (
-              <div className="absolute w-full mt-1 bg-white border border-black/20 rounded-lg shadow-lg z-10 overflow-hidden">
+              <div className="absolute w-full mt-1 bg-white dark:bg-gray-800 border border-black/20 dark:border-white/20 rounded-lg shadow-lg z-10 overflow-hidden">
                 {speciesOptions.map((option) => (
                   <div
                     key={option.value}
@@ -277,7 +269,7 @@ const RegisterPet = ({ onNext, onBack }: RegisterPetProps) => {
                       setBreed("");
                       setIsSpeciesOpen(false);
                     }}
-                    className="px-4 py-2 cursor-pointer hover:bg-amber-100 transition-colors"
+                    className="px-4 py-2 cursor-pointer hover:bg-amber-100 dark:hover:bg-amber-600/40 transition-colors text-black dark:text-white"
                   >
                     {option.label}
                   </div>
@@ -290,7 +282,9 @@ const RegisterPet = ({ onNext, onBack }: RegisterPetProps) => {
         {/* - Raça - */}
 
         <div className="flex flex-col gap-1">
-          <label className="text-sm font-semibold text-black/70">Raça *</label>
+          <label className="text-sm font-semibold text-black/70 dark:text-white/70">
+            Raça *
+          </label>
           <div
             className="relative"
             id="pet-breed-container"
@@ -299,14 +293,14 @@ const RegisterPet = ({ onNext, onBack }: RegisterPetProps) => {
               type="button"
               disabled={!species}
               onClick={() => species && setIsBreedOpen(!isBreedOpen)}
-              className={`w-full border border-black/40 rounded-lg bg-gray-200 transition-colors px-4 py-2 flex items-center justify-between ${species ? "hover:bg-amber-50 cursor-pointer" : "opacity-50 cursor-not-allowed"} ${selectedBreed ? "text-black" : "text-gray-500"}`}
+              className={`w-full border border-black/40 dark:border-white/20 rounded-lg bg-gray-200 dark:bg-gray-700 transition-colors px-4 py-2 flex items-center justify-between ${species ? "hover:bg-amber-50 dark:hover:bg-amber-900/30 cursor-pointer" : "opacity-50 cursor-not-allowed"} ${selectedBreed ? "text-black dark:text-white" : "text-gray-500 dark:text-gray-400"}`}
             >
               {selectedBreed?.label || "Selecione..."}
-              <ChevronDown className="w-3.5 h-3.5 text-gray-500" />
+              <ChevronDown className="w-3.5 h-3.5 text-gray-500 dark:text-gray-400" />
             </button>
 
             {isBreedOpen && (
-              <div className="absolute w-full mt-1 bg-white border border-black/20 rounded-lg shadow-lg z-10 max-h-48 overflow-y-auto">
+              <div className="absolute w-full mt-1 bg-white dark:bg-gray-800 border border-black/20 dark:border-white/20 rounded-lg shadow-lg z-10 max-h-48 overflow-y-auto">
                 {breedOptions.map((option) => (
                   <div
                     key={option.value}
@@ -314,7 +308,7 @@ const RegisterPet = ({ onNext, onBack }: RegisterPetProps) => {
                       setBreed(option.value);
                       setIsBreedOpen(false);
                     }}
-                    className="px-4 py-2 cursor-pointer hover:bg-amber-100 transition-colors"
+                    className="px-4 py-2 cursor-pointer hover:bg-amber-100 dark:hover:bg-amber-600/40 transition-colors text-black dark:text-white"
                   >
                     {option.label}
                   </div>
@@ -374,7 +368,7 @@ const RegisterPet = ({ onNext, onBack }: RegisterPetProps) => {
           type="button"
           onClick={advanceRegisterPet}
           disabled={isLoading}
-          className="bg-linear-to-r from-amber-600 via-orange-600 to-red-600 text-white font-semibold text-lg rounded-lg px-6 py-2 hover:from-amber-400 hover:via-orange-400 hover:to-red-400 cursor-pointer border border-black/40 disabled:opacity-60 disabled:cursor-not-allowed"
+          className="bg-linear-to-r from-amber-600 via-orange-600 to-red-600 text-white font-semibold text-lg rounded-lg px-6 py-2 hover:from-amber-400 hover:via-orange-400 hover:to-red-400 cursor-pointer border border-black/40 dark:border-white/20 disabled:opacity-60 disabled:cursor-not-allowed"
         >
           {isLoading ? "Validando..." : "Continuar"}
         </button>
@@ -383,7 +377,7 @@ const RegisterPet = ({ onNext, onBack }: RegisterPetProps) => {
 
         <div className="min-h-12">
           {petRegisterError && (
-            <p className="flex items-center justify-center min-h-12 rounded-lg bg-red-100 border border-red-300 text-red-700 text-sm font-semibold text-center py-2">
+            <p className="flex items-center justify-center min-h-12 rounded-lg bg-red-100 dark:bg-red-600/40 border border-red-300 dark:border-red-500 text-red-700 dark:text-red-300 text-sm font-semibold text-center py-2">
               {petRegisterError}
             </p>
           )}

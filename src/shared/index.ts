@@ -32,7 +32,7 @@ export { TermsOfUse } from "./pages/footer-links/TermsOfUse";
 
 /* - Hooks - */
 
-export { useCreateRating } from "./hooks/useCreateRating";
-export { useGetRatings } from "./hooks/useGetRatings";
-export { useUpdateRating } from "./hooks/useUpdateRating";
-export { useDeleteRating } from "./hooks/useDeleteRating";
+export { useCreateRating } from "./hooks/rating/useCreateRating";
+export { useGetRatings } from "./hooks/rating/useGetRatings";
+export { useUpdateRating } from "./hooks/rating/useUpdateRating";
+export { useDeleteRating } from "./hooks/rating/useDeleteRating";

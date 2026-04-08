@@ -21,7 +21,6 @@ const FeedCard: React.FC<FeedCardProps> = ({ pet, index, onClick }) => {
 
   const handleCalculateRating = (rating: number[]): number => {
     if (rating.length === 0) return 0;
-
     const total = rating.reduce(
       (accumulator, rating) => accumulator + rating,
       0,
@@ -31,15 +30,13 @@ const FeedCard: React.FC<FeedCardProps> = ({ pet, index, onClick }) => {
 
   return (
     <motion.div
-      className="bg-white border border-black/30 rounded-lg md:w-45 lg:w-full flex flex-col cursor-pointer hover:shadow-md shadow-black/10 overflow-hidden"
+      className="bg-white dark:bg-gray-800 border border-black/30 dark:border-white/20 rounded-lg md:w-45 lg:w-full flex flex-col cursor-pointer hover:shadow-md shadow-black/10 overflow-hidden"
       initial={{ y: 0, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6, delay: index * 0.15 }}
       onClick={onClick}
     >
       <div className="flex flex-col">
-        {/* - Imagem - */}
-
         <div className="relative w-full aspect-4/3 overflow-hidden">
           <motion.img
             src={pet.photo_url}
@@ -48,9 +45,6 @@ const FeedCard: React.FC<FeedCardProps> = ({ pet, index, onClick }) => {
             whileHover={{ scale: 1.05 }}
             transition={{ duration: 0.3 }}
           />
-
-          {/* - Badges - */}
-
           <div className="absolute top-1 right-1">
             <Badges
               species={pet.species as "Cachorro" | "Gato"}
@@ -64,14 +58,11 @@ const FeedCard: React.FC<FeedCardProps> = ({ pet, index, onClick }) => {
           </div>
         </div>
 
-        {/* - Conteúdo - */}
-
         <div className="flex flex-col p-2">
           <div className="flex justify-between items-start gap-1 mb-1">
-            <p className="text-base md:text-lg text-black font-semibold truncate">
+            <p className="text-base md:text-lg text-black dark:text-white font-semibold truncate">
               {pet.name}
             </p>
-
             <StarRating
               className="text-xs w-14 md:w-16 shrink-0"
               rating={handleCalculateRating(
@@ -80,7 +71,7 @@ const FeedCard: React.FC<FeedCardProps> = ({ pet, index, onClick }) => {
             />
           </div>
 
-          <p className="text-xs text-black/70 mb-2 line-clamp-1">
+          <p className="text-xs text-black/70 dark:text-white/70 mb-2 line-clamp-1">
             {pet.breed} • {pet.gender} •{" "}
             {(() => {
               const petAge = Number(pet.age);
@@ -92,7 +83,7 @@ const FeedCard: React.FC<FeedCardProps> = ({ pet, index, onClick }) => {
 
           <div className="flex items-center gap-1">
             <FaLocationDot className="h-3 w-3 md:h-3 md:w-3 text-amber-600" />
-            <p className="text-xs text-black/70 truncate">
+            <p className="text-xs text-black/70 dark:text-white/70 truncate">
               {pet.city && pet.state
                 ? `${pet.city}, ${pet.state}`
                 : "Localização pendente"}

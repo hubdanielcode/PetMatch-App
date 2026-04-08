@@ -21,7 +21,7 @@ const FileUpload = ({
   return (
     <>
       <label
-        className="px-6 text-lg font-semibold mb-3"
+        className="px-6 text-lg font-semibold mb-3 dark:text-white"
         htmlFor={id}
       >
         {label}
@@ -29,7 +29,7 @@ const FileUpload = ({
 
       <label
         htmlFor={id}
-        className={`flex flex-col items-center justify-center border-2 border-dashed border-black/40 rounded-lg cursor-pointer hover:bg-amber-50 transition-colors mx-6 overflow-hidden ${className ?? ""}`}
+        className={`flex flex-col items-center justify-center border-2 border-dashed border-black/40 dark:border-white/40 rounded-lg cursor-pointer hover:bg-amber-50 dark:hover:bg-amber-600/40 transition-colors mx-6 overflow-hidden ${className ?? ""}`}
       >
         {preview ? (
           <img
@@ -39,16 +39,16 @@ const FileUpload = ({
         ) : (
           <>
             <Upload
-              className="text-gray-500 my-2"
+              className="text-gray-500 dark:text-gray-200 my-2"
               size={30}
             />
 
             {fileName ? (
-              <span className="text-sm font-semibold text-amber-600">
+              <span className="text-sm font-semibold text-amber-600 dark:text-gray-400">
                 {fileName}
               </span>
             ) : (
-              <span className="text-sm font-semibold text-gray-400">
+              <span className="text-sm font-semibold text-gray-500 dark:text-gray-200">
                 PNG, JPG, PDF até 10MB
               </span>
             )}

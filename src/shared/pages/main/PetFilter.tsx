@@ -51,24 +51,26 @@ const PetFilter = () => {
   };
 
   return (
-    <div className="flex mx-auto bg-white border border-black/40 p-3 rounded-lg w-90 sticky top-6 self-start">
+    <div className="flex mx-auto bg-white dark:bg-gray-800 border border-black/40 dark:border-white/20 p-3 rounded-lg w-90 sticky top-6 self-start">
       <form className="p-4 w-full">
-        <p className="font-semibold text-lg text-black mb-6">Filtros</p>
+        <p className="font-semibold text-lg text-black dark:text-white mb-6">
+          Filtros
+        </p>
 
         {/* - Filtrar por espécie - */}
 
         <label
-          className="text-sm text-black font-semibold"
+          className="text-sm text-black dark:text-white/90 font-semibold"
           htmlFor="pet-species"
         >
           Espécies
         </label>
         <div
-          className="w-full border border-black/40 bg-gray-100 rounded-lg flex px-2 py-1 focus-within:ring-2 focus-within:ring-amber-500 my-1"
+          className="w-full border border-black/40 dark:border-white/20 bg-gray-100 dark:bg-gray-700 rounded-lg flex px-2 py-1 focus-within:ring-2 focus-within:ring-amber-500 my-1"
           id="pet-species-container"
         >
           <input
-            className="w-full h-6 bg-transparent text-sm focus:outline-none rounded-lg placeholder:text-gray-500 text-black ml-2"
+            className="w-full h-6 bg-transparent text-sm focus:outline-none rounded-lg placeholder:text-gray-500 dark:placeholder:text-gray-400 text-black dark:text-white ml-2"
             id="pet-species"
             type="text"
             value={selectedSpecies?.label ?? ""}
@@ -77,10 +79,10 @@ const PetFilter = () => {
             autoComplete="off"
           />
           {isSpeciesOpen && (
-            <div className="absolute w-65 mt-1 bg-white border border-black/20 rounded-lg shadow-lg z-10 overflow-hidden">
+            <div className="absolute w-65 mt-1 bg-white dark:bg-gray-800 border border-black/20 dark:border-white/20 rounded-lg shadow-lg z-10 overflow-hidden">
               {speciesOptions.map((option) => (
                 <div
-                  className="px-4 py-2 cursor-pointer hover:bg-amber-100 transition-colors m-1 rounded-lg"
+                  className="px-4 py-2 cursor-pointer hover:bg-amber-100 dark:hover:bg-amber-900/40 transition-colors m-1 rounded-lg text-black dark:text-white"
                   key={option.value}
                   onClick={() => {
                     setSpecies(option.value);
@@ -98,14 +100,14 @@ const PetFilter = () => {
         {/* - Filtrar por raça - */}
 
         <label
-          className="text-sm text-black font-semibold"
+          className="text-sm text-black dark:text-white/90 font-semibold"
           htmlFor="pet-breed"
         >
           Raça
         </label>
-        <div className="w-full border border-black/40 bg-gray-100 rounded-lg flex px-2 py-1 focus-within:ring-2 focus-within:ring-amber-500 my-1">
+        <div className="w-full border border-black/40 dark:border-white/20 bg-gray-100 dark:bg-gray-700 rounded-lg flex px-2 py-1 focus-within:ring-2 focus-within:ring-amber-500 my-1">
           <input
-            className="w-full h-6 bg-transparent text-sm focus:outline-none rounded-lg placeholder:text-gray-500 text-black ml-2"
+            className="w-full h-6 bg-transparent text-sm focus:outline-none rounded-lg placeholder:text-gray-500 dark:placeholder:text-gray-400 text-black dark:text-white ml-2"
             id="pet-breed"
             type="text"
             value={breed}
@@ -118,14 +120,14 @@ const PetFilter = () => {
         {/* - Filtrar por idade - */}
 
         <label
-          className="text-sm text-black font-semibold"
+          className="text-sm text-black dark:text-white/90 font-semibold"
           htmlFor="pet-age"
         >
           Idade (Anos)
         </label>
         <div className="w-full flex px-2 py-1 my-1 gap-3">
           <input
-            className="w-full border border-black/40 focus:outline-none bg-gray-100 rounded-lg flex px-2 py-1 focus-within:ring-2 focus-within:ring-amber-500 my-1"
+            className="w-full border border-black/40 dark:border-white/20 focus:outline-none bg-gray-100 dark:bg-gray-700 rounded-lg flex px-2 py-1 focus-within:ring-2 focus-within:ring-amber-500 my-1 text-black dark:text-white placeholder:text-gray-500 dark:placeholder:text-gray-400"
             id="min-pet-age"
             type="number"
             min="0"
@@ -138,7 +140,7 @@ const PetFilter = () => {
             autoComplete="off"
           />
           <input
-            className="w-full border border-black/40 focus:outline-none bg-gray-100 rounded-lg flex px-2 py-1 focus-within:ring-2 focus-within:ring-amber-500 my-1"
+            className="w-full border border-black/40 dark:border-white/20 focus:outline-none bg-gray-100 dark:bg-gray-700 rounded-lg flex px-2 py-1 focus-within:ring-2 focus-within:ring-amber-500 my-1 text-black dark:text-white placeholder:text-gray-500 dark:placeholder:text-gray-400"
             id="max-pet-age"
             type="number"
             min="0"
@@ -155,17 +157,17 @@ const PetFilter = () => {
         {/* - Filtrar por experiência - */}
 
         <label
-          className="text-sm text-black font-semibold"
+          className="text-sm text-black dark:text-white/90 font-semibold"
           htmlFor="pet-mated"
         >
           Experiência
         </label>
         <div
-          className="w-full border border-black/40 bg-gray-100 rounded-lg flex px-2 py-1 focus-within:ring-2 focus-within:ring-amber-500 my-1"
+          className="w-full border border-black/40 dark:border-white/20 bg-gray-100 dark:bg-gray-700 rounded-lg flex px-2 py-1 focus-within:ring-2 focus-within:ring-amber-500 my-1"
           id="pet-mated-container"
         >
           <input
-            className="w-full h-6 bg-transparent text-sm focus:outline-none rounded-lg placeholder:text-gray-500 text-black ml-2"
+            className="w-full h-6 bg-transparent text-sm focus:outline-none rounded-lg placeholder:text-gray-500 dark:placeholder:text-gray-400 text-black dark:text-white ml-2"
             id="pet-mated"
             type="text"
             value={mated === null ? "" : mated ? "Já Cruzou" : "Primeira Vez"}
@@ -174,10 +176,10 @@ const PetFilter = () => {
             autoComplete="off"
           />
           {isMatedOpen && (
-            <div className="absolute w-65 mt-1 bg-white border border-black/20 rounded-lg shadow-lg z-10 overflow-hidden">
+            <div className="absolute w-65 mt-1 bg-white dark:bg-gray-800 border border-black/20 dark:border-white/20 rounded-lg shadow-lg z-10 overflow-hidden">
               {matedOptions.map((option) => (
                 <div
-                  className="px-4 py-2 cursor-pointer hover:bg-amber-100 transition-colors m-1 rounded-lg"
+                  className="px-4 py-2 cursor-pointer hover:bg-amber-100 dark:hover:bg-amber-900/40 transition-colors m-1 rounded-lg text-black dark:text-white"
                   key={option.value}
                   onClick={() => {
                     setMated(option.value === "true");
@@ -194,14 +196,14 @@ const PetFilter = () => {
         {/* - Filtrar por localização - */}
 
         <label
-          className="text-sm text-black font-semibold"
+          className="text-sm text-black dark:text-white/90 font-semibold"
           htmlFor="pet-region"
         >
           Região
         </label>
-        <div className="w-full border border-black/40 bg-gray-100 rounded-lg flex px-2 py-1 focus-within:ring-2 focus-within:ring-amber-500 my-1">
+        <div className="w-full border border-black/40 dark:border-white/20 bg-gray-100 dark:bg-gray-700 rounded-lg flex px-2 py-1 focus-within:ring-2 focus-within:ring-amber-500 my-1">
           <input
-            className="w-full h-6 bg-transparent text-sm focus:outline-none rounded-lg placeholder:text-gray-500 text-black ml-2"
+            className="w-full h-6 bg-transparent text-sm focus:outline-none rounded-lg placeholder:text-gray-500 dark:placeholder:text-gray-400 text-black dark:text-white ml-2"
             value={region}
             onChange={(e) => {
               setRegion(e.target.value);
@@ -217,7 +219,7 @@ const PetFilter = () => {
 
         <div className="w-full">
           <button
-            className="w-full h-8 mt-3 bg-linear-to-r from-amber-600 via-orange-600 to-red-600 text-white font-semibold text-md rounded-lg px-4 cursor-pointer hover:from-amber-400 hover:via-orange-400 hover:to-red-400 border border-black/40"
+            className="w-full h-8 mt-3 bg-linear-to-r from-amber-600 via-orange-600 to-red-600 text-white font-semibold text-md rounded-lg px-4 cursor-pointer hover:from-amber-400 hover:via-orange-400 hover:to-red-400 border border-black/40 dark:border-white/20 transition"
             onClick={handleClearFilters}
           >
             Limpar Filtros

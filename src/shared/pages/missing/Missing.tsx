@@ -11,7 +11,7 @@ import {
 const Missing = () => {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] min-h-screen">
-      <div className="hidden lg:block bg-[url('/animais-cama.png')] bg-cover bg-center bg-no-repeat text-white border border-black/40">
+      <div className="hidden lg:block bg-[url('/animais-cama.png')] bg-cover bg-center bg-no-repeat text-white border border-black/40 dark:border-white/20">
         <div className="bg-linear-to-br from-orange-800/50 to-red-800/50 min-h-screen flex items-center justify-center">
           <Card className="p-4 text-white text-justify mx-6">
             {/* - Título - */}
@@ -50,7 +50,7 @@ const Missing = () => {
         </div>
       </div>
 
-      <div className="min-h-screen max-w-full bg-linear-to-br from-amber-100 via-orange-100 to-red-100 flex flex-col items-center justify-center relative px-4 py-8 lg:px-0">
+      <div className="min-h-screen max-w-full bg-linear-to-br from-amber-100 via-orange-100 to-red-100 dark:from-amber-950 dark:via-orange-950 dark:to-red-950 flex flex-col items-center justify-center relative px-4 py-8 lg:px-0">
         {/* - Logo PetMatch - */}
 
         <img
@@ -66,13 +66,13 @@ const Missing = () => {
             PetMatch
           </h1>
 
-          <p className="text-lg text-black/70 mb-6 text-center">
+          <p className="text-lg text-black/70 dark:text-white/70 mb-6 text-center">
             Cruzamento com segurança para seu Pet.
           </p>
 
           {/* - Box central do 404 - */}
 
-          <div className="bg-white border border-black/40 w-full max-w-sm lg:max-w-md rounded-lg px-6 py-6 flex flex-col items-center mx-auto">
+          <div className="bg-white dark:bg-gray-800 border border-black/40 dark:border-white/20 w-full max-w-sm lg:max-w-md rounded-lg px-6 py-6 flex flex-col items-center mx-auto">
             <h1 className="text-5xl font-bold bg-linear-to-b from-amber-600 via-orange-600 to-red-600 bg-clip-text text-transparent text-center">
               404
             </h1>
@@ -95,7 +95,7 @@ const Missing = () => {
         {/* - Rodapé com termos - */}
 
         <div className="flex flex-col pt-8 px-4 text-center">
-          <p className="text-black text-sm font-semibold">
+          <p className="text-black dark:text-white/90 text-sm font-semibold">
             Ao continuar, você concorda com nossos{" "}
             <Link
               className="bg-clip-text text-transparent bg-linear-to-b from-amber-600 via-orange-600 to-red-600 hover:underline cursor-pointer"

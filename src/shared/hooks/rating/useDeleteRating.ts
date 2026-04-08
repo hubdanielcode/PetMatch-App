@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { deleteRating as deleteRatingService } from "../services/ratingService";
-import type { Rating } from "../types/rating";
+import { deleteRating as deleteRatingService } from "../../services/ratingService";
+import type { Rating } from "../../types/rating";
 
 const useDeleteRating = () => {
   const [updatedRatingList, setUpdatedRatingList] = useState<Rating[]>([]);

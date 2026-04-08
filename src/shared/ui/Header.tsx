@@ -4,8 +4,11 @@ import { useGetTutors } from "../../features/pet-registration";
 import { useEffect, useState } from "react";
 import { supabase } from "../../../supabase/supabase";
 import { motion, AnimatePresence } from "framer-motion";
+import { useTheme } from "../hooks/theme/useTheme";
 
 const Header = () => {
+  const { theme, toggleTheme } = useTheme();
+
   const navigate = useNavigate();
   const { getTutors, tutor } = useGetTutors();
 
@@ -32,12 +35,11 @@ const Header = () => {
 
   const menuOptions = [
     { label: "Meu Perfil", value: "Meu Perfil" },
-    { label: "Configurações", value: "Configurações" },
     { label: "Sair", value: "Sair" },
   ];
 
   return (
-    <header className="flex w-full min-h-15 border-b border-black/40 bg-white items-center px-4 md:px-8 lg:px-[10%] relative">
+    <header className="flex w-full min-h-15 border-b border-black/40 dark:border-white/40 bg-white dark:bg-gray-900 items-center px-4 md:px-8 lg:px-[10%] relative">
       {/* - Nome do app - */}
 
       <Link
@@ -68,7 +70,7 @@ const Header = () => {
 
         {/* - Sessão do usuário: Nome e foto - */}
 
-        <div className="hidden md:flex items-center text-black text-sm md:text-md font-semibold">
+        <div className="hidden md:flex items-center text-black dark:text-white text-sm md:text-md font-semibold">
           {tutor?.name ?? null}
         </div>
 
@@ -101,13 +103,24 @@ const Header = () => {
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: -20, opacity: 0 }}
             transition={{ duration: 0.25 }}
-            className="absolute top-14 right-4 md:right-8 lg:right-[10%] z-10"
+            className="absolute top-16 right-4 md:right-8 lg:right-[10%] z-10"
           >
-            <div className="bg-white border border-black/40 rounded-lg shadow-lg w-44 md:w-50 font-semibold">
+            <div className="bg-white dark:bg-gray-900 border border-black/40 dark:border-white/40 rounded-lg shadow-lg w-44 md:w-50 font-semibold">
               <ul className="flex flex-col">
+                <li
+                  className="px-4 py-2 text-black dark:text-white hover:bg-amber-100 dark:hover:bg-gray-600 rounded-t-lg border-black/40 flex items-center justify-between cursor-pointer"
+                  role="button"
+                  onClick={toggleTheme}
+                >
+                  <span className="w-full">
+                    {theme === "Dark" ? "Tema Claro" : "Tema Escuro"}
+                  </span>
+                  {theme === "Dark" ? "🔆" : "🌕"}
+                </li>
+
                 {menuOptions.map((option) => (
                   <li
-                    className="px-4 py-2 text-black hover:bg-amber-100 cursor-pointer first:rounded-t-lg last:rounded-b-lg border-t border-black/40"
+                    className="px-4 py-2 text-black dark:text-white hover:bg-amber-100 dark:hover:bg-gray-600 cursor-pointer first:rounded-t-lg last:rounded-b-lg border-t border-black/40"
                     key={option.value}
                     onClick={() => {
                       if (option.value === "Meu Perfil") {

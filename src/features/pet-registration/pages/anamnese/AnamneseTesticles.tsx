@@ -59,38 +59,40 @@ const AnamneseTesticles = ({ value, onChange }: AnamneseTesticlesProps) => {
     useRegistrationContext();
 
   return (
-    <>
+    <div className="w-full px-4 sm:px-6 pb-6">
       {/* - Card flutuante - */}
 
-      <div className="-mt-6 mx-4 bg-white rounded-2xl shadow-lg shadow-gray-500 px-5 py-4 mb-6 flex items-center gap-3">
-        <div className="w-10 h-10 bg-orange-100 text-orange-600 flex items-center justify-center shrink-0 rounded-lg">
-          <FaMars className="w-4 h-4" />
+      <div className="-mt-6 bg-white dark:bg-gray-200 rounded-2xl shadow-lg shadow-gray-500 px-4 sm:px-5 py-4 mb-6 flex items-center gap-3">
+        <div className="w-10 h-10 sm:w-12 sm:h-12 bg-orange-100 text-orange-600 flex items-center justify-center shrink-0 rounded-lg">
+          <FaMars className="w-4 h-4 sm:w-5 sm:h-5" />
         </div>
-        <div>
-          <p className="text-xs text-gray-500 font-medium mb-1">Etapa 6</p>
-          <p className="text-lg font-bold text-black">Testículos</p>
+        <div className="min-w-0">
+          <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-800 font-medium mb-1">
+            Etapa 6
+          </p>
+          <p className="text-lg sm:text-xl font-bold text-black">Testículos</p>
         </div>
       </div>
 
       {/* - Conteúdo - */}
 
       <label
-        className="px-6 text-lg font-semibold mb-3 block"
+        className="text-lg sm:text-xl font-semibold mb-3 block dark:text-white"
         htmlFor="pet-testicles"
       >
         Quantos testículos o seu pet tem? *
       </label>
 
-      <div className="mx-6 -mb-7">
+      <div className="-mb-7">
         {TesticleOptions.map((option) => {
           const isSelected = value === option.value;
 
           return (
             <button
-              className={`flex min-h-10 w-full cursor-pointer items-center gap-4 rounded-lg bg-gray-200 px-4 py-3 text-start transition-all mb-4 hover:bg-amber-50 ${
+              className={`group flex min-h-10 w-full cursor-pointer items-center gap-4 rounded-lg bg-gray-200 px-4 py-3 text-start transition-all mb-4 ${
                 isSelected
-                  ? "border border-amber-600 bg-linear-to-br from-amber-200 via-orange-200 to-red-200  hover:bg-linear-to-br hover:from-amber-100 hover:via-orange-100 hover:to-red-100"
-                  : "border border-black/40"
+                  ? "border border-amber-600 bg-linear-to-br from-amber-200 via-orange-200 to-red-200 hover:bg-linear-to-br hover:from-amber-100 dark:hover:from-amber-400 hover:via-orange-100 dark:hover:via-orange-400 hover:to-red-100 dark:hover:to-red-400"
+                  : "border border-black/40 hover:bg-amber-50 dark:hover:bg-gray-600"
               }`}
               key={option.value}
               type="button"
@@ -102,15 +104,27 @@ const AnamneseTesticles = ({ value, onChange }: AnamneseTesticlesProps) => {
             >
               <div
                 className={`h-4 w-4 shrink-0 rounded-full border transition-colors ${
-                  isSelected ? "bg-amber-500" : "border-black/40 bg-white"
+                  isSelected
+                    ? "bg-amber-500 dark:bg-amber-800"
+                    : "border-black/40 bg-white"
                 }`}
               />
 
               <div className="flex-1">
-                <p className="text-md font-semibold text-black">
+                <p
+                  className={`text-md font-semibold text-black transition-colors ${
+                    !isSelected && "dark:group-hover:text-white"
+                  }`}
+                >
                   {option.label}
                 </p>
-                <p className="text-sm text-black/70">{option.description}</p>
+                <p
+                  className={`text-sm text-black/70 transition-colors ${
+                    !isSelected && "dark:group-hover:text-white/70"
+                  }`}
+                >
+                  {option.description}
+                </p>
               </div>
 
               <span
@@ -125,7 +139,7 @@ const AnamneseTesticles = ({ value, onChange }: AnamneseTesticlesProps) => {
 
       {/* - Mensagem - */}
 
-      <div className="mx-6 mt-10 min-h-20">
+      <div className="mt-10 min-h-20">
         {selectedOption && (
           <p
             className={`flex items-center justify-center rounded-lg border px-4 py-3 text-center text-sm font-semibold ${selectedOption.alertBg} ${selectedOption.alertBorder} ${selectedOption.alertText}`}
@@ -134,7 +148,7 @@ const AnamneseTesticles = ({ value, onChange }: AnamneseTesticlesProps) => {
           </p>
         )}
       </div>
-    </>
+    </div>
   );
 };
 

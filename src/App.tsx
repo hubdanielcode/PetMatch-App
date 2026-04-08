@@ -87,7 +87,7 @@ const App = () => {
 
   if (isLoading) {
     return (
-      <div className="justify-center items-center min-h-screen flex bg-linear-to-br from-amber-100 via-orange-100 to-red-100">
+      <div className="justify-center items-center min-h-screen flex bg-linear-to-br from-amber-100 via-orange-100 to-red-100 dark:from-gray-900 dark:via-gray-900 dark:to-gray-900">
         <span className="flex mx-auto text-5xl w-80 min-h-30 font-bold bg-clip-text text-transparent bg-linear-to-b from-amber-600 via-orange-600 to-red-600">
           Carregando
           <motion.span className="flex">

@@ -42,14 +42,14 @@ const PetInfo = () => {
   };
 
   return (
-    <div className="flex flex-col bg-white p-5 sm:p-8 m-8 sm:mx-[10%] lg:mx-[15%] w-auto sm:w-[80%] lg:w-[70%] border border-black/40 rounded-lg mt-6 sm:mt-10 gap-6">
-      <div className="flex flex-col sm:flex-row justify-between gap-4 sm:items-center border-b border-black/20 pb-4">
-        <span className="text-black font-bold text-xl sm:text-2xl">
+    <div className="flex flex-col bg-white dark:bg-gray-800 p-5 sm:p-8 m-8 sm:mx-[10%] lg:mx-[15%] w-auto sm:w-[80%] lg:w-[70%] border border-black/40 dark:border-white/20 rounded-lg mt-6 sm:mt-10 gap-6">
+      <div className="flex flex-col sm:flex-row justify-between gap-4 sm:items-center border-b border-black/20 dark:border-white/20 pb-4">
+        <span className="text-black dark:text-white font-bold text-xl sm:text-2xl">
           Meus Pets Cadastrados
         </span>
 
         <div
-          className="flex justify-center sm:justify-start border border-black/40 bg-linear-to-br from-amber-600 via-orange-600 to-red-600 hover:from-amber-400 hover:via-orange-400 hover:to-red-400 rounded-lg px-4 py-2 font-semibold cursor-pointer text-white text-sm sm:text-base"
+          className="flex justify-center sm:justify-start border border-black/40 dark:border-white/20 bg-linear-to-br from-amber-600 via-orange-600 to-red-600 hover:from-amber-400 hover:via-orange-400 hover:to-red-400 rounded-lg px-4 py-2 font-semibold cursor-pointer text-white text-sm sm:text-base"
           role="button"
           onClick={() =>
             navigate("/registrar-pet", { state: { from: "/perfil" } })
@@ -64,7 +64,9 @@ const PetInfo = () => {
         {/* - Carregando a lista de pets - */}
 
         {isLoading && (
-          <p className="text-black/50 text-sm">Carregando seus pets...</p>
+          <p className="text-black/50 dark:text-white/50 text-sm">
+            Carregando seus pets...
+          </p>
         )}
 
         {/* - Mostrando a lista de pets (com pets) - */}
@@ -74,7 +76,7 @@ const PetInfo = () => {
           pets.map((pet, index) => (
             <motion.div
               key={pet.id}
-              className="flex flex-col bg-white border border-black/40 rounded-xl w-full overflow-hidden shadow-sm hover:shadow-lg shadow-black/20 cursor-pointer"
+              className="flex flex-col bg-white dark:bg-gray-700 border border-black/40 dark:border-white/20 rounded-xl w-full overflow-hidden shadow-sm hover:shadow-lg shadow-black/20 cursor-pointer"
               initial={{ y: 0, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.6, delay: index * 0.2 }}
@@ -102,10 +104,10 @@ const PetInfo = () => {
 
               <div className="flex flex-col p-4 gap-3">
                 <div>
-                  <p className="text-black font-bold text-base sm:text-lg">
+                  <p className="text-black dark:text-white font-bold text-base sm:text-lg">
                     {pet.name}
                   </p>
-                  <p className="text-xs sm:text-sm text-black/70 mt-1">
+                  <p className="text-xs sm:text-sm text-black/70 dark:text-white/70 mt-1">
                     {pet?.breed ?? "Raça indisponível"} •{" "}
                     {pet?.gender ?? "Gênero indisponível"} •{" "}
                     {(() => {
@@ -121,7 +123,7 @@ const PetInfo = () => {
 
                 <div className="flex gap-2 items-center">
                   <button
-                    className="flex-1 border border-black/40 rounded-lg py-2 text-xs sm:text-sm font-semibold text-white bg-linear-to-br from-amber-600 via-orange-600 to-red-600 hover:from-amber-400 hover:via-orange-400 hover:to-red-400 cursor-pointer"
+                    className="flex-1 border border-black/40 dark:border-white/20 rounded-lg py-2 text-xs sm:text-sm font-semibold text-white bg-linear-to-br from-amber-600 via-orange-600 to-red-600 hover:from-amber-400 hover:via-orange-400 hover:to-red-400 cursor-pointer"
                     onClick={() => {
                       console.log("tutor ao navegar:", tutor);
                       navigate("/perfil-pet", {
@@ -134,7 +136,7 @@ const PetInfo = () => {
                   </button>
 
                   <button
-                    className="rounded-lg p-2 hover:bg-gray-200 cursor-pointer text-black hover:text-red-500"
+                    className="rounded-lg p-2 hover:bg-gray-200 dark:hover:bg-gray-600 cursor-pointer text-black dark:text-white/70 hover:text-red-500 dark:hover:text-red-400 transition-colors"
                     onClick={() => handleDeletePet(pet.id)}
                   >
                     <FaTrashAlt className="h-5 w-5" />
@@ -147,7 +149,7 @@ const PetInfo = () => {
         {/* - Carregando a lista de pets (sem pets) - */}
 
         {!isLoading && pets.length === 0 && (
-          <p className="text-black/50 text-sm">
+          <p className="text-black/50 dark:text-white/50 text-sm">
             Ainda não há nenhum pet cadastrado.
           </p>
         )}

@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { createRating as createRatingService } from "../services/ratingService";
-import type { Rating } from "../types/rating";
+import { createRating as createRatingService } from "../../services/ratingService";
+import type { Rating } from "../../types/rating";
 
 const useCreateRating = () => {
   const [createRatingError, setCreateRatingError] = useState("");

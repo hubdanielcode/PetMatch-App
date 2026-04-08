@@ -1,5 +1,8 @@
 Próximos Passos:
 
-1. Atualizações constantes no feed (por tempo). -> Há cada 30min (?)
-2. Layout Responsivo
+
+1. Toggle Switch (Temas: Claro | Escuro)
+2. Atualizações constantes no feed (por tempo). -> Há cada 30min (?)
 3. Testes
+
+

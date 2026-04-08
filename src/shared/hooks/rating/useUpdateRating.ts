@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { updateRating as updateRatingService } from "../services/ratingService";
-import type { Rating } from "../types/rating";
+import { updateRating as updateRatingService } from "../../services/ratingService";
+import type { Rating } from "../../types/rating";
 
 const useUpdateRating = () => {
   const [updatedRatingList, setUpdatedRatingList] = useState<Rating[]>([]);

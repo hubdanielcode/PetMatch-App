@@ -14,7 +14,7 @@ const PetFeed = ({ pets }: PetFeedProps) => {
     <div>
       {/* - Contagem de filtrados - */}
 
-      <p className="text-sm font-bold text-black/70 mb-6 ml-8">
+      <p className="text-sm font-bold text-black/70 dark:text-white/70 mb-6 ml-8">
         {pets.length}{" "}
         {pets.length === 1 ? "Animal Encontrado" : "Animais Encontrados"}
       </p>

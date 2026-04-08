@@ -51,12 +51,8 @@ const PetProfile = () => {
   const location = useLocation();
   const pet: Pet = location.state?.pet;
 
-  /* - Definindo dados do tutor - */
-
   const [tutorPhotos, setTutorPhotos] = useState<Record<string, string>>({});
   const [tutor, setTutor] = useState<Tutor | null>(null);
-
-  /* - Definindo comentários - */
 
   const [text, setText] = useState<string>("");
 
@@ -65,16 +61,12 @@ const PetProfile = () => {
   const [editRating, setEditRating] = useState(0);
   const [commentError, setCommentError] = useState("");
 
-  /* - Definindo avaliações - */
-
   const [isRatingFormOpen, setIsRatingFormOpen] = useState(false);
 
   const [actualRating, setActualRating] = useState(0);
   const [hoveredStar, setHoveredStar] = useState<number | null>(null);
 
   const stars = Array.from({ length: 5 }, (_, index) => index + 1);
-
-  /* - Adicionando comentários - */
 
   const addComment = async () => {
     try {
@@ -100,14 +92,10 @@ const PetProfile = () => {
     }
   };
 
-  /* - Deletando comentários - */
-
   const handleDeleteComment = async (id: string) => {
     await deleteComment(id);
     await getComments(pet.id);
   };
-
-  /* - Editando comentários (até um minuto após a postagem) - */
 
   const handleEditComment = async (id: string) => {
     if (!editRating) throw new Error("Adicione uma avaliação!");
@@ -121,8 +109,6 @@ const PetProfile = () => {
     await getComments(pet.id);
     setEditingId(null);
   };
-
-  /* - Calculando a média das avaliações - */
 
   const handleCalculateRating = (rating: number[]): number => {
     if (rating.length === 0) {
@@ -161,11 +147,11 @@ const PetProfile = () => {
   }, [comments]);
 
   return (
-    <div className="flex flex-col p-3 sm:p-5 bg-linear-to-br from-amber-100 via-orange-100 to-red-100 min-h-screen w-full">
+    <div className="flex flex-col p-3 sm:p-5 bg-linear-to-br from-amber-100 via-orange-100 to-red-100 dark:from-amber-950 dark:via-orange-950 dark:to-red-950 min-h-screen w-full">
       {/* Botão voltar */}
       <div className="w-full sm:w-[50%] sm:mx-[12%] mb-4 flex">
         <button
-          className="flex items-center text-black font-semibold px-4 py-2 cursor-pointer hover:bg-linear-to-br hover:from-amber-200 hover:via-orange-200 hover:to-red-200 rounded-lg"
+          className="flex items-center text-black dark:text-white font-semibold px-4 py-2 cursor-pointer hover:bg-linear-to-br hover:from-amber-200 hover:via-orange-200 hover:to-red-200 dark:hover:from-amber-600/40 dark:hover:via-orange-600/40 dark:hover:to-red-600/40 rounded-lg transition-colors"
           type="button"
           onClick={() => navigate("/pagina-principal", { replace: true })}
         >
@@ -178,7 +164,7 @@ const PetProfile = () => {
 
       <div className="flex flex-col lg:flex-row lg:items-start px-0 sm:px-[12%] lg:px-0">
         {/* Carta do pet */}
-        <div className="flex flex-col mx-3 sm:mx-0 lg:ml-[12%] lg:mr-[2%] bg-white border border-black/40 rounded-xl w-auto lg:w-[40%]">
+        <div className="flex flex-col mx-3 sm:mx-0 lg:ml-[12%] lg:mr-[2%] bg-white dark:bg-gray-800 border border-black/40 dark:border-white/20 rounded-xl w-auto lg:w-[40%]">
           <img
             className="w-full h-64 sm:h-96 lg:h-130 object-cover object-center rounded-t-xl"
             src={pet?.photo_url}
@@ -187,7 +173,7 @@ const PetProfile = () => {
 
           <div className="flex flex-col p-3 relative">
             <div className="flex items-start">
-              <p className="text-xl sm:text-2xl text-black font-bold ml-2 sm:ml-4 mb-2 whitespace-nowrap">
+              <p className="text-xl sm:text-2xl text-black dark:text-white font-bold ml-2 sm:ml-4 mb-2 whitespace-nowrap">
                 {pet?.name}
               </p>
 
@@ -202,7 +188,7 @@ const PetProfile = () => {
               </div>
             </div>
 
-            <p className="text-sm sm:text-lg text-black/70 mx-2 sm:mx-4">
+            <p className="text-sm sm:text-lg text-black/70 dark:text-white/70 mx-2 sm:mx-4">
               {pet?.breed ?? "Raça indisponível"} •{" "}
               {pet?.gender ?? "Gênero indisponível"} •{" "}
               {(() => {
@@ -229,32 +215,32 @@ const PetProfile = () => {
 
         {/* - Informações do tutor - */}
 
-        <div className="bg-white border border-black/40 rounded-xl p-5 sm:p-6 flex flex-col gap-4 mx-3 sm:mx-0 mt-4 lg:mt-0 lg:w-90 shrink-0">
-          <p className="text-lg font-bold text-black border-b border-black/20 pb-3">
+        <div className="bg-white dark:bg-gray-800 border border-black/40 dark:border-white/20 rounded-xl p-5 sm:p-6 flex flex-col gap-4 mx-3 sm:mx-0 mt-4 lg:mt-0 lg:w-90 shrink-0">
+          <p className="text-lg font-bold text-black dark:text-white border-b border-black/20 dark:border-white/20 pb-3">
             Informações do Tutor
           </p>
 
           <div className="flex items-center gap-3">
-            <div className="rounded-full h-12 w-12 flex items-center justify-center shrink-0 bg-linear-to-br from-amber-600 via-orange-600 to-red-600">
-              <div className="rounded-full h-12 w-12 border border-black/40 flex items-center justify-center shrink-0 overflow-hidden bg-linear-to-br from-amber-600 via-orange-600 to-red-600">
-                {tutor?.photo_url ? (
-                  <img
-                    src={tutor.photo_url}
-                    alt={tutor.name}
-                    className="h-full w-full object-cover object-center"
-                  />
-                ) : (
-                  <span className="text-white font-bold text-2xl">
-                    {tutor?.name?.charAt(0).toUpperCase()}
-                  </span>
-                )}
-              </div>
+            <div className="rounded-full h-12 w-12 border border-black/40 dark:border-white/20 flex items-center justify-center shrink-0 overflow-hidden bg-linear-to-br from-amber-600 via-orange-600 to-red-600">
+              {tutor?.photo_url ? (
+                <img
+                  src={tutor.photo_url}
+                  alt={tutor.name}
+                  className="h-full w-full object-cover object-center"
+                />
+              ) : (
+                <span className="text-white font-bold text-2xl">
+                  {tutor?.name?.charAt(0).toUpperCase()}
+                </span>
+              )}
             </div>
 
-            <p className="text-black font-semibold text-lg">{tutor?.name}</p>
+            <p className="text-black dark:text-white font-semibold text-lg">
+              {tutor?.name}
+            </p>
           </div>
 
-          <div className="flex flex-col gap-3 text-sm text-black/70">
+          <div className="flex flex-col gap-3 text-sm text-black/70 dark:text-white/70">
             <div className="flex items-center gap-3">
               <FaLocationDot className="h-4 w-4 text-amber-600 shrink-0" />
               <p>
@@ -285,7 +271,7 @@ const PetProfile = () => {
             Entrar em Contato
           </a>
 
-          <p className="text-xs text-black/70 text-center">
+          <p className="text-xs text-black/70 dark:text-white/60 text-center">
             Ao clicar, você será direcionado para o WhatsApp do tutor.
           </p>
         </div>
@@ -293,86 +279,92 @@ const PetProfile = () => {
 
       {/* - Seção da anamnese - */}
 
-      <div className="flex flex-col mx-3 sm:mx-[12%] lg:ml-[12%] lg:mr-[2%] mt-8 bg-white border border-black/40 rounded-xl lg:w-[40%] p-5 sm:p-6 shrink-0 h-full">
+      <div className="flex flex-col mx-3 sm:mx-[12%] lg:ml-[12%] lg:mr-[2%] mt-8 bg-white dark:bg-gray-800 border border-black/40 dark:border-white/20 rounded-xl lg:w-[40%] p-5 sm:p-6 shrink-0 h-full">
         <div className="flex flex-col mb-2">
-          <p className="text-xl font-bold text-black border-b border-black/20 pb-3">
+          <p className="text-xl font-bold text-black dark:text-white border-b border-black/20 dark:border-white/20 pb-3">
             Resumo da Anamnese
           </p>
 
           {/* - Passo 1: Alimentação - */}
 
           <div className="flex items-center gap-2 py-3">
-            <div className="w-7 h-7 bg-orange-100 text-orange-600 flex items-center justify-center shrink-0 rounded-lg">
+            <div className="w-7 h-7 bg-orange-100 dark:bg-orange-600/40 text-orange-600 dark:text-orange-400 flex items-center justify-center shrink-0 rounded-lg">
               <FaUtensils className="w-4 h-4" />
             </div>
-            <p className="text-md font-semibold text-black">Alimentação</p>
+            <p className="text-md font-semibold text-black dark:text-white">
+              Alimentação
+            </p>
           </div>
 
-          <p className="text-sm text-black/70 w-full mb-3">
+          <p className="text-sm text-black/70 dark:text-white/70 w-full mb-3">
             {newAnamnese?.feeding_info}
           </p>
         </div>
 
         {/* - Passo 2: Passeios - */}
 
-        <div className="flex flex-col border-t border-black/20 mb-2">
+        <div className="flex flex-col border-t border-black/20 dark:border-white/20 mb-2">
           <div className="flex items-center gap-2 py-2">
-            <div className="w-7 h-7 bg-orange-100 text-orange-600 flex items-center justify-center shrink-0 rounded-lg">
+            <div className="w-7 h-7 bg-orange-100 dark:bg-orange-600/40 text-orange-600 dark:text-orange-400 flex items-center justify-center shrink-0 rounded-lg">
               <FaUtensils className="w-4 h-4" />
             </div>
-            <p className="text-md font-semibold text-black">Passeios</p>
+            <p className="text-md font-semibold text-black dark:text-white">
+              Passeios
+            </p>
           </div>
 
-          <p className="text-sm text-black/70 w-full mb-3">
+          <p className="text-sm text-black/70 dark:text-white/70 w-full mb-3">
             {newAnamnese?.walks_info}
           </p>
         </div>
 
         {/* - Passo 3: Comportamento - */}
 
-        <div className="flex flex-col border-t border-black/20 mb-2">
+        <div className="flex flex-col border-t border-black/20 dark:border-white/20 mb-2">
           <div className="flex items-center gap-2 py-2">
-            <div className="w-7 h-7 bg-orange-100 text-orange-600 flex items-center justify-center shrink-0 rounded-lg">
+            <div className="w-7 h-7 bg-orange-100 dark:bg-orange-600/40 text-orange-600 dark:text-orange-400 flex items-center justify-center shrink-0 rounded-lg">
               <FaBrain className="w-4 h-4" />
             </div>
-            <p className="text-md font-semibold text-black">Comportamento</p>
+            <p className="text-md font-semibold text-black dark:text-white">
+              Comportamento
+            </p>
           </div>
 
-          <p className="text-sm text-black/70 w-full mb-3">
+          <p className="text-sm text-black/70 dark:text-white/70 w-full mb-3">
             {newAnamnese?.behavior_info}
           </p>
         </div>
 
         {/* - Passo 4: Histórico de cirurgias - */}
 
-        <div className="flex flex-col border-t border-black/20 mb-2">
+        <div className="flex flex-col border-t border-black/20 dark:border-white/20 mb-2">
           <div className="flex items-center gap-2 py-2">
-            <div className="w-7 h-7 bg-orange-100 text-orange-600 flex items-center justify-center shrink-0 rounded-lg">
+            <div className="w-7 h-7 bg-orange-100 dark:bg-orange-600/40 text-orange-600 dark:text-orange-400 flex items-center justify-center shrink-0 rounded-lg">
               <FaSyringe className="w-4 h-4" />
             </div>
-            <p className="text-md font-semibold text-black">
+            <p className="text-md font-semibold text-black dark:text-white">
               Histórico de Cirurgias
             </p>
           </div>
 
-          <p className="text-sm text-black/70 w-full mb-3">
+          <p className="text-sm text-black/70 dark:text-white/70 w-full mb-3">
             {newAnamnese?.surgeries_info}
           </p>
         </div>
 
         {/* - Passo 5: Histórico de doenças - */}
 
-        <div className="flex flex-col border-t border-black/20 mb-2">
+        <div className="flex flex-col border-t border-black/20 dark:border-white/20 mb-2">
           <div className="flex items-center gap-2 py-2">
-            <div className="w-7 h-7 bg-orange-100 text-orange-600 flex items-center justify-center shrink-0 rounded-lg">
+            <div className="w-7 h-7 bg-orange-100 dark:bg-orange-600/40 text-orange-600 dark:text-orange-400 flex items-center justify-center shrink-0 rounded-lg">
               <FaVirus className="w-4 h-4" />
             </div>
-            <p className="text-md font-semibold text-black">
+            <p className="text-md font-semibold text-black dark:text-white">
               Histórico de Doenças
             </p>
           </div>
 
-          <p className="text-sm text-black/70 w-full mb-3">
+          <p className="text-sm text-black/70 dark:text-white/70 w-full mb-3">
             {newAnamnese?.diseases_info}
           </p>
         </div>
@@ -380,15 +372,17 @@ const PetProfile = () => {
         {/* - Passo 6: Testículos - */}
 
         {pet.gender === "Macho" && (
-          <div className="flex flex-col border-t border-black/20 mb-2">
+          <div className="flex flex-col border-t border-black/20 dark:border-white/20 mb-2">
             <div className="flex items-center gap-2 py-2">
-              <div className="w-7 h-7 bg-orange-100 text-orange-600 flex items-center justify-center shrink-0 rounded-lg">
+              <div className="w-7 h-7 bg-orange-100 dark:bg-orange-600/40 text-orange-600 dark:text-orange-400 flex items-center justify-center shrink-0 rounded-lg">
                 <FaMars className="w-4 h-4" />
               </div>
-              <p className="text-md font-semibold text-black">Testículos</p>
+              <p className="text-md font-semibold text-black dark:text-white">
+                Testículos
+              </p>
             </div>
 
-            <div className="text-sm text-black/70 w-full mb-3">
+            <div className="text-sm text-black/70 dark:text-white/70 w-full mb-3">
               {(() => {
                 const selected = TesticleOptions.find(
                   (option) => option.value === newAnamnese?.testicles_info,
@@ -396,12 +390,12 @@ const PetProfile = () => {
 
                 if (!selected) return null;
                 return (
-                  <div className="flex items-center gap-3 rounded-lg bg-gray-100 px-4 py-3">
+                  <div className="flex items-center gap-3 rounded-lg bg-gray-100 dark:bg-gray-700 px-4 py-3">
                     <div className="flex-1">
-                      <p className="text-sm font-semibold text-black">
+                      <p className="text-sm font-semibold text-black dark:text-white">
                         {selected.label}
                       </p>
-                      <p className="text-xs text-black/70">
+                      <p className="text-xs text-black/70 dark:text-white/60">
                         {selected.description}
                       </p>
                     </div>
@@ -422,15 +416,15 @@ const PetProfile = () => {
         {pet?.mated && (
           <div className="flex flex-col mb-2">
             <div className="flex items-center gap-2 py-2">
-              <div className="w-7 h-7 bg-orange-100 text-orange-600 flex items-center justify-center shrink-0 rounded-lg">
+              <div className="w-7 h-7 bg-orange-100 dark:bg-orange-600/40 text-orange-600 dark:text-orange-400 flex items-center justify-center shrink-0 rounded-lg">
                 <FaHeart className="w-4 h-4" />
               </div>
-              <p className="text-md font-semibold text-black">
+              <p className="text-md font-semibold text-black dark:text-white">
                 Histórico Reprodutivo
               </p>
             </div>
 
-            <p className="text-sm text-black/70 w-full mb-3">
+            <p className="text-sm text-black/70 dark:text-white/70 w-full mb-3">
               {newAnamnese?.reproduction_info}
             </p>
           </div>
@@ -439,15 +433,15 @@ const PetProfile = () => {
 
       {/* - Seção de comentários - */}
 
-      <div className="flex flex-col mx-3 sm:mx-[12%] lg:ml-[12%] lg:mr-[2%] mt-8 bg-white border border-black/40 rounded-xl lg:w-[40%] p-5 sm:p-6 shrink-0 h-full">
+      <div className="flex flex-col mx-3 sm:mx-[12%] lg:ml-[12%] lg:mr-[2%] mt-8 bg-white dark:bg-gray-800 border border-black/40 dark:border-white/20 rounded-xl lg:w-[40%] p-5 sm:p-6 shrink-0 h-full">
         <div className="flex items-center">
-          <p className="font-bold text-base mr-auto">
+          <p className="font-bold text-base mr-auto text-black dark:text-white">
             Avaliações ({comments?.length})
           </p>
 
           {userId !== pet.user_id && (
             <button
-              className="flex bg-linear-to-br from-amber-600 via-orange-600 to-red-600 hover:from-amber-400 hover:via-orange-400 hover:to-red-400 text-white font-semibold px-4 py-2 border border-black/40 rounded-lg cursor-pointer"
+              className="flex bg-linear-to-br from-amber-600 via-orange-600 to-red-600 hover:from-amber-400 hover:via-orange-400 hover:to-red-400 text-white font-semibold px-4 py-2 border border-black/40 dark:border-white/20 rounded-lg cursor-pointer"
               type="button"
               onClick={() => setIsRatingFormOpen(!isRatingFormOpen)}
             >
@@ -457,9 +451,9 @@ const PetProfile = () => {
         </div>
 
         {isRatingFormOpen && (
-          <div className="w-full h-fit bg-gray-100 rounded-lg p-4 sm:p-6 my-5">
+          <div className="w-full h-fit bg-gray-100 dark:bg-gray-700 rounded-lg p-4 sm:p-6 my-5">
             <div>
-              <label className="text-md font-semibold text-black mt-5">
+              <label className="text-md font-semibold text-black dark:text-white mt-5">
                 Sua Avaliação
               </label>
 
@@ -467,7 +461,7 @@ const PetProfile = () => {
                 {stars.map((star, index) => (
                   <li key={index}>
                     <FaStar
-                      className={`flex gap-3 h-8 w-8 sm:h-12 sm:w-12 cursor-pointer ${star <= (hoveredStar ?? actualRating) ? "text-amber-400" : "text-gray-400"}`}
+                      className={`flex gap-3 h-8 w-8 sm:h-12 sm:w-12 cursor-pointer ${star <= (hoveredStar ?? actualRating) ? "text-amber-400" : "text-gray-400 dark:text-gray-500"}`}
                       onClick={() => setActualRating(star)}
                       onMouseEnter={() => setHoveredStar(star)}
                       onMouseLeave={() => setHoveredStar(null)}
@@ -477,12 +471,12 @@ const PetProfile = () => {
               </ul>
             </div>
 
-            <label className="text-md font-semibold text-black mt-5">
+            <label className="text-md font-semibold text-black dark:text-white mt-5">
               Comentário
             </label>
 
             <textarea
-              className="w-full p-3 min-h-24 sm:min-h-30 border-black-40 bg-gray-200 hover:bg-amber-50 rounded-lg focus-within:ring-2 focus-within:ring-amber-600 placeholder:text-gray-500 my-4"
+              className="w-full p-3 min-h-24 sm:min-h-30 border-black-40 bg-gray-200 dark:bg-gray-600 hover:bg-amber-50 dark:hover:bg-amber-900/30 rounded-lg focus-within:ring-2 focus-within:ring-amber-600 placeholder:text-gray-500 dark:placeholder:text-gray-400 text-black dark:text-white my-4 focus:outline-none"
               placeholder="Compartilhe a sua experiência..."
               value={text}
               onChange={(e) => setText(e.target.value)}
@@ -490,14 +484,14 @@ const PetProfile = () => {
 
             <div className="flex justify-between gap-3 px-0 sm:px-8">
               <button
-                className="flex bg-linear-to-br from-amber-600 via-orange-600 to-red-600 hover:from-amber-400 hover:via-orange-400 hover:to-red-400 text-white font-semibold px-3 sm:px-4 py-2 border border-black/40 rounded-lg cursor-pointer text-sm sm:text-base"
+                className="flex bg-linear-to-br from-amber-600 via-orange-600 to-red-600 hover:from-amber-400 hover:via-orange-400 hover:to-red-400 text-white font-semibold px-3 sm:px-4 py-2 border border-black/40 dark:border-white/20 rounded-lg cursor-pointer text-sm sm:text-base"
                 onClick={addComment}
               >
                 Enviar Avaliação
               </button>
 
               <button
-                className="flex bg-black hover:bg-gray-600 text-white font-semibold px-3 sm:px-4 py-2 border border-black/40 rounded-lg cursor-pointer text-sm sm:text-base"
+                className="flex bg-black dark:bg-gray-600 hover:bg-gray-600 dark:hover:bg-gray-500 text-white font-semibold px-3 sm:px-4 py-2 border border-black/40 dark:border-white/20 rounded-lg cursor-pointer text-sm sm:text-base"
                 onClick={() => setIsRatingFormOpen(false)}
               >
                 Cancelar
@@ -509,7 +503,7 @@ const PetProfile = () => {
         {isRatingFormOpen && (
           <div className="min-h-20">
             {commentError && (
-              <p className="flex items-center justify-center h-10 rounded-lg bg-red-100 border border-red-300 text-red-700 text-sm font-semibold px-4 text-center my-3">
+              <p className="flex items-center justify-center h-10 rounded-lg bg-red-100 dark:bg-red-600/40 border border-red-300 dark:border-red-500 text-red-700 dark:text-red-300 text-sm font-semibold px-4 text-center my-3">
                 {commentError}
               </p>
             )}
@@ -521,11 +515,11 @@ const PetProfile = () => {
             <ul>
               {comments.map((comment, index) => (
                 <li
-                  className="flex flex-col gap-2 border-t border-black/20 py-4"
+                  className="flex flex-col gap-2 border-t border-black/20 dark:border-white/20 py-4"
                   key={index}
                 >
                   <div className="flex items-center gap-3">
-                    <div className="h-10 w-10 border border-black/40 rounded-full overflow-hidden flex items-center justify-center shrink-0">
+                    <div className="h-10 w-10 border border-black/40 dark:border-white/20 rounded-full overflow-hidden flex items-center justify-center shrink-0">
                       {tutorPhotos[comment.user_id] ? (
                         <img
                           className="h-full w-full object-cover"
@@ -541,11 +535,11 @@ const PetProfile = () => {
                       )}
                     </div>
 
-                    <p className="font-bold text-base sm:text-lg text-black truncate">
+                    <p className="font-bold text-base sm:text-lg text-black dark:text-white truncate">
                       {comment.name}
                     </p>
 
-                    <p className="text-xs sm:text-sm text-black/50 ml-auto shrink-0">
+                    <p className="text-xs sm:text-sm text-black/50 dark:text-white/50 ml-auto shrink-0">
                       {new Date(comment.created_at).toLocaleDateString("pt-BR")}
                     </p>
                   </div>
@@ -554,17 +548,17 @@ const PetProfile = () => {
                     {stars.map((star) => (
                       <FaStar
                         key={star}
-                        className={`h-4 w-4 ${star <= comment.rating ? "text-amber-400" : "text-gray-300"}`}
+                        className={`h-4 w-4 ${star <= comment.rating ? "text-amber-400" : "text-gray-300 dark:text-gray-600"}`}
                       />
                     ))}
                   </div>
 
                   <div className="flex gap-3 items-start sm:items-center">
-                    <div className="text-sm text-black/70 text-start flex-1">
+                    <div className="text-sm text-black/70 dark:text-white/70 text-start flex-1">
                       {editingId === comment.id ? (
                         <div className="flex flex-col gap-2 w-full">
                           <textarea
-                            className="w-full p-3 bg-gray-200 rounded-lg"
+                            className="w-full p-3 bg-gray-200 dark:bg-gray-700 rounded-lg text-black dark:text-white focus:outline-none"
                             value={editText}
                             onChange={(e) => setEditText(e.target.value)}
                           />
@@ -573,7 +567,7 @@ const PetProfile = () => {
                             {stars.map((star) => (
                               <FaStar
                                 key={star}
-                                className={`h-4 w-4 cursor-pointer ${star <= editRating ? "text-amber-400" : "text-gray-300"}`}
+                                className={`h-4 w-4 cursor-pointer ${star <= editRating ? "text-amber-400" : "text-gray-300 dark:text-gray-600"}`}
                                 onClick={() => setEditRating(star)}
                               />
                             ))}
@@ -582,7 +576,7 @@ const PetProfile = () => {
                           <div className="flex gap-3">
                             {userId === comment.user_id && (
                               <button
-                                className="flex bg-linear-to-br from-amber-600 via-orange-600 to-red-600 hover:from-amber-400 hover:via-orange-400 hover:to-red-400 text-white font-semibold px-4 py-2 border border-black/40 rounded-lg cursor-pointer text-sm"
+                                className="flex bg-linear-to-br from-amber-600 via-orange-600 to-red-600 hover:from-amber-400 hover:via-orange-400 hover:to-red-400 text-white font-semibold px-4 py-2 border border-black/40 dark:border-white/20 rounded-lg cursor-pointer text-sm"
                                 onClick={() => handleEditComment(comment.id)}
                               >
                                 Salvar
@@ -590,7 +584,7 @@ const PetProfile = () => {
                             )}
 
                             <button
-                              className="flex bg-black hover:bg-gray-600 text-white font-semibold px-4 py-2 border border-black/40 rounded-lg cursor-pointer text-sm"
+                              className="flex bg-black dark:bg-gray-600 hover:bg-gray-600 dark:hover:bg-gray-500 text-white font-semibold px-4 py-2 border border-black/40 dark:border-white/20 rounded-lg cursor-pointer text-sm"
                               onClick={() => setEditingId(null)}
                             >
                               Cancelar
@@ -598,7 +592,9 @@ const PetProfile = () => {
                           </div>
                         </div>
                       ) : (
-                        <p className="text-sm text-black/70">{comment.text}</p>
+                        <p className="text-sm text-black/70 dark:text-white/70">
+                          {comment.text}
+                        </p>
                       )}
                     </div>
 
@@ -606,7 +602,7 @@ const PetProfile = () => {
                       {new Date(comment.created_at).getTime() >=
                         Date.now() - 60000 && (
                         <button
-                          className="rounded-lg p-2 hover:bg-gray-200 cursor-pointer text-black hover:text-blue-500 mr-1"
+                          className="rounded-lg p-2 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer text-black dark:text-white/70 hover:text-blue-500 dark:hover:text-blue-400 mr-1 transition-colors"
                           type="button"
                           onClick={() => {
                             setEditingId(comment.id);
@@ -619,7 +615,7 @@ const PetProfile = () => {
                       )}
                       {userId === comment.user_id && (
                         <button
-                          className="rounded-lg p-2 hover:bg-gray-200 cursor-pointer text-black hover:text-red-500 ml-1"
+                          className="rounded-lg p-2 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer text-black dark:text-white/70 hover:text-red-500 dark:hover:text-red-400 ml-1 transition-colors"
                           type="button"
                           onClick={() => handleDeleteComment(comment.id)}
                         >
@@ -635,11 +631,11 @@ const PetProfile = () => {
         ) : (
           <div>
             {userId === pet.user_id ? (
-              <p className="text-md text-black/70 text-center mt-2">
+              <p className="text-md text-black/70 dark:text-white/60 text-center mt-2">
                 Ainda não há avaliações para o seu pet!
               </p>
             ) : (
-              <p className="text-md text-black/70 text-center mt-2">
+              <p className="text-md text-black/70 dark:text-white/60 text-center mt-2">
                 Ainda não há avaliações para este pet! Seja o primeiro.
               </p>
             )}
