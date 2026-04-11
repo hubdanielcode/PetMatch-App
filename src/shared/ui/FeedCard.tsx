@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { Badges } from "./Badges";
 import type { Pet } from "../../features/pet-registration/types/pet";
 import { StarRating } from "./StarRating";
-import { useGetComments } from "../../features/user-profiile";
+import { useGetComments } from "../../features/user-profile";
 import { useEffect } from "react";
 
 interface FeedCardProps {

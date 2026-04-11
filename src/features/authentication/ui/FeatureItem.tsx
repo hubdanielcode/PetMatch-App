@@ -13,7 +13,7 @@ const FeatureItem: React.FC<FeatureItemProps> = ({
   className,
 }) => {
   return (
-    <div className={`flex items-start gap-4 ${className}`}>
+    <div className={`flex items-start gap-4 ${className ?? ""}`}>
       {/* - Wrapper fixo do ícone - */}
 
       <div className="h-9 w-9 flex items-center justify-center rounded-full bg-gray-100/80 shrink-0">

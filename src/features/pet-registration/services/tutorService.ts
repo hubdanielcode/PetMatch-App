@@ -1,6 +1,26 @@
 import type { Tutor } from "./../types/tutor";
 import { supabase } from "../../../../supabase/supabase";
 
+/* - Vendo se é a primeira vez daquele tutor - */
+
+const toggleHasSeenWelcome = async () => {
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    throw new Error("Usuário não autenticado!");
+  }
+
+  const { error } = await supabase
+    .from("tutors")
+    .update({ has_seen_welcome: true })
+    .eq("user_id", user.id)
+    .single();
+
+  if (error) throw new Error("Erro ao atualizar has_seen_welcome!");
+};
+
 /* - Upload da foto - */
 
 const uploadTutorPhoto = async (photo: File, userId: string) => {
@@ -25,7 +45,10 @@ const uploadTutorPhoto = async (photo: File, userId: string) => {
 // 1. Create
 
 const createTutor = async (
-  tutor: Omit<Tutor, "id" | "created_at" | "validated_at" | "user_id">,
+  tutor: Omit<
+    Tutor,
+    "id" | "created_at" | "validated_at" | "user_id" | "has_seen_welcome"
+  >,
 ) => {
   const {
     data: { user },
@@ -37,9 +60,8 @@ const createTutor = async (
 
   const { data, error } = await supabase
     .from("tutors")
-    .insert({ ...tutor, user_id: user.id });
-
-  console.log("createTutor data:", data, "error:", error);
+    .insert({ ...tutor, user_id: user.id })
+    .select();
 
   if (error) {
     throw new Error("Erro ao cadastrar tutor!");
@@ -85,6 +107,7 @@ const updateTutor = async (tutor: Omit<Tutor, "created_at">) => {
     .from("tutors")
     .update(tutor)
     .eq("user_id", user.id)
+    .select()
     .single();
 
   if (error) {
@@ -110,6 +133,7 @@ const deleteTutor = async (id: string) => {
     .from("tutors")
     .delete()
     .eq("id", id)
+    .select()
     .single();
 
   if (error) {
@@ -120,4 +144,11 @@ const deleteTutor = async (id: string) => {
   return data;
 };
 
-export { createTutor, getTutors, updateTutor, deleteTutor, uploadTutorPhoto };
+export {
+  createTutor,
+  getTutors,
+  updateTutor,
+  deleteTutor,
+  uploadTutorPhoto,
+  toggleHasSeenWelcome,
+};

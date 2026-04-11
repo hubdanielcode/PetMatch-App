@@ -38,6 +38,7 @@ const Login = () => {
 
     if (!regex.email.test(email)) {
       setSignInError("Formato de email inválido.");
+      return;
     }
 
     const { error } = await supabase.auth.signInWithPassword({

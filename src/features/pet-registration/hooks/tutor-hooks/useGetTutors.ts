@@ -5,7 +5,7 @@ import type { Tutor } from "../../types/tutor";
 const useGetTutors = () => {
   const [tutor, setNewTutor] = useState<Tutor | null>(null);
   const [getTutorError, setGetTutorError] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const getTutors = async (user_id: string) => {
     setIsLoading(true);

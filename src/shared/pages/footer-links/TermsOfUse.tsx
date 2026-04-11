@@ -5,7 +5,7 @@ const TermsOfUse = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-amber-100 via-orange-100 to-red-100 dark:from-amber-950 dark:via-orange-950 dark:to-red-950 px-4 sm:px-6 py-8 sm:py-12 font-sans text-black/90 dark:text-white/90">
+    <div className="min-h-screen bg-linear-to-br from-amber-100 via-orange-100 to-red-100 dark:from-amber-900/90 dark:via-orange-900/90 dark:to-red-900/90 px-4 sm:px-6 py-8 sm:py-12 font-sans text-black/90 dark:text-white/90">
       {/* - Cabeçalho com gradiente - */}
 
       <header className="bg-linear-to-br from-amber-600 via-orange-600 to-red-600 text-white p-5 sm:p-8 rounded-lg max-w-5xl mx-auto mb-6 sm:mb-8 shadow-md border border-black/40 dark:border-white/20">

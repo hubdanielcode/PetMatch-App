@@ -3,7 +3,8 @@ import { AnamneseFlow } from "../anamnese/AnamneseFlow";
 import { RegisterTutor } from "./RegisterTutor";
 import { RegisterPet } from "./RegisterPet";
 import { useNavigate, useLocation } from "react-router-dom";
-import { useCreatePet, useCreateTutor } from "../../../pet-registration";
+import { useCreatePet } from "../../hooks/pet-hooks/useCreatePet";
+import { useCreateTutor } from "../../hooks/tutor-hooks/useCreateTutor";
 import { useRegistrationContext } from "../../hooks/context-hooks/useRegistrationContext";
 import { supabase } from "../../../../../supabase/supabase";
 import { uploadPetPhoto } from "../../services/petService";
@@ -14,8 +15,6 @@ const RegisterFlow = () => {
   const { createTutor } = useCreateTutor();
 
   const {
-    /* - Dados do pet - */
-
     petPhoto,
     petName,
     species,
@@ -28,9 +27,6 @@ const RegisterFlow = () => {
     cryptorchidism_bilateral,
     cryptorchidism_unilateral,
     resetContext,
-
-    /* - Dados do tutor - */
-
     phoneNumber,
     street,
     houseNumber,
@@ -38,9 +34,6 @@ const RegisterFlow = () => {
     neighborhood,
     city,
     state,
-
-    /* - Dados da anamnese - */
-
     feedingInfo,
     walksInfo,
     behaviorInfo,
@@ -50,6 +43,14 @@ const RegisterFlow = () => {
     reproductionInfo,
   } = useRegistrationContext();
 
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const from = location.state?.from ?? "/modal";
+  const fromScreen = location.state?.fromScreen ?? 2;
+
+  const [page, setPage] = useState<1 | 2 | 3>(1);
+
   const handleFinishRegistration = async () => {
     const {
       data: { user },
@@ -57,32 +58,28 @@ const RegisterFlow = () => {
 
     if (!user) throw new Error("Usuário não autenticado!");
 
-    try {
-      const { data: existingTutor } = await supabase
-        .from("tutors")
-        .select("id")
-        .eq("user_id", user.id)
-        .single();
+    const { data: existingTutor } = await supabase
+      .from("tutors")
+      .select("id")
+      .eq("user_id", user.id)
+      .single();
 
-      if (!existingTutor) {
-        await createTutor({
-          name:
-            (`${user.user_metadata?.firstName ?? ""} ${user.user_metadata?.lastName ?? ""}`.trim() ||
-              user.email) ??
-            "",
-          photo_url: null,
-          email: user.email ?? "",
-          phone: phoneNumber,
-          street,
-          number: houseNumber,
-          complement,
-          neighborhood,
-          city,
-          state,
-        });
-      }
-    } catch (err) {
-      console.log("erro no tutor:", err);
+    if (!existingTutor) {
+      await createTutor({
+        name:
+          (`${user.user_metadata?.firstName ?? ""} ${user.user_metadata?.lastName ?? ""}`.trim() ||
+            user.email) ??
+          "",
+        photo_url: null,
+        email: user.email ?? "",
+        phone: phoneNumber,
+        street,
+        number: houseNumber,
+        complement,
+        neighborhood,
+        city,
+        state,
+      });
     }
 
     const photoUrl = petPhoto ? await uploadPetPhoto(petPhoto, user.id) : "";
@@ -90,15 +87,15 @@ const RegisterFlow = () => {
     const createdPet = await createPet({
       photo_url: photoUrl,
       name: petName,
-      species: species,
-      breed: breed,
-      age: age,
-      gender: gender,
-      pedigree: pedigree,
-      vaccinated: vaccinated,
-      mated: mated,
-      cryptorchidism_bilateral: cryptorchidism_bilateral,
-      cryptorchidism_unilateral: cryptorchidism_unilateral,
+      species,
+      breed,
+      age,
+      gender,
+      pedigree,
+      vaccinated,
+      mated,
+      cryptorchidism_bilateral,
+      cryptorchidism_unilateral,
     });
 
     await createAnamnese({
@@ -114,14 +111,6 @@ const RegisterFlow = () => {
 
     resetContext();
   };
-
-  const navigate = useNavigate();
-  const location = useLocation();
-
-  const from = location.state?.from ?? "/modal";
-  const fromScreen = location.state?.fromScreen ?? 2;
-
-  const [page, setPage] = useState<1 | 2 | 3>(1);
 
   if (page === 1) {
     return (
@@ -144,8 +133,15 @@ const RegisterFlow = () => {
   return (
     <AnamneseFlow
       onNext={async () => {
-        await handleFinishRegistration();
-        navigate("/pagina-principal", { replace: true });
+        try {
+          await handleFinishRegistration();
+          navigate("/pagina-principal", { replace: true });
+        } catch (err) {
+          console.error(
+            "ERRO:",
+            JSON.stringify(err, Object.getOwnPropertyNames(err)),
+          );
+        }
       }}
       onBack={() => setPage(2)}
     />

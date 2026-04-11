@@ -191,11 +191,13 @@ const updatePet = async (pet: Omit<Pet, "created_at">) => {
     .from("pets")
     .update(pet)
     .eq("id", pet.id)
+    .select()
     .single();
 
   if (error) {
     throw new Error("Erro ao atualizar pet. ID necessário para atualização!");
   }
+
   return data;
 };
 
@@ -214,6 +216,7 @@ const deletePet = async (id: string) => {
     .from("pets")
     .delete()
     .eq("id", id)
+    .select()
     .single();
 
   if (error) {

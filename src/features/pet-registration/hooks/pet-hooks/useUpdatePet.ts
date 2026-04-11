@@ -11,7 +11,9 @@ const useUpdatePet = () => {
     setIsLoading(true);
     try {
       const data = await updatePetService(pet);
-      setUpdatedPetList(data);
+      setUpdatedPetList((prev) =>
+        prev.map((pet) => (pet.id === data.id ? data : pet)),
+      );
     } catch (error) {
       setUpdatePetError(
         "Erro ao atualizar pet! ID é necessário para a atualização!",

@@ -39,7 +39,7 @@ const MainPage = () => {
   }, [newPet, species, breed, mated, city, minAge, maxAge]);
 
   return (
-    <div className="bg-linear-to-br from-amber-100 via-orange-100 to-red-100 dark:from-amber-950 dark:via-orange-950 dark:to-red-950 min-h-screen w-full px-4 md:px-8 lg:px-[10%] py-8">
+    <div className="bg-linear-to-br from-amber-100 via-orange-100 to-red-100 dark:from-amber-900/90 dark:via-orange-900/90 dark:to-red-900/90 min-h-screen w-full px-4 md:px-8 lg:px-[10%] py-8">
       {/* - Título - */}
 
       <div className="mb-6 md:mb-10 max-w-xl">

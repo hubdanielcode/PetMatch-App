@@ -8,7 +8,7 @@ import { useGetAnamnese } from "../../../pet-registration/hooks/anamnese-hooks/u
 import { TesticleOptions } from "../../../pet-registration/pages/anamnese/AnamneseTesticles";
 import { StarRating } from "../../../../shared/ui/StarRating";
 import { useGetComments } from "../../hooks/useGetComments";
-import { useUpdateComment } from "../../../user-profiile/hooks/useUpdateComment";
+import { useUpdateComment } from "../../hooks/useUpdateComment";
 import {
   FaBrain,
   FaHeart,
@@ -613,15 +613,15 @@ const PetProfile = () => {
                           <FaPenAlt className="h-4 w-4 sm:h-5 sm:w-5" />
                         </button>
                       )}
-                      {userId === comment.user_id && (
-                        <button
-                          className="rounded-lg p-2 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer text-black dark:text-white/70 hover:text-red-500 dark:hover:text-red-400 ml-1 transition-colors"
-                          type="button"
-                          onClick={() => handleDeleteComment(comment.id)}
-                        >
-                          <FaTrashAlt className="h-4 w-4 sm:h-5 sm:w-5" />
-                        </button>
-                      )}
+
+                      <button
+                        data-testid="delete-comment-button"
+                        className={`rounded-lg p-2 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer text-black dark:text-white/70 hover:text-red-500 dark:hover:text-red-400 ml-1 transition-colors ${userId !== comment.user_id ? "hidden" : ""}`}
+                        type="button"
+                        onClick={() => handleDeleteComment(comment.id)}
+                      >
+                        <FaTrashAlt className="h-4 w-4 sm:h-5 sm:w-5" />
+                      </button>
                     </div>
                   </div>
                 </li>

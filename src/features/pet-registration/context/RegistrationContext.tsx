@@ -1,7 +1,7 @@
 import { createContext, useState, type ReactNode } from "react";
 import { type Testicles } from "../pages/anamnese/AnamneseTesticles";
 
-interface RegistrationContextType {
+export interface RegistrationContextType {
   /* - Pet - */
 
   petPhoto: File | null;

@@ -1,17 +1,33 @@
 import { Circle, CircleCheck } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { Modal } from "./Modal";
+import { useGetTutors } from "../../../features/pet-registration";
+import { toggleHasSeenWelcome } from "../../../features/pet-registration/services/tutorService";
+import { supabase } from "../../../../supabase/supabase";
 
 const Welcome = () => {
   const location = useLocation();
-
   const [screen, setScreen] = useState<1 | 2>(location.state?.screen ?? 1);
+  const { tutor, getTutors, isLoading } = useGetTutors();
 
+  useEffect(() => {
+    const fetchTutor = async () => {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      if (user) await getTutors(user.id);
+    };
+    fetchTutor();
+  }, []);
+
+  if (isLoading) return null;
+
+  if (tutor?.has_seen_welcome === true) return <Modal />;
   if (screen === 2) return <Modal />;
 
   return (
-    <div className="min-h-screen max-w-full bg-linear-to-br from-orange-100 via-red-100 to-orange-100 dark:from-amber-950 dark:via-orange-950 dark:to-red-950 flex items-center justify-center p-4 sm:p-6">
+    <div className="min-h-screen max-w-full bg-linear-to-br from-amber-100 via-orange-100 to-red-100 dark:from-amber-900/90 dark:via-orange-900/90 dark:to-red-900/90 flex items-center justify-center p-4 sm:p-6">
       <div className="bg-white dark:bg-gray-800 border border-black/40 dark:border-white/20 w-full sm:w-[90%] md:w-125 lg:w-150 h-auto rounded-lg p-4 sm:p-6 flex flex-col mx-auto">
         {/* - Título principal - */}
 
@@ -83,7 +99,14 @@ const Welcome = () => {
         {/* - Botão - */}
 
         <button
-          onClick={() => setScreen(2)}
+          onClick={async () => {
+            try {
+              await toggleHasSeenWelcome();
+              setScreen(2);
+            } catch (err) {
+              console.error("Erro ao atualizar has_seen_welcome:", err);
+            }
+          }}
           className="w-full h-10 bg-linear-to-r from-amber-600 via-orange-600 to-red-600 text-white font-semibold text-lg rounded-lg px-3 cursor-pointer hover:from-amber-400 hover:via-orange-400 hover:to-red-400 text-center border border-black/40 dark:border-white/20 transition"
         >
           Começar Agora

@@ -30,7 +30,7 @@ const HowDoesItWork = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-amber-100 via-orange-100 to-red-100 dark:bg-linear-to-br dark:from-amber-950 dark:via-orange-950 dark:to-red-950 px-4 sm:px-6 py-10 sm:py-16">
+    <div className="min-h-screen bg-linear-to-br from-amber-100 via-orange-100 to-red-100 dark:bg-linear-to-br dark:from-amber-900/90 dark:via-orange-900/90 dark:to-red-900/90 px-4 sm:px-6 py-10 sm:py-16">
       <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-16">
         <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-black dark:text-white mb-3 sm:mb-4">
           Como Funciona

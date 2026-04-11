@@ -63,7 +63,7 @@ const AnamneseFlow = ({ onNext, onBack }: AnamneseProps) => {
   };
 
   return (
-    <div className="flex flex-col p-5 bg-linear-to-br from-amber-100 via-orange-100 to-red-100 dark:from-amber-950 dark:via-orange-950 dark:to-red-950 min-h-screen w-full">
+    <div className="flex flex-col p-5 bg-linear-to-br from-amber-100 via-orange-100 to-red-100 dark:from-amber-900/90 dark:via-orange-900/90 dark:to-red-900/90 min-h-screen w-full">
       {/* - Botão Voltar - */}
 
       {onBack && (

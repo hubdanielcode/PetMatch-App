@@ -6,7 +6,7 @@ const Modal = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen max-w-full bg-linear-to-br from-orange-100 via-red-100 to-orange-100 dark:from-amber-950 dark:via-orange-950 dark:to-red-950 flex items-center justify-center p-4 sm:p-6">
+    <div className="min-h-screen max-w-full bg-linear-to-br from-amber-100 via-orange-100 to-red-100 dark:from-amber-900/90 dark:via-orange-900/90 dark:to-red-900/90 flex items-center justify-center p-4 sm:p-6">
       <AnimatePresence>
         <motion.div
           className="bg-white dark:bg-gray-800 border border-black/40 dark:border-white/20 w-full sm:w-[90%] md:w-125 lg:w-150 h-auto rounded-lg p-4 sm:p-6 flex flex-col mx-auto"
@@ -29,10 +29,10 @@ const Modal = () => {
             Bem-vindo ao PetMatch!
           </h1>
           <p className="text-base sm:text-lg text-black/60 dark:text-white/60 text-center mb-6">
-            Sua conta foi criada com sucesso
+            Explore as nossas funcionalidades!
           </p>
 
-          <div className="bg-linear-to-br from-amber-100 via-orange-100 to-red-100 dark:from-amber-950 dark:via-orange-950 dark:to-red-950 border border-black/40 dark:border-white/20 w-full h-auto p-4 sm:p-6 rounded-lg">
+          <div className="bg-linear-to-br from-amber-100 via-orange-100 to-red-100 dark:from-amber-600/40 dark:via-orange-600/40 dark:to-red-600/40 border border-black/40 dark:border-white/40 w-full h-auto p-4 sm:p-6 rounded-lg">
             <p className="font-semibold text-black dark:text-white text-lg sm:text-xl mb-3">
               O que você gostaria de fazer?
             </p>

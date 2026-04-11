@@ -20,8 +20,8 @@ import {
 import { RegistrationProvider } from "./features/pet-registration/context/RegistrationContext";
 import { MainPage } from "./shared";
 import { RegisterFlow } from "./features/pet-registration/pages/forms/RegisterFlow";
-import { TutorProfile } from "./features/user-profiile/pages/profile/TutorProfile";
-import { PetProfile } from "./features/user-profiile/pages/profile/PetProfile";
+import { TutorProfile } from "./features/user-profile/pages/profile/TutorProfile";
+import { PetProfile } from "./features/user-profile/pages/profile/PetProfile";
 import { About } from "./shared/pages/footer-links/About";
 import { HowDoesItWork } from "./shared/pages/footer-links/HowDoesItWork";
 

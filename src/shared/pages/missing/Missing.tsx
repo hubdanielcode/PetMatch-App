@@ -50,7 +50,7 @@ const Missing = () => {
         </div>
       </div>
 
-      <div className="min-h-screen max-w-full bg-linear-to-br from-amber-100 via-orange-100 to-red-100 dark:from-amber-950 dark:via-orange-950 dark:to-red-950 flex flex-col items-center justify-center relative px-4 py-8 lg:px-0">
+      <div className="min-h-screen max-w-full bg-linear-to-br from-amber-100 via-orange-100 to-red-100 dark:from-amber-900/90 dark:via-orange-900/90 dark:to-red-900/90 flex flex-col items-center justify-center relative px-4 py-8 lg:px-0">
         {/* - Logo PetMatch - */}
 
         <img

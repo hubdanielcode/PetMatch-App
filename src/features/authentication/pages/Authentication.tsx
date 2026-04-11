@@ -41,6 +41,10 @@ const Authentication = () => {
   const createNewAccount = async (e: React.MouseEvent) => {
     e.preventDefault();
 
+    // 🧹 limpa estados antes de tudo
+    setSignUpError("");
+    setSignUpSuccess(false);
+
     if (!regex.name.test(firstName)) {
       setSignUpError("Nome Inválido.");
       return;
@@ -66,40 +70,47 @@ const Authentication = () => {
       return;
     }
 
-    const redirectUrl = import.meta.env.VITE_REDIRECT_URL;
+    try {
+      const redirectUrl = import.meta.env.VITE_REDIRECT_URL;
 
-    const { data, error } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        data: {
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          data: {
+            firstName,
+            lastName,
+            email,
+          },
+          emailRedirectTo: `${redirectUrl}/`,
+        },
+      });
+
+      if (error) {
+        setSignUpError(error.message);
+        return;
+      }
+
+      if (!data?.user) {
+        setSignUpError("Erro ao cadastrar usuário.");
+        return;
+      }
+
+      await supabase.from("users").insert([
+        {
+          user_id: data.user.id,
           firstName,
           lastName,
           email,
         },
-        emailRedirectTo: `${redirectUrl}/`,
-      },
-    });
-
-    if (error) {
-      setSignUpError(error.message);
-      return;
-    }
-
-    if (data.user) {
-      await supabase.from("users").insert([
-        {
-          user_id: data.user.id,
-          firstName: firstName,
-          lastName: lastName,
-          email: email,
-        },
       ]);
-    }
 
-    if (!data.session) {
-      setSignUpSuccess(true);
-      setTimeout(() => setSignUpSuccess(false), 8000);
+      if (!data.session) {
+        setSignUpSuccess(true);
+        setTimeout(() => setSignUpSuccess(false), 8000);
+      }
+    } catch (err) {
+      setSignUpError("Erro inesperado. Tente novamente.");
     }
   };
 
@@ -214,7 +225,7 @@ const Authentication = () => {
 
               <input
                 className="w-full bg-transparent focus:outline-none placeholder:text-gray-500 text-black"
-                id="wholeName"
+                id="firstName"
                 type="text"
                 placeholder="Seu Nome"
                 value={firstName}
@@ -300,7 +311,7 @@ const Authentication = () => {
 
             <label
               className=" font-semibold my-2"
-              htmlFor="password"
+              htmlFor="confirmPassword"
             >
               Confirme sua Senha:
             </label>
@@ -310,7 +321,7 @@ const Authentication = () => {
 
               <input
                 className="w-full bg-transparent focus:outline-none placeholder:text-gray-500 text-black"
-                id="password"
+                id="confirmPassword"
                 type={isConfirmPrivate ? "password" : "text"}
                 placeholder="********"
                 value={confirmPassowrd}
@@ -330,6 +341,7 @@ const Authentication = () => {
 
             <button
               className="w-full h-10 bg-linear-to-r from-amber-600 via-orange-600 to-red-600 text-white text-lg rounded-lg px-4 cursor-pointer hover:from-amber-400 hover:via-orange-400 hover:to-red-400 font-semibold border border-black/40"
+              type="submit"
               ref={signUpRef}
               onClick={createNewAccount}
             >

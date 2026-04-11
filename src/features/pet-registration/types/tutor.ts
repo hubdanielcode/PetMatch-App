@@ -11,6 +11,7 @@ export interface Tutor {
   neighborhood: string;
   city: string;
   state: string;
+  has_seen_welcome: boolean;
   created_at: string;
   validated_at?: string | null;
 }
