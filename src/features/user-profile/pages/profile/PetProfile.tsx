@@ -20,6 +20,7 @@ import {
   FaPenAlt,
   FaTrashAlt,
   FaWhatsapp,
+  FaWalking,
 } from "react-icons/fa";
 import { useCreateComment } from "../../hooks/useCreateComment";
 import { supabase } from "../../../../../supabase/supabase";
@@ -148,7 +149,8 @@ const PetProfile = () => {
 
   return (
     <div className="flex flex-col p-3 sm:p-5 bg-linear-to-br from-amber-100 via-orange-100 to-red-100 dark:from-amber-950 dark:via-orange-950 dark:to-red-950 min-h-screen w-full">
-      {/* Botão voltar */}
+      {/* - Botão voltar - */}
+
       <div className="w-full sm:w-[50%] sm:mx-[12%] mb-4 flex">
         <button
           className="flex items-center text-black dark:text-white font-semibold px-4 py-2 cursor-pointer hover:bg-linear-to-br hover:from-amber-200 hover:via-orange-200 hover:to-red-200 dark:hover:from-amber-600/40 dark:hover:via-orange-600/40 dark:hover:to-red-600/40 rounded-lg transition-colors"
@@ -163,7 +165,8 @@ const PetProfile = () => {
       {/* - Carta do pet + Informações do tutor - */}
 
       <div className="flex flex-col lg:flex-row lg:items-start px-0 sm:px-[12%] lg:px-0">
-        {/* Carta do pet */}
+        {/* - Carta do pet - */}
+
         <div className="flex flex-col mx-3 sm:mx-0 lg:ml-[12%] lg:mr-[2%] bg-white dark:bg-gray-800 border border-black/40 dark:border-white/20 rounded-xl w-auto lg:w-[40%]">
           <img
             className="w-full h-64 sm:h-96 lg:h-130 object-cover object-center rounded-t-xl"
@@ -297,7 +300,7 @@ const PetProfile = () => {
           </div>
 
           <p className="text-sm text-black/70 dark:text-white/70 w-full mb-3">
-            {newAnamnese?.feeding_info}
+            {newAnamnese?.feeding_info || "Não preenchido."}
           </p>
         </div>
 
@@ -306,7 +309,7 @@ const PetProfile = () => {
         <div className="flex flex-col border-t border-black/20 dark:border-white/20 mb-2">
           <div className="flex items-center gap-2 py-2">
             <div className="w-7 h-7 bg-orange-100 dark:bg-orange-600/40 text-orange-600 dark:text-orange-400 flex items-center justify-center shrink-0 rounded-lg">
-              <FaUtensils className="w-4 h-4" />
+              <FaWalking className="w-4 h-4" />
             </div>
             <p className="text-md font-semibold text-black dark:text-white">
               Passeios
@@ -314,7 +317,7 @@ const PetProfile = () => {
           </div>
 
           <p className="text-sm text-black/70 dark:text-white/70 w-full mb-3">
-            {newAnamnese?.walks_info}
+            {newAnamnese?.walks_info || "Não preenchido."}
           </p>
         </div>
 
@@ -331,7 +334,7 @@ const PetProfile = () => {
           </div>
 
           <p className="text-sm text-black/70 dark:text-white/70 w-full mb-3">
-            {newAnamnese?.behavior_info}
+            {newAnamnese?.behavior_info || "Não preenchido."}
           </p>
         </div>
 
@@ -348,7 +351,7 @@ const PetProfile = () => {
           </div>
 
           <p className="text-sm text-black/70 dark:text-white/70 w-full mb-3">
-            {newAnamnese?.surgeries_info}
+            {newAnamnese?.surgeries_info || "Não preenchido."}
           </p>
         </div>
 
@@ -365,7 +368,7 @@ const PetProfile = () => {
           </div>
 
           <p className="text-sm text-black/70 dark:text-white/70 w-full mb-3">
-            {newAnamnese?.diseases_info}
+            {newAnamnese?.diseases_info || "Não preenchido."}
           </p>
         </div>
 
@@ -425,7 +428,7 @@ const PetProfile = () => {
             </div>
 
             <p className="text-sm text-black/70 dark:text-white/70 w-full mb-3">
-              {newAnamnese?.reproduction_info}
+              {newAnamnese?.reproduction_info || "Não preenchido."}
             </p>
           </div>
         )}
