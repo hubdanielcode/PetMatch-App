@@ -77,6 +77,7 @@ const Header = () => {
         <div
           className="flex border border-black/40 h-9 w-9 md:h-10 md:w-10 rounded-full bg-linear-to-br from-amber-600 via-orange-600 to-red-600 text-white font-semibold text-lg items-center justify-center cursor-pointer overflow-hidden"
           role="button"
+          aria-label="Abrir menu do usuário"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
         >
           <div>

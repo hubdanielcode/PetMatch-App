@@ -11,12 +11,15 @@ const useDeleteRating = () => {
     setIsLoading(true);
     try {
       const data = await deleteRatingService(id);
-      setUpdatedRatingList(data);
+      setUpdatedRatingList((prev) =>
+        prev.filter((rating) => rating.id !== data.id),
+      );
     } catch (error) {
       setDeleteRatingError(
         "Erro ao deletar avaliação! ID é necessário para a deleção!",
       );
     }
+
     setIsLoading(false);
   };
   return { updatedRatingList, deleteRatingError, isLoading, deleteRating };

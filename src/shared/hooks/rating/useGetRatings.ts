@@ -11,7 +11,7 @@ const useGetRatings = () => {
     setIsLoading(true);
     try {
       const data = await getRatingsService(pet_id);
-      setRatings(data);
+      setRatings(data ?? []);
     } catch (error) {
       setGetRatingError("Erro ao retornar avaliações cadastradas.");
     } finally {

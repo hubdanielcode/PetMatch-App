@@ -96,7 +96,7 @@ const deleteRating = async (id: string) => {
     throw new Error("Erro ao deletar avaliações! ID necessário para deleção!");
   }
 
-  return data;
+  return data as Rating;
 };
 
 export { createRating, getRatings, updateRating, deleteRating };
