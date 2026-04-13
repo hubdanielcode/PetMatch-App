@@ -120,6 +120,27 @@ const App = () => {
             element={<Login />}
           />
 
+          {/* - Rota de Cadastro - */}
+
+          <Route
+            path="/cadastro"
+            element={<Authentication />}
+          />
+
+          {/* - Rota de Recuperar Senha - */}
+
+          <Route
+            path="/recuperar-senha"
+            element={<RecoverPassword />}
+          />
+
+          {/* - Rota de Erro - */}
+
+          <Route
+            path="*"
+            element={<Missing />}
+          />
+
           {/* - Rota de Termos de Uso - */}
 
           <Route
@@ -176,27 +197,6 @@ const App = () => {
               />
             </Route>
           </Route>
-
-          {/* - Rota de Cadastro - */}
-
-          <Route
-            path="/cadastro"
-            element={<Authentication />}
-          />
-
-          {/* - Rota de Recuperar Senha - */}
-
-          <Route
-            path="/recuperar-senha"
-            element={<RecoverPassword />}
-          />
-
-          {/* - Rota de Erro - */}
-
-          <Route
-            path="*"
-            element={<Missing />}
-          />
         </Routes>
       </RegistrationProvider>
     </div>
