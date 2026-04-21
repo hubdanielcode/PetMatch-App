@@ -12,4 +12,5 @@ const ProtectedRoute: React.FC<{ session: Session | null }> = ({ session }) => {
   }
   return <Outlet />;
 };
+
 export { ProtectedRoute };
