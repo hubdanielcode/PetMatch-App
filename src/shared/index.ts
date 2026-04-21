@@ -36,3 +36,19 @@ export { useCreateRating } from "./hooks/rating/useCreateRating";
 export { useGetRatings } from "./hooks/rating/useGetRatings";
 export { useUpdateRating } from "./hooks/rating/useUpdateRating";
 export { useDeleteRating } from "./hooks/rating/useDeleteRating";
+export { useTheme } from "./hooks/theme/useTheme";
+
+/* - Utils - */
+
+export { regex } from "./utils/regex";
+export { masks } from "./utils/masks";
+export { Theme } from "./utils/theme";
+
+/* - Register Pet Options - */
+
+export {
+  genderOptions,
+  yesOrNoOptions,
+  speciesOptions,
+  matedOptions,
+} from "./utils/registerPetOptions";
